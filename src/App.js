@@ -1,19 +1,30 @@
 import { useEffect, useState } from 'react';
 import './App.css';
-import { GetUsers, GetUser } from './Data';
+import { GetUsers } from './Data';
+import { useRoutes } from 'react-router-dom';
+import ANONROUTES from './auth/Routes';
 
 function App() {
   const [users, setUsers] = useState([]);
-  const [user, setUser] = useState("");
+  const anonRouter = useRoutes(ANONROUTES);
+
+  const token = localStorage.getItem("token");
 
   useEffect(() => {
-    GetUser().then(user => {
-      setUser(user);
-    })
     GetUsers().then(users => {
       setUsers(users);
     })
   }, [])
+
+  if (token === null) {
+    return (
+      <div className='app'>
+        {anonRouter}
+      </div>
+    )
+  }
+
+
 
   const row = (userData) => {
     return (
@@ -30,7 +41,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <h1>{user.id}</h1>
+        <h1>Home page</h1>
         {usersDisplay}
       </header>
     </div>
