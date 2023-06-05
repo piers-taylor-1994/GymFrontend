@@ -35,6 +35,14 @@ const api = {
             }
         })
     },
+    postText: function(url, request){
+        return fetch(config.host + url, data("POST", request))
+        .then(response => {
+            if (response.ok){
+                return response.text();
+            }
+        })
+    },
     delete: function(url){
         return fetch(config.host + url, data("DELETE"))
         .then(response => {

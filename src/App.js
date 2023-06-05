@@ -3,12 +3,16 @@ import './App.css';
 import { GetUsers } from './Data';
 import { useRoutes } from 'react-router-dom';
 import ANONROUTES from './auth/Routes';
+import { AuthContext, BuildContext } from './auth/Auth';
+import ROUTES from './Routes';
 
 function App() {
   const [users, setUsers] = useState([]);
+  const routes = useRoutes(ROUTES);
   const anonRouter = useRoutes(ANONROUTES);
 
-  const token = localStorage.getItem("token");
+  const jwt = localStorage.getItem("jwt");
+  let authProvider = undefined;
 
   useEffect(() => {
     GetUsers().then(users => {
@@ -16,7 +20,7 @@ function App() {
     })
   }, [])
 
-  if (token === null) {
+  if (jwt === null) {
     return (
       <div className='app'>
         {anonRouter}
@@ -24,7 +28,7 @@ function App() {
     )
   }
 
-
+  authProvider = BuildContext(jwt);
 
   const row = (userData) => {
     return (
@@ -40,10 +44,9 @@ function App() {
 
   return (
     <div className="App">
-      <header className="App-header">
-        <h1>Home page</h1>
-        {usersDisplay}
-      </header>
+      <AuthContext.Provider value={authProvider}>
+        {routes}
+      </AuthContext.Provider>
     </div>
   );
 }
