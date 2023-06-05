@@ -38,7 +38,8 @@ function Login(props) {
     const[password, setPassword] = useState("")
     const navigate = useNavigate();
 
-    const onSubmit = (username, password) => {
+    const onSubmit = (e, username, password) => {
+        e.preventDefault();
         Logon(username, password).then(r => {
             if (!r) {
                 setUsername("");
@@ -52,21 +53,17 @@ function Login(props) {
     }
 
     return (
-        <div>
-            <div>
-                <label>
-                    Username
-                    <input id="username" onChange={(e) => setUsername(e.target.value)}/>
-                </label>
-            </div>
-            <div>
-                <label>
-                    Password
-                    <input id="password" onChange={(e) => setPassword(e.target.value)}/>
-                </label>
-            </div>
-            <button type="submit" onClick={() => onSubmit(username, password)}>Submit</button>
-        </div>
+        <form className="login">
+            <label>
+                Username
+                <input id="username" onChange={(e) => setUsername(e.target.value)} />
+            </label>
+            <label>
+                Password
+                <input id="password" onChange={(e) => setPassword(e.target.value)} />
+            </label>
+            <button type="submit" onClick={(e) => onSubmit(e, username, password)}>Submit</button>
+        </form>
     )
 }
 

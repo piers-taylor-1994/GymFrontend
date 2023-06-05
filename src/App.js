@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import './App.css';
+import './App.scss';
 import { GetUsers } from './Data';
 import { useRoutes } from 'react-router-dom';
 import ANONROUTES from './auth/Routes';
@@ -22,7 +22,7 @@ function App() {
 
   if (jwt === null) {
     return (
-      <div className='app'>
+      <div className='login-container'>
         {anonRouter}
       </div>
     )

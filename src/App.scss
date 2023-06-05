@@ -1,0 +1,25 @@
+body {
+  background-color: white;
+  font-weight: 400;
+  padding: 0;
+  margin: 0;
+  font-size: 1.2rem;
+  color: black;
+}
+
+.login-container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .login {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+
+    input {
+      margin-left: 0.5em;
+    }
+  }
+}
