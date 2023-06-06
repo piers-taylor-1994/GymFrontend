@@ -14,11 +14,11 @@ function App() {
   const jwt = localStorage.getItem("jwt");
   let authProvider = undefined;
 
-  useEffect(() => {
-    GetUsers().then(users => {
-      setUsers(users);
-    })
-  }, [])
+  // useEffect(() => {
+  //   GetUsers().then(users => {
+  //     setUsers(users);
+  //   })
+  // }, [])
 
   if (jwt === null) {
     return (
