@@ -11,6 +11,7 @@ Object.freeze(MuscleGroup);
 
 function Workouts(props) {
     const[exercises, setExercises] = useState([]);
+    const [selectedExercises, setSelectedExercises] = useState([]);
 
     useEffect(() => {
         GetExercises().then(exercises => {
