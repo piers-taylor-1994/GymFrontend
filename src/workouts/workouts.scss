@@ -1,0 +1,12 @@
+.workouts {
+    &-container {
+        .rows {
+            display: flex;
+            gap: 1em;
+        }
+    }
+
+    .top {
+        margin-bottom: 5em;
+    }
+}
