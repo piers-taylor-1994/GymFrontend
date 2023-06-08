@@ -23,6 +23,11 @@ const ROUTES = [
         path: "/logout",
         element: <Logout />,
         children: []
+    },
+    {
+        path: "*",
+        element: <h1>Page doesn't exist</h1>,
+        children: []
     }
 ]
 
