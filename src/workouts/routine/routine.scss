@@ -1,0 +1,14 @@
+.routine {
+    .routine-container {
+        .rows {
+            display: flex;
+            gap: 1em;
+            align-items: center;
+
+            input {
+                width: 2em;
+                margin-right: 0.2em;
+            }
+        }
+    }
+}

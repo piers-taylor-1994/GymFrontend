@@ -1,7 +1,7 @@
 import { Logout } from "./auth/Auth";
 import Homepage from "./homepage/Homepage";
 import Stopwatch from "./stopwatch/Stopwatch";
-import Workouts from "./workouts/Workouts";
+import WorkoutsRoutes from "./workouts/Routes";
 
 const ROUTES = [
     {
@@ -14,11 +14,7 @@ const ROUTES = [
         element: <Stopwatch />,
         children: [] 
     },
-    {
-        path: "/workouts",
-        element: <Workouts />,
-        children: [] 
-    },
+    WorkoutsRoutes,
     {
         path: "/logout",
         element: <Logout />,

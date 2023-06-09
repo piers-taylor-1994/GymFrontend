@@ -15,24 +15,29 @@ Object.freeze(MuscleGroup);
 function Workouts(props) {
     const[exercises, setExercises] = useState([]);
     const[selectedExercises, setSelectedExercises] = useState([]);
+    
+    const storageExercises = sessionStorage.getItem("routine");
 
     const navigate = useNavigate();
     const authContext = useContext(AuthContext);
     const userId = authContext.user().sub;
 
     useEffect(() => {
-        GetExercises().then(exercises => {
-            // managed to filter by explicitly writing id, so it should be achievable with a loop over selectedExercises [id]???
-            const test = exercises.filter(ex => ex.id === "d09be184-158a-4905-83af-0e49d6c08609");
-            setExercises(test);
-        })
-    }, [])
+        if (JSON.parse(storageExercises) && JSON.parse(storageExercises).setList.length > 0) {
+            setSelectedExercises(JSON.parse(storageExercises).setList);
+        }
+    }, [storageExercises])
 
     useEffect(() => {
-        if (JSON.parse(sessionStorage.getItem("routine"))) {
-            setSelectedExercises(JSON.parse(sessionStorage.getItem("routine")).setList);
-        }
-    }, [])
+        GetExercises().then(exercises => {
+            if (selectedExercises && selectedExercises.length > 0) {
+                selectedExercises.forEach(se => {
+                    exercises = exercises.filter(ex => ex.id !== se.id);
+                });
+            }
+            setExercises(exercises);
+        })
+    }, [selectedExercises])
 
     const onCheck = (e, exercise) => {
         if (e.target.checked) {
@@ -68,7 +73,7 @@ function Workouts(props) {
         AddRoutine(userId, newArray).then((exercises) => {
             console.log(exercises);
             sessionStorage.setItem("routine", JSON.stringify(exercises));
-            navigate("exercises");
+            navigate("routine");
         })
     }
 
@@ -90,4 +95,4 @@ function Workouts(props) {
     )
 }
 
-export default Workouts;
+export { MuscleGroup, Workouts };
