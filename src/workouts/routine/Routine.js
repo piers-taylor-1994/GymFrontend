@@ -1,9 +1,10 @@
 import { useContext, useEffect, useState } from "react";
-import GetRoutine from "./Data";
+import { GetRoutine, UpdateRoutine } from "./Data";
 import { AuthContext } from "../../auth/Auth";
 
 import "./routine.scss";
 import { MuscleGroup } from "../Workouts";
+import { Link } from "react-router-dom";
 
 function Routine() {
     const[routine, setRoutine] = useState({});
@@ -16,15 +17,28 @@ function Routine() {
 
     useEffect(() => {
         if (JSON.parse(storageRoutine) && JSON.parse(storageRoutine).setList.length > 0) {
+            setRoutine(JSON.parse(storageRoutine));
             setRoutineList(JSON.parse(storageRoutine).setList);
         }
         else {
             GetRoutine(userId).then(routine => {
-                setRoutineList(routine.setList);
-                sessionStorage.setItem("routine", JSON.stringify(routine));
+                if (routine) {
+                    setRoutine(routine);
+                    setRoutineList(routine.setList);
+                    sessionStorage.setItem("routine", JSON.stringify(routine));
+                }
             })
         }
-    }, [storageRoutine, userId])
+    }, [storageRoutine, userId, routine.id])
+
+    if (routineList.length === 0) {
+        return (
+            <div className="routine">
+                <h1>Routine</h1>
+                <p>A routine for today hasn't been added yet. <Link to="/workouts">Please add one.</Link></p>
+            </div>
+        )
+    }
 
     const onExerciseUpdate = (e, id) => {
         const updateRoutineList = [...routineList];
@@ -33,10 +47,17 @@ function Routine() {
         )
         input[e.target.id] = parseInt(e.target.value);
         setRoutineList(updateRoutineList);
-        setRoutine({ id: id, setList: updateRoutineList });
+
+        const updatedSetList = updateRoutineList.map(i => Object.fromEntries(['id','weight', 'sets', 'reps'].map(f => [f, i[f]])));
+        setRoutine({ id: routine.id, setList: updatedSetList });
     }
 
-    console.log(routine);
+    const onSubmit = () => {
+        UpdateRoutine(routine.id, routine.setList).then(routine => {
+            console.log(routine);
+            sessionStorage.setItem("routine", JSON.stringify(routine));
+        })
+    }
 
     const row = (exercise) => {
         return (
@@ -59,7 +80,7 @@ function Routine() {
         )
     }
 
-    const submit = routineList && routineList.length > 0 ? <button>Submit</button> : <></>;
+    const submit = routineList && routineList.length > 0 ? <button onClick={onSubmit}>Submit</button> : <></>;
 
     const rows = routineList.map(exercise => row(exercise));
 

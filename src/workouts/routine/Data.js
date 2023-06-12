@@ -4,4 +4,8 @@ const GetRoutine = (userId) => {
     return api.get("workouts/routine?userId=" + userId);
 }
 
-export default GetRoutine;
+const UpdateRoutine = (routineId, setList) => {
+    return api.put("workouts/routine/" + routineId, setList);
+}
+
+export { GetRoutine, UpdateRoutine };
