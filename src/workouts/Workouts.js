@@ -32,7 +32,7 @@ function Workouts(props) {
         GetExercises().then(exercises => {
             if (selectedExercises && selectedExercises.length > 0) {
                 selectedExercises.forEach(se => {
-                    exercises = exercises.filter(ex => ex.id !== se.id);
+                    exercises = exercises.filter(ex => ex.exerciseId !== se.exerciseId);
                 });
             }
             setExercises(exercises);
@@ -44,19 +44,19 @@ function Workouts(props) {
             setSelectedExercises((se) => {
                 return [...se, exercise];
             })
-            setExercises(exercises.filter((ex) => ex.id !== exercise.id));
+            setExercises(exercises.filter((ex) => ex.exerciseId !== exercise.exerciseId));
         }
         else {
             setExercises((ex) => {
                 return [...ex, exercise];
             })
-            setSelectedExercises(selectedExercises.filter((ex) => ex.id !== exercise.id));
+            setSelectedExercises(selectedExercises.filter((ex) => ex.exerciseId !== exercise.exerciseId));
         }
     }
 
     const row = (exercise) => {
         return (
-            <div key={exercise.id} className="rows">
+            <div key={exercise.exerciseId} className="rows">
                 <p>{MuscleGroup[exercise.muscleGroup]}</p>
                 <p>{exercise.name}</p>
                 <p>{exercise.description}</p>
@@ -65,10 +65,13 @@ function Workouts(props) {
         )
     }
 
+    console.log(exercises);
+    console.log(selectedExercises);
+
     const onSubmit = () => {
         let newArray = [];
         selectedExercises.forEach(exercise => {
-            newArray.push(exercise.id);
+            newArray.push(exercise.exerciseId);
         });
         AddRoutine(userId, newArray).then((exercises) => {
             console.log(exercises);

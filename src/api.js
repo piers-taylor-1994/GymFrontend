@@ -10,11 +10,21 @@ const data = (method, request) => {
     }
 }
 
+const err = (response) => {
+    if (response.status === 204) return false;
+
+    if (response.ok) return true;
+
+    if (response.status === 401) localStorage.removeItem("jwt");
+
+    return false;
+}
+
 const api = {
     get: function(url){
         return fetch(config.host + url)
             .then(response => {
-                if (response.ok) {
+                if (err(response)) {
                     return response.json();
                 }
             })
@@ -22,7 +32,7 @@ const api = {
     put: function(url, request){
         return fetch(config.host + url, data("PUT", request))
         .then(response => {
-            if (response.ok){
+            if (err(response)) {
                 return response.json();
             }
         })
@@ -30,7 +40,7 @@ const api = {
     post: function(url, request){
         return fetch(config.host + url, data("POST", request))
         .then(response => {
-            if (response.ok){
+            if (err(response)) {
                 return response.json();
             }
         })
@@ -38,7 +48,7 @@ const api = {
     postText: function(url, request){
         return fetch(config.host + url, data("POST", request))
         .then(response => {
-            if (response.ok){
+            if (err(response)) {
                 return response.text();
             }
         })
@@ -46,7 +56,7 @@ const api = {
     delete: function(url){
         return fetch(config.host + url, data("DELETE"))
         .then(response => {
-            if (response.ok){
+            if (err(response)) {
             }
         })
     }
