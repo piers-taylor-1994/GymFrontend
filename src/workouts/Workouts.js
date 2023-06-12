@@ -3,6 +3,7 @@ import { AddRoutine, GetExercises } from "./Data";
 import './workouts.scss';
 import { AuthContext } from "../auth/Auth";
 import { useNavigate } from "react-router-dom";
+import { GetRoutine } from "./routine/Data";
 
 const MuscleGroup = {
     0: "Shoulders",
@@ -26,7 +27,12 @@ function Workouts(props) {
         if (JSON.parse(storageExercises) && JSON.parse(storageExercises).setList.length > 0) {
             setSelectedExercises(JSON.parse(storageExercises).setList);
         }
-    }, [storageExercises])
+        else GetRoutine(userId).then(routine => {
+            if (routine) {
+                setSelectedExercises(routine.setList);
+            }
+        })
+    }, [storageExercises, userId])
 
     useEffect(() => {
         GetExercises().then(exercises => {
