@@ -2,6 +2,9 @@ import { useContext } from "react"
 import { AuthContext } from "../auth/Auth"
 
 function Homepage(props) {
+    const dayOfWeek = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+    const d = new Date();
+
     const authContext = useContext(AuthContext);
     const user = authContext.user();
     const name = user.name;
@@ -9,8 +12,8 @@ function Homepage(props) {
     console.log(user);
 
     return (
-        <div>
-            <h1>Welcome {name.firstName} {name.lastName}</h1>
+        <div className="homepage">
+            <h1>{dayOfWeek[d.getDay()]}</h1>
         </div>
     )
 }
