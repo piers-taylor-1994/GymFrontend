@@ -1,5 +1,7 @@
 import { Logout } from "./auth/Auth";
+import HistoryRoutes from "./history/Routes";
 import Homepage from "./homepage/Homepage";
+import RoutinesRoutes from "./routine/Routes";
 import Stopwatch from "./stopwatch/Stopwatch";
 import WorkoutsRoutes from "./workouts/Routes";
 
@@ -15,6 +17,8 @@ const ROUTES = [
         children: [] 
     },
     WorkoutsRoutes,
+    RoutinesRoutes,
+    HistoryRoutes,
     {
         path: "/logout",
         element: <Logout />,

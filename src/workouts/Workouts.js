@@ -3,7 +3,7 @@ import { AddRoutine, GetExercises } from "./Data";
 import './workouts.scss';
 import { AuthContext } from "../auth/Auth";
 import { useNavigate } from "react-router-dom";
-import { GetRoutine } from "./routine/Data";
+import { GetRoutine } from "../routine/Data";
 
 const MuscleGroup = {
     0: "Shoulders",
@@ -71,9 +71,6 @@ function Workouts(props) {
         )
     }
 
-    console.log(exercises);
-    console.log(selectedExercises);
-
     const onSubmit = () => {
         let newArray = [];
         selectedExercises.forEach(exercise => {
@@ -93,6 +90,7 @@ function Workouts(props) {
 
     return (
         <div className="workouts">
+            <h1>Workouts</h1>
             <div className="workouts-container top">
                 {exercisesDisplay}
             </div>

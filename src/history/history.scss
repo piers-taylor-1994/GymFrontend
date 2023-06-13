@@ -1,0 +1,13 @@
+.history {
+    .rows {
+        display: grid;
+        grid-template-columns: 17% 26% 66%;
+        width: 90vw;
+
+        .sets {
+            display: flex;
+            gap: 0.5em;
+            margin-left: 1em;
+        }
+    }
+}

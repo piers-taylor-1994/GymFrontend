@@ -1,16 +1,16 @@
 import { Outlet } from "react-router-dom";
-import { Workouts } from "./Workouts";
+import WorkoutsHistory from "./History";
 
-const WorkoutsRoutes = {
-    path: "workouts",
+const HistoryRoutes = {
+    path: "history",
     element: <Outlet />,
     children: [
         {
             path: "",
-            element: <Workouts />,
+            element: <WorkoutsHistory />,
             children: []
         }
     ]
 }
 
-export default WorkoutsRoutes;
+export default HistoryRoutes;

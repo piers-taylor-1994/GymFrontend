@@ -1,10 +1,10 @@
 import { useContext, useEffect, useState } from "react";
 import { GetRoutine, UpdateRoutine } from "./Data";
-import { AuthContext } from "../../auth/Auth";
 
 import "./routine.scss";
-import { MuscleGroup } from "../Workouts";
 import { Link } from "react-router-dom";
+import { MuscleGroup } from "../workouts/Workouts";
+import { AuthContext } from "../auth/Auth";
 
 function Routine() {
     const[routine, setRoutine] = useState({});
