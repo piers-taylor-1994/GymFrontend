@@ -1,5 +1,4 @@
-import { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../auth/Auth";
+import { useEffect, useState } from "react";
 import { GetRoutineHistory, GetRoutinesHistory } from "./Data";
 import { MuscleGroup } from "../workouts/Workouts";
 import "./history.scss"
@@ -9,14 +8,11 @@ function WorkoutsHistory(props) {
     const [dropdown, setDropdown] = useState([]);
     const [routineList, setRoutineList] = useState([]);
 
-    const authContext = useContext(AuthContext);
-    const userId = authContext.user().sub;
-
     useEffect(() => {
-        GetRoutinesHistory(userId).then((history) => {
+        GetRoutinesHistory().then((history) => {
             setDropdown(history);
         })
-    }, [userId])
+    }, [])
 
     const toDropdown = (routine) => {
         return (

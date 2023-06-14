@@ -1,7 +1,6 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { AddRoutine, GetExercises } from "./Data";
 import './workouts.scss';
-import { AuthContext } from "../auth/Auth";
 import { useNavigate } from "react-router-dom";
 import { GetRoutine } from "../routine/Data";
 
@@ -17,22 +16,20 @@ function Workouts(props) {
     const[exercises, setExercises] = useState([]);
     const[selectedExercises, setSelectedExercises] = useState([]);
     
-    const storageExercises = sessionStorage.getItem("routine");
+    const storageRoutine = sessionStorage.getItem("routine");
 
     const navigate = useNavigate();
-    const authContext = useContext(AuthContext);
-    const userId = authContext.user().sub;
 
     useEffect(() => {
-        if (JSON.parse(storageExercises) && JSON.parse(storageExercises).setList.length > 0) {
-            setSelectedExercises(JSON.parse(storageExercises).setList);
+        if (JSON.parse(storageRoutine) && JSON.parse(storageRoutine).setList.length > 0) {
+            setSelectedExercises(JSON.parse(storageRoutine).setList);
         }
-        else GetRoutine(userId).then(routine => {
+        else GetRoutine().then(routine => {
             if (routine) {
                 setSelectedExercises(routine.setList);
             }
         })
-    }, [storageExercises, userId])
+    }, [storageRoutine])
 
     useEffect(() => {
         GetExercises().then(exercises => {
@@ -76,10 +73,9 @@ function Workouts(props) {
         selectedExercises.forEach(exercise => {
             newArray.push(exercise.exerciseId);
         });
-        AddRoutine(userId, newArray).then((exercises) => {
-            console.log(exercises);
+        AddRoutine(newArray).then((exercises) => {
             sessionStorage.setItem("routine", JSON.stringify(exercises));
-            navigate("routine");
+            navigate("/routine");
         })
     }
 

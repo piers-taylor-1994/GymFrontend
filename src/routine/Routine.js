@@ -1,17 +1,13 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { GetRoutine, UpdateRoutine } from "./Data";
 
 import "./routine.scss";
 import { Link } from "react-router-dom";
 import { MuscleGroup } from "../workouts/Workouts";
-import { AuthContext } from "../auth/Auth";
 
 function Routine() {
     const[routine, setRoutine] = useState({});
     const[routineList, setRoutineList] = useState([]);
-
-    const authContext = useContext(AuthContext);
-    const userId = authContext.user().sub;
 
     const storageRoutine = sessionStorage.getItem("routine");
 
@@ -21,7 +17,7 @@ function Routine() {
             setRoutineList(JSON.parse(storageRoutine).setList);
         }
         else {
-            GetRoutine(userId).then(routine => {
+            GetRoutine().then(routine => {
                 if (routine) {
                     setRoutine(routine);
                     setRoutineList(routine.setList);
@@ -29,7 +25,7 @@ function Routine() {
                 }
             })
         }
-    }, [storageRoutine, userId, routine.id])
+    }, [storageRoutine, routine.id])
 
     if (routineList.length === 0) {
         return (
@@ -54,7 +50,6 @@ function Routine() {
 
     const onSubmit = () => {
         UpdateRoutine(routine.id, routine.setList).then(routine => {
-            console.log(routine);
             sessionStorage.setItem("routine", JSON.stringify(routine));
         })
     }
