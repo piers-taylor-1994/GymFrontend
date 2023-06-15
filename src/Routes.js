@@ -12,6 +12,11 @@ const ROUTES = [
         children: []
     },
     {
+        path: "/GymFrontend",
+        element: <Homepage />,
+        children: []
+    },
+    {
         path: "/stopwatch",
         element: <Stopwatch />,
         children: [] 
