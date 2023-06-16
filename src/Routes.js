@@ -1,23 +1,19 @@
 import { Logout } from "./auth/Auth";
 import HistoryRoutes from "./history/Routes";
 import Homepage from "./homepage/Homepage";
+import { publicUrlAppender } from "./navigation/Navigation";
 import RoutinesRoutes from "./routine/Routes";
 import Stopwatch from "./stopwatch/Stopwatch";
 import WorkoutsRoutes from "./workouts/Routes";
 
 const ROUTES = [
     {
-        path: "/",
+        path: publicUrlAppender(""),
         element: <Homepage />,
         children: []
     },
     {
-        path: "/GymFrontend",
-        element: <Homepage />,
-        children: []
-    },
-    {
-        path: "/stopwatch",
+        path: publicUrlAppender("/stopwatch"),
         element: <Stopwatch />,
         children: [] 
     },
@@ -25,7 +21,7 @@ const ROUTES = [
     RoutinesRoutes,
     HistoryRoutes,
     {
-        path: "/logout",
+        path: publicUrlAppender("/logout"),
         element: <Logout />,
         children: []
     },

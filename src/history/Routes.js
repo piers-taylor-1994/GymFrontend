@@ -1,8 +1,9 @@
 import { Outlet } from "react-router-dom";
 import WorkoutsHistory from "./History";
+import { publicUrlAppender } from "../navigation/Navigation";
 
 const HistoryRoutes = {
-    path: "history",
+    path: publicUrlAppender("/history"),
     element: <Outlet />,
     children: [
         {

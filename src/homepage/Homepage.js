@@ -7,8 +7,6 @@ function Homepage(props) {
 
     const authContext = useContext(AuthContext);
     const user = authContext.user();
-    const name = user.name;
-
     console.log(user);
 
     return (
