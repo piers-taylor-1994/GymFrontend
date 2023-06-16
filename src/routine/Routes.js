@@ -1,6 +1,5 @@
 import { Outlet } from "react-router-dom";
 import Routine from "./Routine";
-import WorkoutsHistory from "../history/History";
 
 const RoutinesRoutes = {
     path: "routine",
@@ -10,12 +9,7 @@ const RoutinesRoutes = {
             path: "",
             element: <Routine />,
             children: []
-        },
-        {
-            path: "history",
-            element: <WorkoutsHistory />,
-            children: []
-        },
+        }
     ]
 }
 
