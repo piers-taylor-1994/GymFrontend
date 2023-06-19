@@ -4,7 +4,7 @@ const Format = (date) => {
     let newDate = dayjs(date + "Z");
 
     return {
-        day: newDate.format('dddd D MMMM'),
+        day: newDate.format('dddd'),
         time: newDate.format('h:mm a'),
         date: newDate.format('DD/MM/YY'),
         dayYear: newDate.format('dddd D MMMM YYYY')
