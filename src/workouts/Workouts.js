@@ -3,33 +3,44 @@ import { AddRoutine, GetExercises } from "./Data";
 import './workouts.scss';
 import { useNavigate } from "react-router-dom";
 import { GetRoutine } from "../routine/Data";
+import { publicUrlAppender } from "../navigation/Navigation";
 
 const MuscleGroup = {
     0: "Shoulders",
     1: "Chest",
     2: "Triceps",
-    3: "Biceps"
+    3: "Biceps",
+    4: "Upper back",
+    5: "Lower back",
+    6: "Core",
+    7: "Glutes",
+    8: "Hips",
+    9: "Quads",
+    10: "Hamstrings",
+    11: "Calves"
 }
 Object.freeze(MuscleGroup);
 
 function Workouts(props) {
+    const[unfilteredExercises, setUnfilteredExercises] = useState([]);
     const[exercises, setExercises] = useState([]);
     const[selectedExercises, setSelectedExercises] = useState([]);
+    const[muscleTypes, setMuscleTypes] = useState([]);
     
-    const storageRoutine = sessionStorage.getItem("routine");
+    // const storageRoutine = sessionStorage.getItem("routine");
 
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (JSON.parse(storageRoutine) && JSON.parse(storageRoutine).setList.length > 0) {
-            setSelectedExercises(JSON.parse(storageRoutine).setList);
-        }
-        else GetRoutine().then(routine => {
+        // if (JSON.parse(storageRoutine) && JSON.parse(storageRoutine).setList.length > 0) {
+        //     setSelectedExercises(JSON.parse(storageRoutine).setList);
+        // }
+        GetRoutine().then(routine => {
             if (routine) {
                 setSelectedExercises(routine.setList);
             }
         })
-    }, [storageRoutine])
+    }, [])
 
     useEffect(() => {
         GetExercises().then(exercises => {
@@ -39,8 +50,21 @@ function Workouts(props) {
                 });
             }
             setExercises(exercises);
+            setUnfilteredExercises(exercises);
         })
     }, [selectedExercises])
+
+    useEffect(() => {
+        unfilteredExercises.forEach(ex => {
+            if (!muscleTypes.includes(ex.muscleGroup)) {
+                setMuscleTypes((m) => {
+                    return [...m, ex.muscleGroup];
+                })   
+            }
+        });
+    }, [unfilteredExercises, muscleTypes])
+
+    console.log(muscleTypes);
 
     const onCheck = (e, exercise) => {
         if (e.target.checked) {
@@ -62,9 +86,14 @@ function Workouts(props) {
             <div key={exercise.exerciseId} className="rows">
                 <p>{MuscleGroup[exercise.muscleGroup]}</p>
                 <p>{exercise.name}</p>
-                <p>{exercise.description}</p>
                 <input type="checkbox" checked={selectedExercises.includes(exercise)} onChange={(e) => onCheck(e, exercise)}/>
             </div>
+        )
+    }
+
+    const toDropdown = (m) => {
+        return (
+            <option value={m} key={m}>{MuscleGroup[m]}</option>
         )
     }
 
@@ -74,23 +103,45 @@ function Workouts(props) {
             newArray.push(exercise.exerciseId);
         });
         AddRoutine(newArray).then((exercises) => {
-            sessionStorage.setItem("routine", JSON.stringify(exercises));
-            navigate("/GymFrontend/routine");
+            // sessionStorage.setItem("routine", JSON.stringify(exercises));
+            navigate(publicUrlAppender("/routine"));
         })
+    }
+
+    const searchFilter = (e) => {
+        setExercises(unfilteredExercises.filter((ex) => ex.name.toLowerCase().includes(e.target.value.toLowerCase())));
+    }
+
+    const dropdownFilter = (e) => {
+        console.log(e.target.value);
+        if (e.target.value === "") setExercises(unfilteredExercises);
+        else {
+            setExercises(unfilteredExercises.filter((ex) => parseInt(ex.muscleGroup) === parseInt(e.target.value)));
+        }
+        
     }
 
     const exercisesDisplay = exercises.map(e => row(e));
     const selectedExercisesDisplay = selectedExercises.map(e => row(e));
+    const options = muscleTypes.map(m => toDropdown(m));
 
     const submit = selectedExercises.length > 0 ? <button onClick={onSubmit}>Submit</button> : <></>;
 
     return (
-        <div className="workouts">
+        <div className="workouts content">
             <h1>Workouts</h1>
-            <div className="workouts-container top">
+            <div className="filters-container">
+                <input type="" placeholder="Search exercises" onChange={searchFilter} />
+                <select onChange={dropdownFilter} defaultValue="">
+                    <option value=""></option>
+                    {options}
+                </select>
+            </div>
+            <div className="workouts-container">
                 {exercisesDisplay}
             </div>
             <div className="workouts-container">
+                <h2>Selected exercises</h2>
                 {selectedExercisesDisplay}
             </div>
             {submit}

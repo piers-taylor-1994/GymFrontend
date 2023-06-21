@@ -1,12 +1,21 @@
 .workouts {
     &-container {
+        height: calc(100vh - 30em);
+        overflow: scroll;
+
         .rows {
-            display: flex;
-            gap: 1em;
+            display: grid;
+            grid-template-columns: 38% 52% 10%;
+            justify-items: start;
         }
     }
 
-    .top {
-        margin-bottom: 5em;
+    .filters-container {
+        display: flex;
+        gap: 0.5em;
+
+        input {
+            width: 60%;
+        }
     }
 }

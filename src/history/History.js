@@ -5,12 +5,12 @@ import "./history.scss"
 import { Format } from "../dates";
 
 function WorkoutsHistory(props) {
-    const [dropdown, setDropdown] = useState([]);
+    const [history, setHistory] = useState([]);
     const [routineList, setRoutineList] = useState([]);
 
     useEffect(() => {
         GetRoutinesHistory().then((history) => {
-            setDropdown(history);
+            setHistory(history);
         })
     }, [])
 
@@ -20,7 +20,7 @@ function WorkoutsHistory(props) {
         )
     }
 
-    const options = dropdown.map((routine) => toDropdown(routine));
+    const options = history.map((routine) => toDropdown(routine));
 
     const getRoutine = (e) => {
         GetRoutineHistory(e.target.value).then((r) => {
@@ -45,7 +45,7 @@ function WorkoutsHistory(props) {
     const rows = routineList.map(ex => row(ex));
 
     return (
-        <div className="history">
+        <div className="history content">
             <h1>History</h1>
             <select onChange={getRoutine} defaultValue="dates">
                 <option value="dates" disabled> Select a date </option>

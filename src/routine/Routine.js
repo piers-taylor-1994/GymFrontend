@@ -9,23 +9,20 @@ function Routine() {
     const[routine, setRoutine] = useState({});
     const[routineList, setRoutineList] = useState([]);
 
-    const storageRoutine = sessionStorage.getItem("routine");
+    // const storageRoutine = sessionStorage.getItem("routine");
 
     useEffect(() => {
-        if (JSON.parse(storageRoutine) && JSON.parse(storageRoutine).setList.length > 0) {
-            setRoutine(JSON.parse(storageRoutine));
-            setRoutineList(JSON.parse(storageRoutine).setList);
-        }
-        else {
-            GetRoutine().then(routine => {
-                if (routine) {
-                    setRoutine(routine);
-                    setRoutineList(routine.setList);
-                    sessionStorage.setItem("routine", JSON.stringify(routine));
-                }
-            })
-        }
-    }, [storageRoutine, routine.id])
+        // if (JSON.parse(storageRoutine) && JSON.parse(storageRoutine).setList.length > 0) {
+        //     setRoutine(JSON.parse(storageRoutine));
+        //     setRoutineList(JSON.parse(storageRoutine).setList);
+        GetRoutine().then(routine => {
+            if (routine) {
+                setRoutine(routine);
+                setRoutineList(routine.setList);
+                sessionStorage.setItem("routine", JSON.stringify(routine));
+            }
+        })
+    }, [routine.id])
 
     if (routineList.length === 0) {
         return (
@@ -50,7 +47,7 @@ function Routine() {
 
     const onSubmit = () => {
         UpdateRoutine(routine.id, routine.setList).then(routine => {
-            sessionStorage.setItem("routine", JSON.stringify(routine));
+            // sessionStorage.setItem("routine", JSON.stringify(routine));
         })
     }
 
@@ -80,7 +77,7 @@ function Routine() {
     const rows = routineList.map(exercise => row(exercise));
 
     return (
-        <div className="routine">
+        <div className="routine content">
             <h1>Routine</h1>
             <div className="routine-container">
                 {rows}

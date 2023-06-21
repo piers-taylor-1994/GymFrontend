@@ -1,13 +1,11 @@
 .history {
     .rows {
         display: grid;
-        grid-template-columns: 17% 26% 66%;
-        width: 90vw;
+        grid-template-columns: 1fr 1.5fr 2fr;
 
         .sets {
             display: flex;
-            gap: 0.5em;
-            margin-left: 1em;
+            justify-content: space-between;
         }
     }
 }

@@ -2,12 +2,13 @@
     .routine-container {
         .rows {
             display: flex;
-            gap: 1em;
             align-items: center;
+            justify-content: space-between;
 
             input {
-                width: 2em;
+                width: 1.7em;
                 margin-right: 0.2em;
+                text-align: center;
             }
         }
     }
