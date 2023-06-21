@@ -1,7 +1,7 @@
 import api from "../api";
 
-const GetRoutinesHistory = (userId) => {
-    return api.get("workouts/routine/history?userId=" + userId);
+const GetRoutinesHistory = () => {
+    return api.get("workouts/routine/history");
 }
 
 const GetRoutineHistory = (id) => {

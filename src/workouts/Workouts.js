@@ -75,7 +75,7 @@ function Workouts(props) {
         });
         AddRoutine(newArray).then((exercises) => {
             sessionStorage.setItem("routine", JSON.stringify(exercises));
-            navigate("/routine");
+            navigate("/GymFrontend/routine");
         })
     }
 

@@ -4,8 +4,8 @@ const GetExercises = () => {
     return api.get("workouts");
 }
 
-const AddRoutine = (userId, exerciseIds) => {
-    return api.post("workouts/routine?userId=" + userId, exerciseIds);
+const AddRoutine = (exerciseIds) => {
+    return api.post("workouts/routine", exerciseIds);
 }
 
 export { GetExercises, AddRoutine };

@@ -1,7 +1,7 @@
 import api from "../api";
 
-const GetRoutine = (userId) => {
-    return api.get("workouts/routine?userId=" + userId);
+const GetRoutine = () => {
+    return api.get("workouts/routine");
 }
 
 const UpdateRoutine = (routineId, setList) => {
