@@ -19,7 +19,6 @@ function BottomNav(props) {
             <div className="nav-item"><Link to={publicUrlAppender("/routine")}>Routine</Link></div>
             <div className="nav-item"><Link to={publicUrlAppender("/history")}>History</Link></div>
             <div className="nav-item"><Link to={publicUrlAppender("/tutorials")}>Tutorials</Link></div>
-            <div className="nav-item"><Link to={publicUrlAppender("/leaderboards")}>Leaderboards</Link></div>
         </div>
     )
 }

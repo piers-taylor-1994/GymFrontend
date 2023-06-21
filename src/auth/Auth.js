@@ -3,6 +3,8 @@ import { Logon } from "./Data";
 import { useNavigate } from "react-router-dom";
 import jwtDecode from "jwt-decode";
 
+import './auth.scss';
+
 const AuthContext = createContext({
     user: () => {
         // return auth user
@@ -30,20 +32,23 @@ const BuildContext = (jwt) => {
 }
 
 function SetAuthContext(jwt) {
-    localStorage.setItem("jwt", jwt);
+    sessionStorage.setItem("jwt", jwt);
 }
 
 function Login(props) {
     const[username, setUsername] = useState("")
     const[password, setPassword] = useState("")
+    const[showError, setShowError] = useState(false);
+    const[loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
     const onSubmit = (e, username, password) => {
+        setLoading(true);
         e.preventDefault();
         Logon(username, password).then(r => {
+            setLoading(false);
             if (!r) {
-                setUsername("");
-                setPassword("");
+                setShowError(true);
             }
             else {
                 SetAuthContext(r);
@@ -51,6 +56,9 @@ function Login(props) {
             }
         })
     }
+
+    const error = showError ? <span style={{color: "darkred"}}>Wrong credentials, please try again</span> : <></>;
+    const buttonText = loading ? <div className="spinner">&nbsp;</div> : <span>Login</span>;
 
     return (
         <form className="login">
@@ -62,14 +70,15 @@ function Login(props) {
                 Password
                 <input id="password" onChange={(e) => setPassword(e.target.value)} />
             </label>
-            <button type="submit" onClick={(e) => onSubmit(e, username, password)}>Submit</button>
+            <button type="submit" className="button" onClick={(e) => onSubmit(e, username, password)}>{buttonText}</button>
+            {error}
         </form>
     )
 }
 
 function Logout(props) {
     const navigate = useNavigate();
-    localStorage.removeItem("jwt");
+    sessionStorage.removeItem("jwt");
 
     useEffect(() => {
         navigate("/");

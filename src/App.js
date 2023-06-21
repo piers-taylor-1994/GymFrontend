@@ -9,12 +9,12 @@ function App() {
   const router = useRoutes(ROUTES);
   const anonRouter = useRoutes(ANONROUTES);
 
-  const jwt = localStorage.getItem("jwt");
+  const jwt = sessionStorage.getItem("jwt");
   let authProvider = undefined;
 
   if (jwt === null) {
     return (
-      <div className='login-container'>
+      <div className='login-container content'>
         {anonRouter}
       </div>
     )

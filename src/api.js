@@ -1,7 +1,7 @@
 import config from './config';
 
 const auth = (method) => {
-    const jwt = localStorage.getItem("jwt");
+    const jwt = sessionStorage.getItem("jwt");
     return {
         method: method,
         withCredentials: true,
@@ -25,7 +25,7 @@ const err = (response) => {
 
     if (response.ok) return true;
 
-    if (response.status === 401) localStorage.removeItem("jwt");
+    if (response.status === 401) sessionStorage.removeItem("jwt");
 
     return false;
 }

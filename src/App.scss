@@ -1,4 +1,5 @@
-html, body {
+html,
+body {
   overscroll-behavior: none;
 }
 
@@ -11,19 +12,45 @@ body {
   color: black;
 }
 
-.login-container {
-  height: 100vh;
+.content {
+  margin: 3em 0.7em 6.5em 0.7em;
+}
+
+.button {
+  background-color: blueviolet;
+  color: white;
+  border: none;
+  border-radius: 3rem;
+  cursor: pointer;
+  display: inline-block;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 700;
+  margin: 0.25em;
+  padding: 1em 5em;
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 3.3em;
+}
 
-  .login {
-    display: flex;
-    flex-direction: column;
-    gap: 1em;
+.spinner {
+  border: 5px solid;
+  height: 0.7em;
+  width: 0.7em;
+  -webkit-animation: rotation 1s linear infinite;
+  animation: rotation 1s linear infinite;
+  border-radius: 50%;
+  border-bottom-color: transparent;
 
-    input {
-      margin-left: 0.5em;
+  @keyframes rotation {
+    0% {
+      transform: rotate(0deg);
+      animation-timing-function: cubic-bezier(0.5856, 0.0703, 0.4143, 0.9297);
+    }
+
+    100% {
+      transform: rotate(360deg)
     }
   }
 }
