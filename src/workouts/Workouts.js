@@ -22,11 +22,11 @@ const MuscleGroup = {
 Object.freeze(MuscleGroup);
 
 function Workouts(props) {
-    const[unfilteredExercises, setUnfilteredExercises] = useState([]);
-    const[exercises, setExercises] = useState([]);
-    const[selectedExercises, setSelectedExercises] = useState([]);
-    const[muscleTypes, setMuscleTypes] = useState([]);
-    
+    const [unfilteredExercises, setUnfilteredExercises] = useState([]);
+    const [exercises, setExercises] = useState([]);
+    const [selectedExercises, setSelectedExercises] = useState([]);
+    const [muscleTypes, setMuscleTypes] = useState([]);
+
     // const storageRoutine = sessionStorage.getItem("routine");
 
     const navigate = useNavigate();
@@ -55,16 +55,12 @@ function Workouts(props) {
     }, [selectedExercises])
 
     useEffect(() => {
+        let test = new Set();
         unfilteredExercises.forEach(ex => {
-            if (!muscleTypes.includes(ex.muscleGroup)) {
-                setMuscleTypes((m) => {
-                    return [...m, ex.muscleGroup];
-                })   
-            }
+            test.add(parseInt(ex.muscleGroup));
+            setMuscleTypes(Array.from(test));
         });
-    }, [unfilteredExercises, muscleTypes])
-
-    console.log(muscleTypes);
+    }, [unfilteredExercises])
 
     const onCheck = (e, exercise) => {
         if (e.target.checked) {
@@ -86,7 +82,7 @@ function Workouts(props) {
             <div key={exercise.exerciseId} className="rows">
                 <p>{MuscleGroup[exercise.muscleGroup]}</p>
                 <p>{exercise.name}</p>
-                <input type="checkbox" checked={selectedExercises.includes(exercise)} onChange={(e) => onCheck(e, exercise)}/>
+                <input type="checkbox" checked={selectedExercises.includes(exercise)} onChange={(e) => onCheck(e, exercise)} />
             </div>
         )
     }
@@ -118,7 +114,7 @@ function Workouts(props) {
         else {
             setExercises(unfilteredExercises.filter((ex) => parseInt(ex.muscleGroup) === parseInt(e.target.value)));
         }
-        
+
     }
 
     const exercisesDisplay = exercises.map(e => row(e));
@@ -140,8 +136,8 @@ function Workouts(props) {
             <div className="workouts-container">
                 {exercisesDisplay}
             </div>
+            <h2>Selected exercises</h2>
             <div className="workouts-container">
-                <h2>Selected exercises</h2>
                 {selectedExercisesDisplay}
             </div>
             {submit}

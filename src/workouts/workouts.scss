@@ -1,6 +1,6 @@
 .workouts {
     &-container {
-        height: calc(100vh - 30em);
+        height: calc(100vh - 31.5em);
         overflow: scroll;
 
         .rows {
@@ -17,5 +17,9 @@
         input {
             width: 60%;
         }
+    }
+
+    h2 {
+        margin: 0.3em 0;
     }
 }

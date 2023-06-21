@@ -54,7 +54,6 @@ function Routine() {
     const row = (exercise) => {
         return (
             <div key={exercise.id} className="rows">
-                <p>{MuscleGroup[exercise.muscleGroup]}</p>
                 <p>{exercise.name}</p>
                 <label>
                     <input id="weight" type="number" defaultValue={exercise.weight} onChange={e => {onExerciseUpdate(e, exercise.id)}}/>
