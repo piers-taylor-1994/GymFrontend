@@ -15,10 +15,10 @@ function TopNav(props) {
 function BottomNav(props) {
     return (
         <div className="navigation-bottom">
-            <div className="nav-item"><Link to={publicUrlAppender("/workouts")}>Workouts</Link></div>
-            <div className="nav-item"><Link to={publicUrlAppender("/routine")}>Routine</Link></div>
-            <div className="nav-item"><Link to={publicUrlAppender("/history")}>History</Link></div>
-            <div className="nav-item"><Link to={publicUrlAppender("/tutorials")}>Tutorials</Link></div>
+            <Link className="nav-item" to={publicUrlAppender("/workouts")}>Workouts</Link>
+            <Link className="nav-item" to={publicUrlAppender("/routine")}>Routine</Link>
+            <Link className="nav-item" to={publicUrlAppender("/history")}>History</Link>
+            <Link className="nav-item" to={publicUrlAppender("/tutorials")}>Tutorials</Link>
         </div>
     )
 }

@@ -57,18 +57,18 @@ function Login(props) {
         })
     }
 
-    const error = showError ? <span style={{color: "darkred"}}>Wrong credentials, please try again</span> : <></>;
+    const error = showError ? <span style={{color: "darkred"}}>Your credentials are wrong, please try again</span> : <></>;
     const buttonText = loading ? <div className="spinner">&nbsp;</div> : <span>Login</span>;
 
     return (
         <form className="login">
             <label>
                 Username
-                <input id="username" onChange={(e) => setUsername(e.target.value)} />
+                <input id="username" autoCapitalize="none" onChange={(e) => setUsername(e.target.value)} />
             </label>
             <label>
                 Password
-                <input id="password" onChange={(e) => setPassword(e.target.value)} />
+                <input id="password" type="password" autoCapitalize="none" onChange={(e) => setPassword(e.target.value)} />
             </label>
             <button type="submit" className="button" onClick={(e) => onSubmit(e, username, password)}>{buttonText}</button>
             {error}
