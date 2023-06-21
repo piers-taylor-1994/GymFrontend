@@ -27,6 +27,9 @@ function Workouts(props) {
     const [selectedExercises, setSelectedExercises] = useState([]);
     const [muscleTypes, setMuscleTypes] = useState([]);
 
+    const [searchFilterQuery, setSearchFilterQuery] = useState("");
+    const [dropdownFilterQuery, setDropdownFilterQuery] = useState(-1);
+
     // const storageRoutine = sessionStorage.getItem("routine");
 
     const navigate = useNavigate();
@@ -61,6 +64,11 @@ function Workouts(props) {
             setMuscleTypes(Array.from(test));
         });
     }, [unfilteredExercises])
+
+    useEffect(() => {
+        if (searchFilterQuery) setExercises(unfilteredExercises.filter((ex) => ex.name.toLowerCase().includes(searchFilterQuery.toLowerCase())));
+        if (parseInt(dropdownFilterQuery) !== -1) setExercises(unfilteredExercises.filter((ex) => parseInt(ex.muscleGroup) === parseInt(dropdownFilterQuery)));
+    }, [unfilteredExercises, searchFilterQuery, dropdownFilterQuery])
 
     const onCheck = (e, exercise) => {
         if (e.target.checked) {
@@ -105,12 +113,14 @@ function Workouts(props) {
     }
 
     const searchFilter = (e) => {
+        setSearchFilterQuery(e.target.value);
         setExercises(unfilteredExercises.filter((ex) => ex.name.toLowerCase().includes(e.target.value.toLowerCase())));
     }
 
     const dropdownFilter = (e) => {
         if (e.target.value === "") setExercises(unfilteredExercises);
         else {
+            setDropdownFilterQuery(e.target.value);
             setExercises(unfilteredExercises.filter((ex) => parseInt(ex.muscleGroup) === parseInt(e.target.value)));
         }
     }
@@ -126,8 +136,8 @@ function Workouts(props) {
             <h1>Workouts</h1>
             <div className="filters-container">
                 <input type="" placeholder="Search exercises" onChange={searchFilter} />
-                <select onChange={dropdownFilter} defaultValue="">
-                    <option value=""></option>
+                <select onChange={dropdownFilter} defaultValue={-1}>
+                    <option value={-1}></option>
                     {options}
                 </select>
             </div>
