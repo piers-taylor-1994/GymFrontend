@@ -109,12 +109,10 @@ function Workouts(props) {
     }
 
     const dropdownFilter = (e) => {
-        console.log(e.target.value);
         if (e.target.value === "") setExercises(unfilteredExercises);
         else {
             setExercises(unfilteredExercises.filter((ex) => parseInt(ex.muscleGroup) === parseInt(e.target.value)));
         }
-
     }
 
     const exercisesDisplay = exercises.map(e => row(e));
