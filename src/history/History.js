@@ -3,16 +3,38 @@ import { GetRoutineHistory, GetRoutinesHistory } from "./Data";
 import { MuscleGroup } from "../workouts/Workouts";
 import "./history.scss"
 import { Format } from "../dates";
+import { useParams } from "react-router-dom";
+import { Loader, LoaderPage } from "../layout/Layout";
 
 function WorkoutsHistory(props) {
     const [history, setHistory] = useState([]);
     const [routineList, setRoutineList] = useState([]);
+    const [defaultSelect, setDefaultSelect] = useState("dates");
+    const [loading, setLoading] = useState(true);
+    const [sectionLoading, setSectionLoading] = useState(false);
+    const historyId = useParams().id;
+
+    const getRoutine = (id) => {
+        setSectionLoading(true);
+        GetRoutineHistory(id).then((r) => {
+            setRoutineList(r.setList);
+            setSectionLoading(false);
+        })
+    }
 
     useEffect(() => {
         GetRoutinesHistory().then((history) => {
             setHistory(history);
+            setLoading(false);
         })
     }, [])
+
+    useEffect(() => {
+        if (historyId) {
+            getRoutine(historyId);
+            setDefaultSelect(historyId);
+        }
+    }, [historyId])
 
     const toDropdown = (routine) => {
         return (
@@ -21,12 +43,6 @@ function WorkoutsHistory(props) {
     }
 
     const options = history.map((routine) => toDropdown(routine));
-
-    const getRoutine = (e) => {
-        GetRoutineHistory(e.target.value).then((r) => {
-            setRoutineList(r.setList);
-        })
-    }
 
     const row = (exercise) => {
         return (
@@ -43,18 +59,27 @@ function WorkoutsHistory(props) {
     }
 
     const rows = routineList.map(ex => row(ex));
+    const display = sectionLoading ? <Loader /> : rows;
 
-    return (
-        <div className="history content">
-            <h1>History</h1>
-            <select onChange={getRoutine} defaultValue="dates">
-                <option value="dates" disabled> Select a date </option>
-                {options}
-            </select>
-            <br />
-            {rows}
-        </div>
-    )
+    if (loading) {
+        return (
+            <LoaderPage />
+        )
+    }
+
+    else {
+        return (
+            <div className="history content">
+                <h1>History</h1>
+                <select onChange={(e) => getRoutine(e.target.value)} value={defaultSelect}>
+                    <option value="dates" disabled> Select a date </option>
+                    {options}
+                </select>
+                <br />
+                {display}
+            </div>
+        )
+    }
 }
 
 export default WorkoutsHistory;

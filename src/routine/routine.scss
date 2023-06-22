@@ -1,5 +1,8 @@
 .routine {
     .routine-container {
+        height: calc(100vh - 18em);
+        overflow: scroll;
+
         .rows {
             display: flex;
             align-items: center;

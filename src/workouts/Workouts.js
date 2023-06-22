@@ -4,6 +4,7 @@ import './workouts.scss';
 import { useNavigate } from "react-router-dom";
 import { GetRoutine } from "../routine/Data";
 import { publicUrlAppender } from "../navigation/Navigation";
+import { LoaderButton, LoaderPage } from "../layout/Layout";
 
 const MuscleGroup = {
     0: "Shoulders",
@@ -26,6 +27,8 @@ function Workouts(props) {
     const [exercises, setExercises] = useState([]);
     const [selectedExercises, setSelectedExercises] = useState([]);
     const [muscleTypes, setMuscleTypes] = useState([]);
+    const [showLoaderbutton, setShowLoaderbutton] = useState(false);
+    const [loading, setLoading] = useState(true);
 
     const [searchFilterQuery, setSearchFilterQuery] = useState("");
     const [dropdownFilterQuery, setDropdownFilterQuery] = useState(-1);
@@ -54,6 +57,7 @@ function Workouts(props) {
             }
             setExercises(exercises);
             setUnfilteredExercises(exercises);
+            setLoading(false)
         })
     }, [selectedExercises])
 
@@ -102,12 +106,14 @@ function Workouts(props) {
     }
 
     const onSubmit = () => {
-        let newArray = [];
+        setShowLoaderbutton(true);
+        let selectedExercisesIds = [];
         selectedExercises.forEach(exercise => {
-            newArray.push(exercise.exerciseId);
+            selectedExercisesIds.push(exercise.exerciseId);
         });
-        AddRoutine(newArray).then((exercises) => {
+        AddRoutine(selectedExercisesIds).then((exercises) => {
             // sessionStorage.setItem("routine", JSON.stringify(exercises));
+            setShowLoaderbutton(false);
             navigate(publicUrlAppender("/routine"));
         })
     }
@@ -129,28 +135,36 @@ function Workouts(props) {
     const selectedExercisesDisplay = selectedExercises.map(e => row(e));
     const options = muscleTypes.map(m => toDropdown(m));
 
-    const submit = selectedExercises.length > 0 ? <button onClick={onSubmit}>Submit</button> : <></>;
+    const submit = selectedExercises.length > 0 ? <div className="button-container"><LoaderButton submit={onSubmit} show={showLoaderbutton}>Submit</LoaderButton></div> : <></>;
 
-    return (
-        <div className="workouts content">
-            <h1>Workouts</h1>
-            <div className="filters-container">
-                <input type="" placeholder="Search exercises" onChange={searchFilter} />
-                <select onChange={dropdownFilter} defaultValue={-1}>
-                    <option value={-1}></option>
-                    {options}
-                </select>
+    if (loading) {
+        return (
+            <LoaderPage />
+        )
+    }
+
+    else {
+        return (
+            <div className="workouts content">
+                <h1>Workouts</h1>
+                <div className="filters-container">
+                    <input type="" placeholder="Search exercises" onChange={searchFilter} />
+                    <select onChange={dropdownFilter} defaultValue={-1}>
+                        <option value={-1}></option>
+                        {options}
+                    </select>
+                </div>
+                <div className="workouts-container workouts-container-top">
+                    {exercisesDisplay}
+                </div>
+                <h2>Selected exercises</h2>
+                <div className="workouts-container">
+                    {selectedExercisesDisplay}
+                </div>
+                {submit}
             </div>
-            <div className="workouts-container">
-                {exercisesDisplay}
-            </div>
-            <h2>Selected exercises</h2>
-            <div className="workouts-container">
-                {selectedExercisesDisplay}
-            </div>
-            {submit}
-        </div>
-    )
+        )
+    }
 }
 
 export { MuscleGroup, Workouts };

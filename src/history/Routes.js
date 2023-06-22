@@ -10,6 +10,11 @@ const HistoryRoutes = {
             path: "",
             element: <WorkoutsHistory />,
             children: []
+        },
+        {
+            path: ":id",
+            element: <WorkoutsHistory />,
+            children: []
         }
     ]
 }

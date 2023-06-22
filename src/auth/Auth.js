@@ -5,6 +5,7 @@ import jwtDecode from "jwt-decode";
 
 import './auth.scss';
 import { publicUrlAppender } from "../navigation/Navigation";
+import { LoaderButton } from "../layout/Layout";
 
 const AuthContext = createContext({
     user: () => {
@@ -43,7 +44,7 @@ function Login(props) {
     const[loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
-    const onSubmit = (e, username, password) => {
+    const onSubmit = (e) => {
         setLoading(true);
         e.preventDefault();
         Logon(username, password).then(r => {
@@ -58,8 +59,7 @@ function Login(props) {
         })
     }
 
-    const error = showError ? <span style={{color: "darkred"}}>Your credentials are wrong, please try again</span> : <></>;
-    const buttonText = loading ? <div className="spinner">&nbsp;</div> : <span>Login</span>;
+    const error = showError ? <span className="warning">Your credentials are wrong, please try again</span> : <></>;
 
     return (
         <form className="login">
@@ -71,7 +71,7 @@ function Login(props) {
                 Password
                 <input id="password" type="password" autoCapitalize="none" onChange={(e) => setPassword(e.target.value)} />
             </label>
-            <button type="submit" className="button" onClick={(e) => onSubmit(e, username, password)}>{buttonText}</button>
+            <LoaderButton show={loading} submit={onSubmit}>Login</LoaderButton>
             {error}
         </form>
     )
