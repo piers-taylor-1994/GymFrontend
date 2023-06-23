@@ -3,6 +3,7 @@ import HistoryRoutes from "./history/Routes";
 import Homepage from "./homepage/Homepage";
 import { publicUrlAppender } from "./navigation/Navigation";
 import RoutinesRoutes from "./routine/Routes";
+import Settings from "./settings/Settings";
 import Stopwatch from "./stopwatch/Stopwatch";
 import WorkoutsRoutes from "./workouts/Routes";
 
@@ -20,6 +21,11 @@ const ROUTES = [
     WorkoutsRoutes,
     RoutinesRoutes,
     HistoryRoutes,
+    {
+        path: publicUrlAppender("/settings"),
+        element: <Settings />,
+        children: []
+    },
     {
         path: publicUrlAppender("/logout"),
         element: <Logout />,

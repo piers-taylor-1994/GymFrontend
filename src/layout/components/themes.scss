@@ -1,0 +1,102 @@
+// @import '_fonts';
+
+$yellow: #FEE165;
+$orange: #FF8000;
+$purple: #782CEB;
+$blue-light: #24CAE0;
+$blue-dark: #2144DE;
+$green: #4DBF7D;
+$red: #FF0000;
+$red-dark: #BE0202;
+$red-darker: #AA0101;
+
+$white: #FFF;
+$white-darker: #F5F5F5;
+$black: #333;
+$black-darker: #2E2E2E;
+$black-lighter: #4A4A4A;
+$grey-lighter: #F5F5F5;
+$grey-light: #E8E8E8;
+$grey-dark: #555555;
+
+$round-button: 3rem;
+$square-button: 0.75rem;
+
+@mixin light-theme {
+    color-scheme: light;
+    --background-primary: #{$white};
+    --background-secondary: #{$grey-lighter};
+
+    --text-primary: #{$black};
+    --text-secondary: #{$black};
+
+    --action-primary: #{$green};
+    --action-secondary: #{$grey-light};
+    --action-tertiary: #{$purple};
+
+    --action-text-primary: #{$white};
+
+    --nav-background: #{$black-darker};
+
+    --icon: #{$black};
+
+    --error: #{$red-darker};
+    --read-only: #{$grey-light};
+}
+
+@mixin dark-theme {
+    color-scheme: dark;
+    --background-primary: #{$black-darker};
+    --background-secondary: #{$black-darker};
+
+    --text-primary: #{$white-darker};
+    --text-secondary: #{$white-darker};
+
+    --action-primary: #{$purple};
+    --action-secondary: #{$black-lighter};
+
+    --action-text-primary: #{$white};
+
+    --nav-background: #{$black-lighter};
+
+    --icon: #{$white};
+
+    --error: #{$red};
+    --read-only: #{$grey-dark};
+}
+
+body,:root {
+    --color-white: #{$white};
+    --color-black: #{$black};
+    --color-red: #{$red};
+
+    --color-blue-light: #{$blue-light};
+    --color-blue-dark: #{$blue-dark};
+    --color-purple: #{$purple};
+    --color-green: #{$green};
+    --color-yellow: #{$yellow};
+
+    --color-light-grey-light: #{$grey-lighter};
+    --color-light-grey-dark: #{$grey-light};
+
+    --color-dark-black: #{$black-darker};
+    --color-dark-grey: #{$black-lighter};
+    --color-dark-white: #{$white};
+
+    --button-styling-round: #{$round-button};
+    --button-styling-square: #{$square-button};
+
+    --nav-fill: #{$white};
+
+    --delete-fill: #{$red-dark};
+}
+
+.light, .light::before, .light::after {
+    @include light-theme;
+}
+
+.dark, .dark::before, .dark::after {
+    @include dark-theme;
+}
+
+@import 'layout.scss';

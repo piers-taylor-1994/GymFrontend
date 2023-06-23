@@ -1,6 +1,6 @@
 .navigation {
     &-bottom {
-        background: #2e2e2e;
+        background: var(--nav-background);
         bottom: 0;
         display: grid;
         font-size: 1rem;
@@ -18,6 +18,32 @@
             align-items: center;
             color: white;
             text-decoration: none;
+        }
+    }
+
+    &-top {
+        align-items: center;
+        background-color: var(--nav-background);
+        border-bottom-left-radius: 1.5em;
+        display: flex;
+        font-size: 1.4rem;
+        height: 3.4rem;
+        padding-left: 0.7em;
+        padding-right: 0.5em;
+        position: fixed;
+        right: 0;
+        top: 0;
+        z-index: 2;
+
+        .nav-item {
+            height: 1.7em;
+            width: 1.7em;
+
+            i {
+                svg {
+                    fill: var(--color-white);
+                }
+            }
         }
     }
 }

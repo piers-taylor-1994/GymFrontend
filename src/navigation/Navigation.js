@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import "./navigation.scss";
+import * as Icon from '../layout/Icons';
 
 const publicUrlAppender = (url) => {
     return process.env.PUBLIC_URL + url;
@@ -8,6 +9,7 @@ const publicUrlAppender = (url) => {
 function TopNav(props) {
     return (
         <div className="navigation-top">
+            <Link className="nav-item" to={publicUrlAppender("/settings")}><Icon.Settings /></Link>
         </div>
     )
 }
