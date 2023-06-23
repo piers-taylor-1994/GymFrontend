@@ -62,12 +62,14 @@ function Workouts(props) {
     }, [selectedExercises])
 
     useEffect(() => {
-        let test = new Set();
-        unfilteredExercises.forEach(ex => {
-            test.add(parseInt(ex.muscleGroup));
-            setMuscleTypes(Array.from(test));
-        });
-    }, [unfilteredExercises])
+        if (muscleTypes.length === 0) {
+            let muscleSet = new Set();
+            unfilteredExercises.forEach(ex => {
+                muscleSet.add(parseInt(ex.muscleGroup));
+                setMuscleTypes(Array.from(muscleSet));
+            });
+        }
+    }, [unfilteredExercises, muscleTypes])
 
     useEffect(() => {
         if (searchFilterQuery) setExercises(unfilteredExercises.filter((ex) => ex.name.toLowerCase().includes(searchFilterQuery.toLowerCase())));
@@ -125,10 +127,8 @@ function Workouts(props) {
 
     const dropdownFilter = (e) => {
         if (parseInt(e.target.value) === -1) setExercises(unfilteredExercises);
-        else {
-            setDropdownFilterQuery(e.target.value);
-            setExercises(unfilteredExercises.filter((ex) => parseInt(ex.muscleGroup) === parseInt(e.target.value)));
-        }
+        else setExercises(unfilteredExercises.filter((ex) => parseInt(ex.muscleGroup) === parseInt(e.target.value)));
+        setDropdownFilterQuery(e.target.value);
     }
 
     const exercisesDisplay = exercises.map(e => row(e));
