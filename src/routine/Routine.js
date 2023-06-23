@@ -24,9 +24,9 @@ function Routine() {
             if (routine) {
                 setRoutine(routine);
                 setRoutineList(routine.setList);
-                setLoading(false);
                 // sessionStorage.setItem("routine", JSON.stringify(routine));
             }
+            setLoading(false);
         })
     }, [routine.id])
 
@@ -91,6 +91,15 @@ function Routine() {
     if (loading) {
         return (
             <LoaderPage />
+        )
+    }
+    
+    else if (routineList.length === 0) {
+        return (
+            <div className="routine content">
+                <h1>Routine</h1>
+                <p>A routine for today hasn't been added yet. <Link to={publicUrlAppender("/workouts")}>Please add one.</Link></p>
+            </div>
         )
     }
 

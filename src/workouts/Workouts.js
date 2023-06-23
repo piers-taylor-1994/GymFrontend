@@ -124,7 +124,7 @@ function Workouts(props) {
     }
 
     const dropdownFilter = (e) => {
-        if (e.target.value === "") setExercises(unfilteredExercises);
+        if (parseInt(e.target.value) === -1) setExercises(unfilteredExercises);
         else {
             setDropdownFilterQuery(e.target.value);
             setExercises(unfilteredExercises.filter((ex) => parseInt(ex.muscleGroup) === parseInt(e.target.value)));
@@ -150,7 +150,7 @@ function Workouts(props) {
                 <div className="filters-container">
                     <input type="" placeholder="Search exercises" onChange={searchFilter} />
                     <select onChange={dropdownFilter} defaultValue={-1}>
-                        <option value={-1}></option>
+                        <option value={-1}>All</option>
                         {options}
                     </select>
                 </div>
