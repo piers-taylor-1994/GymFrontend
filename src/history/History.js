@@ -9,7 +9,7 @@ import { Loader, LoaderPage } from "../layout/Layout";
 function WorkoutsHistory(props) {
     const [history, setHistory] = useState([]);
     const [routineList, setRoutineList] = useState([]);
-    const [defaultSelect, setDefaultSelect] = useState("dates");
+    const [selectValue, setSelectValue] = useState("dates");
     const [loading, setLoading] = useState(true);
     const [sectionLoading, setSectionLoading] = useState(false);
     const historyId = useParams().id;
@@ -19,6 +19,7 @@ function WorkoutsHistory(props) {
         GetRoutineHistory(id).then((r) => {
             setRoutineList(r.setList);
             setSectionLoading(false);
+            setSelectValue(id);
         })
     }
 
@@ -32,7 +33,7 @@ function WorkoutsHistory(props) {
     useEffect(() => {
         if (historyId) {
             getRoutine(historyId);
-            setDefaultSelect(historyId);
+            setSelectValue(historyId);
         }
     }, [historyId])
 
@@ -71,7 +72,7 @@ function WorkoutsHistory(props) {
         return (
             <div className="history content">
                 <h1>History</h1>
-                <select onChange={(e) => getRoutine(e.target.value)} value={defaultSelect}>
+                <select onChange={(e) => getRoutine(e.target.value)} value={selectValue}>
                     <option value="dates" disabled> Select a date </option>
                     {options}
                 </select>
