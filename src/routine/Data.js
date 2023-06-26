@@ -8,4 +8,8 @@ const UpdateRoutine = (routineId, setList) => {
     return api.put("workouts/routine/" + routineId, setList);
 }
 
-export { GetRoutine, UpdateRoutine };
+const RemoveExerciseFromRoutine = (setId) => {
+    return api.delete("workouts/routine/set/" + setId);
+}
+
+export { GetRoutine, UpdateRoutine, RemoveExerciseFromRoutine };

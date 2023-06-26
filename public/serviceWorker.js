@@ -12,7 +12,6 @@ const hasHeader = function (headers, pattern) {
 
 self.addEventListener('install', event => {
     console.log('[Service Worker] Install');
-    console.log("%PUBLIC_URL%/logo192.png");
     // precache our static resources for this build of the app here
 
 })

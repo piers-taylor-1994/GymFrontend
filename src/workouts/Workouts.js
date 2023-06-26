@@ -33,14 +33,9 @@ function Workouts(props) {
     const [searchFilterQuery, setSearchFilterQuery] = useState("");
     const [dropdownFilterQuery, setDropdownFilterQuery] = useState(-1);
 
-    // const storageRoutine = sessionStorage.getItem("routine");
-
     const navigate = useNavigate();
 
     useEffect(() => {
-        // if (JSON.parse(storageRoutine) && JSON.parse(storageRoutine).setList.length > 0) {
-        //     setSelectedExercises(JSON.parse(storageRoutine).setList);
-        // }
         GetRoutine().then(routine => {
             if (routine) {
                 setSelectedExercises(routine.setList);
@@ -50,16 +45,11 @@ function Workouts(props) {
 
     useEffect(() => {
         GetExercises().then(exercises => {
-            if (selectedExercises && selectedExercises.length > 0) {
-                selectedExercises.forEach(se => {
-                    exercises = exercises.filter(ex => ex.exerciseId !== se.exerciseId);
-                });
-            }
             setExercises(exercises);
             setUnfilteredExercises(exercises);
             setLoading(false)
         })
-    }, [selectedExercises])
+    }, [])
 
     useEffect(() => {
         if (muscleTypes.length === 0) {
@@ -81,13 +71,9 @@ function Workouts(props) {
             setSelectedExercises((se) => {
                 return [...se, exercise];
             })
-            setExercises(exercises.filter((ex) => ex.exerciseId !== exercise.exerciseId));
         }
         else {
-            setExercises((ex) => {
-                return [...ex, exercise];
-            })
-            setSelectedExercises(selectedExercises.filter((ex) => ex.exerciseId !== exercise.exerciseId));
+            setSelectedExercises(selectedExercises.filter((s) => s.exerciseId !== exercise.exerciseId));
         }
     }
 
@@ -96,7 +82,7 @@ function Workouts(props) {
             <div key={exercise.exerciseId} className="rows">
                 <p>{MuscleGroup[exercise.muscleGroup]}</p>
                 <p>{exercise.name}</p>
-                <input type="checkbox" checked={selectedExercises.includes(exercise)} onChange={(e) => onCheck(e, exercise)} />
+                <input type="checkbox" checked={selectedExercises.some(s => s.exerciseId === exercise.exerciseId)} onChange={(e) => onCheck(e, exercise)} />
             </div>
         )
     }
@@ -114,7 +100,6 @@ function Workouts(props) {
             selectedExercisesIds.push(exercise.exerciseId);
         });
         AddRoutine(selectedExercisesIds).then((exercises) => {
-            // sessionStorage.setItem("routine", JSON.stringify(exercises));
             setShowLoaderbutton(false);
             navigate(publicUrlAppender("/routine"));
         })
@@ -132,7 +117,6 @@ function Workouts(props) {
     }
 
     const exercisesDisplay = exercises.map(e => row(e));
-    const selectedExercisesDisplay = selectedExercises.map(e => row(e));
     const options = muscleTypes.map(m => toDropdown(m));
 
     const submit = selectedExercises.length > 0 ? <div className="button-container"><LoaderButton submit={onSubmit} show={showLoaderbutton}>Submit</LoaderButton></div> : <></>;
@@ -157,12 +141,8 @@ function Workouts(props) {
                         {options}
                     </select>
                 </div>
-                <div className="workouts-container workouts-container-top">
-                    {exercisesDisplay}
-                </div>
-                <h2>Selected exercises</h2>
                 <div className="workouts-container">
-                    {selectedExercisesDisplay}
+                    {exercisesDisplay}
                 </div>
                 {submit}
             </div>

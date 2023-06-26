@@ -1,11 +1,8 @@
 .workouts {
     &-container {
-        height: calc(100vh - 30.7em);
+        height: calc(100vh - 18em);
+        margin-bottom: 0.5em;
         overflow: scroll;
-
-        &-top {
-            height: 10em;
-        }
 
         .rows {
             display: grid;

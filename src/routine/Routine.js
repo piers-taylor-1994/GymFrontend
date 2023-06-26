@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { GetRoutine, UpdateRoutine } from "./Data";
+import { GetRoutine, RemoveExerciseFromRoutine, UpdateRoutine } from "./Data";
 import "./routine.scss";
 import { Link, useNavigate } from "react-router-dom";
 import { MuscleGroup } from "../workouts/Workouts";
@@ -28,7 +28,7 @@ function Routine() {
             }
             setLoading(false);
         })
-    }, [routine.id])
+    }, [])
 
     const onExerciseUpdate = (e, id) => {
         const updateRoutineList = [...routineList];
@@ -63,22 +63,33 @@ function Routine() {
         }
     }
 
+    const onDelete = (id) => {
+        RemoveExerciseFromRoutine(id).then(() => {
+            setRoutineList(routineList.filter((r) => r.id !== id));
+        });
+    }
+
     const row = (exercise) => {
         return (
-            <div key={exercise.id} className="rows">
-                <p>{exercise.name}</p>
-                <label>
-                    <input id="weight" type="number" defaultValue={exercise.weight} onChange={e => { onExerciseUpdate(e, exercise.id) }} />
-                    kg
-                </label>
-                <label>
-                    <input id="sets" type="number" defaultValue={exercise.sets ? exercise.sets : null} onChange={e => { onExerciseUpdate(e, exercise.id) }} />
-                    sets
-                </label>
-                <label>
-                    <input id="reps" type="number" defaultValue={exercise.reps ? exercise.reps : null} onChange={e => { onExerciseUpdate(e, exercise.id) }} />
-                    reps
-                </label>
+            <div key={exercise.id}>
+                <div>
+                    <span className="exercise-name">{exercise.name}</span>
+                </div>
+                <div className="rows">
+                    <label>
+                        <input id="weight" type="number" defaultValue={exercise.weight} onChange={e => { onExerciseUpdate(e, exercise.id) }} />
+                        kg
+                    </label>
+                    <label>
+                        <input id="sets" type="number" defaultValue={exercise.sets ? exercise.sets : null} onChange={e => { onExerciseUpdate(e, exercise.id) }} />
+                        sets
+                    </label>
+                    <label>
+                        <input id="reps" type="number" defaultValue={exercise.reps ? exercise.reps : null} onChange={e => { onExerciseUpdate(e, exercise.id) }} />
+                        reps
+                    </label>
+                    <button onClick={() => onDelete(exercise.id)}>X</button>
+                </div>
             </div>
         )
     }

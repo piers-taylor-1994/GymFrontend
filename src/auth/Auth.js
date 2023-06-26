@@ -54,7 +54,6 @@ function Login(props) {
         setLoading(true);
         e.preventDefault();
         Logon(username, password).then(r => {
-            setLoading(false);
             if (!r) {
                 setShowError(true);
             }
@@ -62,6 +61,7 @@ function Login(props) {
                 SetAuthContext(r);
                 navigate(0);
             }
+            setLoading(false);
         })
     }
 
