@@ -4,7 +4,7 @@ import './workouts.scss';
 import { useNavigate } from "react-router-dom";
 import { GetRoutine } from "../routine/Data";
 import { publicUrlAppender } from "../navigation/Navigation";
-import { LoaderButton, LoaderPage } from "../layout/Layout";
+import { Loader, LoaderButton } from "../layout/Layout";
 
 const MuscleGroup = {
     0: "Shoulders",
@@ -139,7 +139,10 @@ function Workouts(props) {
 
     if (loading) {
         return (
-            <LoaderPage />
+            <div className="workouts content">
+                <h1>Workouts</h1>
+                <Loader />
+            </div>
         )
     }
 

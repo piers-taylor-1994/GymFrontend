@@ -4,7 +4,7 @@ import "./routine.scss";
 import { Link, useNavigate } from "react-router-dom";
 import { MuscleGroup } from "../workouts/Workouts";
 import { publicUrlAppender } from "../navigation/Navigation";
-import { LoaderButton, LoaderPage } from "../layout/Layout";
+import { Loader, LoaderButton } from "../layout/Layout";
 
 function Routine() {
     const [routine, setRoutine] = useState({});
@@ -90,10 +90,12 @@ function Routine() {
 
     if (loading) {
         return (
-            <LoaderPage />
+            <div className="routine content">
+                <Loader />
+            </div>
         )
     }
-    
+
     else if (routineList.length === 0) {
         return (
             <div className="routine content">

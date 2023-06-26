@@ -2,15 +2,47 @@ import config from './config';
 
 const auth = (method) => {
     const jwt = sessionStorage.getItem("jwt");
-    return {
-        method: method,
-        withCredentials: true,
-        credentials: 'include',
-        headers: {
-            "Content-Type": "application/json",
-            "Authorization": "Bearer " + jwt
+    if (navigator.serviceWorker.controller === null) {
+        return {
+            method: method,
+            withCredentials: true,
+            credentials: 'include',
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + jwt
+            }
+        }
+    } else {
+        navigator.serviceWorker.controller.postMessage({
+            type: 'STORE-TOKEN',
+            token: jwt
+        });
+        return {
+            method: method,
+            withCredentials: true,
+            credentials: 'include',
+            headers: {
+                "Content-Type": "application/json"
+            }
         }
     }
+}
+
+const err = (response) => {
+    if (response.status === 204) return false;
+
+    if (response.ok) return true;
+
+    if (response.status === 401) {
+        localStorage.removeItem("jwt");
+        if (navigator.serviceWorker.controller !== null) {
+            navigator.serviceWorker.controller.postMessage({
+                type: 'CLEAR-TOKEN'
+            });
+        }
+    }
+
+    return false;
 }
 
 const data = (method, request) => {
@@ -20,18 +52,8 @@ const data = (method, request) => {
     return info;
 }
 
-const err = (response) => {
-    if (response.status === 204) return false;
-
-    if (response.ok) return true;
-
-    if (response.status === 401) sessionStorage.removeItem("jwt");
-
-    return false;
-}
-
 const api = {
-    get: function(url){
+    get: function (url) {
         return fetch(config.host + url, auth("GET"))
             .then(response => {
                 if (err(response)) {
@@ -39,36 +61,36 @@ const api = {
                 }
             })
     },
-    put: function(url, request){
+    put: function (url, request) {
         return fetch(config.host + url, data("PUT", request))
-        .then(response => {
-            if (err(response)) {
-                return response.json();
-            }
-        })
+            .then(response => {
+                if (err(response)) {
+                    return response.json();
+                }
+            })
     },
-    post: function(url, request){
+    post: function (url, request) {
         return fetch(config.host + url, data("POST", request))
-        .then(response => {
-            if (err(response)) {
-                return response.json();
-            }
-        })
+            .then(response => {
+                if (err(response)) {
+                    return response.json();
+                }
+            })
     },
-    postText: function(url, request){
+    postText: function (url, request) {
         return fetch(config.host + url, data("POST", request))
-        .then(response => {
-            if (err(response)) {
-                return response.text();
-            }
-        })
+            .then(response => {
+                if (err(response)) {
+                    return response.text();
+                }
+            })
     },
-    delete: function(url){
+    delete: function (url) {
         return fetch(config.host + url, data("DELETE"))
-        .then(response => {
-            if (err(response)) {
-            }
-        })
+            .then(response => {
+                if (err(response)) {
+                }
+            })
     }
 }
 

@@ -35,6 +35,12 @@ const BuildContext = (jwt) => {
 
 function SetAuthContext(jwt) {
     sessionStorage.setItem("jwt", jwt);
+    if (navigator.serviceWorker.controller !== null) {
+        navigator.serviceWorker.controller.postMessage({
+            type: 'STORE-TOKEN',
+            token: jwt
+        });
+    }
 }
 
 function Login(props) {
@@ -80,6 +86,11 @@ function Login(props) {
 function Logout(props) {
     const navigate = useNavigate();
     sessionStorage.removeItem("jwt");
+    if (navigator.serviceWorker.controller !== null) {
+        navigator.serviceWorker.controller.postMessage({
+            type: 'CLEAR-TOKEN'
+        });
+    }
 
     useEffect(() => {
         navigate(publicUrlAppender(""));

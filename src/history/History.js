@@ -4,7 +4,7 @@ import { MuscleGroup } from "../workouts/Workouts";
 import "./history.scss"
 import { Format } from "../dates";
 import { useParams } from "react-router-dom";
-import { Loader, LoaderPage } from "../layout/Layout";
+import { Loader } from "../layout/Layout";
 
 function WorkoutsHistory(props) {
     const [history, setHistory] = useState([]);
@@ -64,7 +64,10 @@ function WorkoutsHistory(props) {
 
     if (loading) {
         return (
-            <LoaderPage />
+            <div className="history content">
+                <h1>History</h1>
+                <Loader />
+            </div>
         )
     }
 
