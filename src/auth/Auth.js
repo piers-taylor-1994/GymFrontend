@@ -34,7 +34,7 @@ const BuildContext = (jwt) => {
 }
 
 function SetAuthContext(jwt) {
-    sessionStorage.setItem("jwt", jwt);
+    localStorage.setItem("jwt", jwt);
     if (navigator.serviceWorker.controller !== null) {
         navigator.serviceWorker.controller.postMessage({
             type: 'STORE-TOKEN',
@@ -85,7 +85,7 @@ function Login(props) {
 
 function Logout(props) {
     const navigate = useNavigate();
-    sessionStorage.removeItem("jwt");
+    localStorage.removeItem("jwt");
     if (navigator.serviceWorker.controller !== null) {
         navigator.serviceWorker.controller.postMessage({
             type: 'CLEAR-TOKEN'

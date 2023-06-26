@@ -91,6 +91,7 @@ function Routine() {
     if (loading) {
         return (
             <div className="routine content">
+                <h1>Routine</h1>
                 <Loader />
             </div>
         )

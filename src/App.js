@@ -11,7 +11,7 @@ function App() {
   const anonRouter = useRoutes(ANONROUTES);
 
   const theme = localStorage.getItem("theme");
-  const jwt = sessionStorage.getItem("jwt");
+  const jwt = localStorage.getItem("jwt");
   let authProvider = undefined;
 
   if (jwt === null) {

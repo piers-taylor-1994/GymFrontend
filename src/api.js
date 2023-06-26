@@ -1,7 +1,7 @@
 import config from './config';
 
 const auth = (method) => {
-    const jwt = sessionStorage.getItem("jwt");
+    const jwt = localStorage.getItem("jwt");
     if (navigator.serviceWorker.controller === null) {
         return {
             method: method,
