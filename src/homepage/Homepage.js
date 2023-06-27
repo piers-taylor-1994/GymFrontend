@@ -1,4 +1,4 @@
-import { Format } from "../dates";
+import { Format } from "../layout/dates";
 
 function Homepage(props) {
     return (
