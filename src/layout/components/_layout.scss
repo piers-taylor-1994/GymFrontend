@@ -14,7 +14,7 @@ body {
 }
 
 .content {
-    margin: 3em 0.7em 6.5em 0.7em;
+    margin: 2em 0.7em 6.5em 0.7em;
 }
 
 .button {
@@ -54,6 +54,21 @@ body {
         span {
             margin-right: 3em;
         }
+    }
+}
+
+.submit-container {
+    position: fixed;
+    width: 100%;
+    bottom: 6em;
+    left: 0;
+    background-color: var(--background-primary);
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5em;
+
+    button {
+        width: 70%;
     }
 }
 

@@ -69,33 +69,35 @@ function Routine() {
         });
     }
 
-    const submit = routineList && routineList.length > 0 ? <div className="button-container"><LoaderButton submit={onSubmit} show={showLoaderbutton}>Submit</LoaderButton></div> : <></>;
     const error = showError ? <span className="warning">Please fill in all fields before submitting</span> : <></>;
+    const submit = routineList && routineList.length > 0
+        ? <div className="button-container submit-container">{error}<LoaderButton submit={onSubmit} show={showLoaderbutton}>Submit</LoaderButton></div>
+        : <></>;
 
     const SetCard = (props) => {
         const opacity = props.isDragging ? 0.5 : 1;
         const exercise = props.card;
         return (
-                <div ref={props.cardRef} style={{ ...props.styleCard, opacity }} data-handler-id={props.handlerId} className="set">
-                    <div>
-                        <span className="exercise-name">{exercise.name}</span>
-                    </div>
-                    <div className="rows">
-                        <label>
-                            <input id="weight" type="number" defaultValue={exercise.weight} onChange={e => { onExerciseUpdate(e, exercise.id) }} />
-                            kg
-                        </label>
-                        <label>
-                            <input id="sets" type="number" defaultValue={exercise.sets ? exercise.sets : null} onChange={e => { onExerciseUpdate(e, exercise.id) }} />
-                            sets
-                        </label>
-                        <label>
-                            <input id="reps" type="number" defaultValue={exercise.reps ? exercise.reps : null} onChange={e => { onExerciseUpdate(e, exercise.id) }} />
-                            reps
-                        </label>
-                        <button onClick={() => onDelete(exercise.id)}>X</button>
-                    </div>
+            <div ref={props.cardRef} style={{ ...props.styleCard, opacity }} data-handler-id={props.handlerId} className="set">
+                <div>
+                    <span className="exercise-name">{exercise.name}</span>
                 </div>
+                <div className="rows">
+                    <label>
+                        <input id="weight" type="number" defaultValue={exercise.weight} onChange={e => { onExerciseUpdate(e, exercise.id) }} />
+                        kg
+                    </label>
+                    <label>
+                        <input id="sets" type="number" defaultValue={exercise.sets ? exercise.sets : null} onChange={e => { onExerciseUpdate(e, exercise.id) }} />
+                        sets
+                    </label>
+                    <label>
+                        <input id="reps" type="number" defaultValue={exercise.reps ? exercise.reps : null} onChange={e => { onExerciseUpdate(e, exercise.id) }} />
+                        reps
+                    </label>
+                    <button onClick={() => onDelete(exercise.id)}>X</button>
+                </div>
+            </div>
         )
     }
 
@@ -108,7 +110,7 @@ function Routine() {
             )
         }
 
-        const sets = routineList.length === 0 ? <p>A routine for today hasn't been added yet. <Link to={publicUrlAppender("/workouts")}>Please add one.</Link></p> : <DnD array={routineList} component={SetCard} update={UpdateSetOrder}/>;
+        const sets = routineList.length === 0 ? <p>A routine for today hasn't been added yet. <Link to={publicUrlAppender("/workouts")}>Please add one.</Link></p> : <DnD array={routineList} component={SetCard} update={UpdateSetOrder} />;
 
         return (
             <div className="sets">
@@ -120,9 +122,9 @@ function Routine() {
     return (
         <div className="routine content">
             <h1>Routine</h1>
+            {routineList.length === 0 ? <></> : <span className="blurb">Drag and drop to re-order</span>}
             <Sets />
             {submit}
-            {error}
         </div>
     )
 }
