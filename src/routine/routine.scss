@@ -1,26 +1,40 @@
 .routine {
+    h1 {
+        margin-bottom: 0;
+    }
+
     .sets {
         height: calc(100vh - 16.3em);
         margin: 0 0.5em;
         overflow: scroll;
         display: flex;
         flex-direction: column;
-        gap: 1em;
 
-        .exercise-name {
-            font-weight: bold;
+        .set {
+            .exercise-name {
+                font-weight: bold;
+            }
+
+            .rows {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 1em 0;
+
+                input {
+                    width: 1.7em;
+                    margin-right: 0.2em;
+                    text-align: center;
+                }
+            }
         }
 
-        .rows {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
+        .set:last-child {
+            padding-bottom: 1em;
+        }
 
-            input {
-                width: 1.7em;
-                margin-right: 0.2em;
-                text-align: center;
-            }
+        .set:first-child {
+            padding-top: 1em;
         }
     }
 }

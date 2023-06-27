@@ -21,7 +21,6 @@ export const Card = ({ id, index, moveCard, ComponentCard, update, card }) => {
 			return {
 				handlerId: monitor.getHandlerId(),
 			}
-			
 		},
 		drop(item, monitor) {
 			update();
@@ -130,7 +129,7 @@ const Container = (props) => {
 	}, [moveCard, UpdateOrders, props.component]);
 	return (
 		<>
-			<div className={props.class}>{cards.map((card, i) => renderCard(card, i))}</div>
+			<div>{cards.map((card, i) => renderCard(card, i))}</div>
 		</>
 	);
 };
@@ -145,7 +144,7 @@ if (window.matchMedia("(pointer: fine)").matches) {
 function DnD(props) {
 	return (
 		<DndProvider backend={backend}>
-			<Container array={props.array} component={props.component} update={props.update} class={props.class}/>
+			<Container array={props.array} component={props.component} update={props.update}/>
 		</DndProvider>
 	)
 }

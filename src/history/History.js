@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { GetRoutineHistory, GetRoutinesHistory } from "./Data";
 import { MuscleGroup } from "../workouts/Workouts";
 import "./history.scss"
-import { Format } from "../layout/dates";
+import { Format } from "../layout/Dates";
 import { useParams } from "react-router-dom";
 import { Loader } from "../layout/Layout";
 

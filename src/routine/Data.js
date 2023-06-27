@@ -12,4 +12,8 @@ const RemoveExerciseFromRoutine = (setId) => {
     return api.delete("workouts/routine/set/" + setId);
 }
 
-export { GetRoutine, UpdateRoutine, RemoveExerciseFromRoutine };
+const UpdateSetOrder = (setDict) => {
+    return api.put("workouts/routine/set/order", setDict);
+}
+
+export { GetRoutine, UpdateRoutine, RemoveExerciseFromRoutine, UpdateSetOrder };
