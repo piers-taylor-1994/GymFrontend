@@ -119,7 +119,7 @@ function Workouts(props) {
     const exercisesDisplay = exercises.map(e => row(e));
     const options = muscleTypes.map(m => toDropdown(m));
 
-    const submit = selectedExercises.length > 0 ? <div className="button-container submit-container"><LoaderButton submit={onSubmit} show={showLoaderbutton}>Submit</LoaderButton></div> : <></>;
+    const submit = selectedExercises.length > 0 ? <div className="button-container submit-container"><LoaderButton buttonStyle="button-smaller" submit={onSubmit} show={showLoaderbutton}>Submit</LoaderButton></div> : <></>;
 
     if (loading) {
         return (

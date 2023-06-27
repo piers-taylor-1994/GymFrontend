@@ -55,6 +55,14 @@ body {
             margin-right: 3em;
         }
     }
+
+    &-smaller {
+        width: 70%;
+
+        .spinner {
+            right: 5em;
+        }
+    }
 }
 
 .submit-container {
@@ -66,10 +74,6 @@ body {
     flex-direction: column;
     align-items: center;
     gap: 0.5em;
-
-    button {
-        width: 70%;
-    }
 }
 
 .loader {

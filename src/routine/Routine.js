@@ -71,7 +71,7 @@ function Routine() {
 
     const error = showError ? <span className="warning">Please fill in all fields before submitting</span> : <></>;
     const submit = routineList && routineList.length > 0
-        ? <div className="button-container submit-container">{error}<LoaderButton submit={onSubmit} show={showLoaderbutton}>Submit</LoaderButton></div>
+        ? <div className="button-container submit-container">{error}<LoaderButton buttonStyle="button-smaller" submit={onSubmit} show={showLoaderbutton}>Submit</LoaderButton></div>
         : <></>;
 
     const SetCard = (props) => {

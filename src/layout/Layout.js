@@ -16,7 +16,8 @@ function LoaderPage(props) {
 
 function LoaderButton(props) {
     const loader = props.show ? <div className="spinner">&nbsp;</div> : <></>;
-    const style = props.show ? "button button-nudge" : "button";
+    let style = props.show ? "button button-nudge " : "button ";
+    style = props.buttonStyle ? style + props.buttonStyle : style;
     const disabled = props.show ? true : false;
 
     return (
