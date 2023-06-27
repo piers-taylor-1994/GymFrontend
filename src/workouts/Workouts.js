@@ -45,6 +45,19 @@ function Workouts(props) {
 
     useEffect(() => {
         GetExercises().then(exercises => {
+            exercises.sort((a, b) => {
+                const nameA = MuscleGroup[a.muscleGroup].toUpperCase(); // ignore upper and lowercase
+                const nameB = MuscleGroup[b.muscleGroup].toUpperCase(); // ignore upper and lowercase
+                if (nameA < nameB) {
+                    return -1;
+                }
+                if (nameA > nameB) {
+                    return 1;
+                }
+
+                // names must be equal
+                return 0;
+            });
             setExercises(exercises);
             setUnfilteredExercises(exercises);
             setLoading(false)
