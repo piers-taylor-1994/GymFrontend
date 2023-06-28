@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import jwtDecode from "jwt-decode";
 
 import './auth.scss';
-import { publicUrlAppender } from "../navigation/Navigation";
 import { LoaderButton } from "../layout/Layout";
 
 const AuthContext = createContext({
@@ -93,7 +92,7 @@ function Logout(props) {
     }
 
     useEffect(() => {
-        navigate(publicUrlAppender(""));
+        navigate("");
     }, [navigate])
 }
 

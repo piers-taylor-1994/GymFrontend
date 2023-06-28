@@ -1,7 +1,6 @@
 import { Logout } from "./auth/Auth";
 import HistoryRoutes from "./history/Routes";
 import Homepage from "./homepage/Homepage";
-import { publicUrlAppender } from "./navigation/Navigation";
 import RoutinesRoutes from "./routine/Routes";
 import Settings from "./settings/Settings";
 import Stopwatch from "./stopwatch/Stopwatch";
@@ -9,12 +8,12 @@ import WorkoutsRoutes from "./workouts/Routes";
 
 const ROUTES = [
     {
-        path: publicUrlAppender(""),
+        path: "",
         element: <Homepage />,
         children: []
     },
     {
-        path: publicUrlAppender("/stopwatch"),
+        path: "/stopwatch",
         element: <Stopwatch />,
         children: [] 
     },
@@ -22,12 +21,12 @@ const ROUTES = [
     RoutinesRoutes,
     HistoryRoutes,
     {
-        path: publicUrlAppender("/settings"),
+        path: "/settings",
         element: <Settings />,
         children: []
     },
     {
-        path: publicUrlAppender("/logout"),
+        path: "/logout",
         element: <Logout />,
         children: []
     },

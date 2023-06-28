@@ -4,10 +4,9 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
-import { publicUrlAppender } from './navigation/Navigation';
 
 if('serviceWorker' in navigator){
-  navigator.serviceWorker.register(publicUrlAppender('/serviceWorker.js'));
+  navigator.serviceWorker.register('/serviceWorker.js');
 }else{
   alert("Service Workers are not supported");
 }

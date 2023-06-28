@@ -1,9 +1,8 @@
 import { Outlet } from "react-router-dom";
 import Routine from "./Routine";
-import { publicUrlAppender } from "../navigation/Navigation";
 
 const RoutinesRoutes = {
-    path: publicUrlAppender("/routine"),
+    path: "/routine",
     element: <Outlet />,
     children: [
         {

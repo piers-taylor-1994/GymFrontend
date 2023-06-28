@@ -3,7 +3,6 @@ import { AddRoutine, GetExercises } from "./Data";
 import './workouts.scss';
 import { useNavigate } from "react-router-dom";
 import { GetRoutine } from "../routine/Data";
-import { publicUrlAppender } from "../navigation/Navigation";
 import { Loader, LoaderButton } from "../layout/Layout";
 
 const MuscleGroup = {
@@ -114,7 +113,7 @@ function Workouts(props) {
         });
         AddRoutine(selectedExercisesIds).then((exercises) => {
             setShowLoaderbutton(false);
-            navigate(publicUrlAppender("/routine"));
+            navigate("/routine");
         })
     }
 

@@ -1,9 +1,7 @@
 import { Outlet } from "react-router-dom";
 import { Workouts } from "./Workouts";
-import { publicUrlAppender } from "../navigation/Navigation";
-
 const WorkoutsRoutes = {
-    path: publicUrlAppender("/workouts"),
+    path: "/workouts",
     element: <Outlet />,
     children: [
         {

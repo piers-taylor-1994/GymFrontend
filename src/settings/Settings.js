@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { publicUrlAppender } from "../navigation/Navigation";
 import './settings.scss'
 
 function Theme() {
@@ -31,7 +30,7 @@ function Logout() {
 
     return (
         <div className="logout button-container">
-            <button className="button" onClick={() => navigate(publicUrlAppender("/logout"))}>Logout</button>
+            <button className="button" onClick={() => navigate("/logout")}>Logout</button>
         </div>
     )
 }

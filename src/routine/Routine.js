@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { GetRoutine, RemoveExerciseFromRoutine, UpdateRoutine, UpdateSetOrder } from "./Data";
 import "./routine.scss";
 import { Link, useNavigate } from "react-router-dom";
-import { publicUrlAppender } from "../navigation/Navigation";
 import { Loader, LoaderButton } from "../layout/Layout";
 import DnD from "../layout/DnD";
 
@@ -52,7 +51,7 @@ function Routine() {
                 setShowLoaderbutton(false);
             }
             else {
-                navigate(publicUrlAppender("/history/" + response.id));
+                navigate("/history/" + response.id);
                 setShowLoaderbutton(false);
             }
         })
@@ -125,7 +124,7 @@ function Routine() {
             )
         }
 
-        const sets = routine.setList && routine.setList.length > 0 ? <DnD array={routine.setList} component={SetCard} update={onOrderUpdate} /> : <p>A routine for today hasn't been added yet. <Link to={publicUrlAppender("/workouts")}>Please add one.</Link></p>;
+        const sets = routine.setList && routine.setList.length > 0 ? <DnD array={routine.setList} component={SetCard} update={onOrderUpdate} /> : <p>A routine for today hasn't been added yet. <Link to="/workouts">Please add one.</Link></p>;
 
         return (
             <div className="sets">
