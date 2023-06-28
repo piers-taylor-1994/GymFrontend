@@ -16,5 +16,19 @@
             padding: 0.3rem;
             width: 100%;
         }
+
+        .create-container {
+            display: flex;
+            justify-content: center;
+            padding: 1em 1em;
+            bottom: 0;
+            left: 0;
+            width: 90%;
+            position: fixed;
+
+            span {
+                text-decoration: underline;
+            }
+        }
     }
 }
