@@ -67,6 +67,9 @@ const api = {
                 if (err(response)) {
                     return response.json();
                 }
+                else {
+                    return response.status;
+                }
             })
     },
     post: function (url, request) {

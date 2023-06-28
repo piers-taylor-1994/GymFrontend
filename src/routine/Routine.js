@@ -13,50 +13,49 @@ function Routine() {
     const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
 
-    // const storageRoutine = sessionStorage.getItem("routine");
+    let setList = [];
 
     useEffect(() => {
-        // if (JSON.parse(storageRoutine) && JSON.parse(storageRoutine).setList.length > 0) {
-        //     setRoutine(JSON.parse(storageRoutine));
-        //     setRoutineList(JSON.parse(storageRoutine).setList);  
         GetRoutine().then(routine => {
             if (routine) {
                 setRoutine(routine);
-                // sessionStorage.setItem("routine", JSON.stringify(routine));
             }
             setLoading(false);
         })
     }, [])
 
     const onExerciseUpdate = (e, id) => {
-        const updateRoutineList = [...routine.setList];
-        const input = updateRoutineList.find(
+        setList = [...routine.setList];
+        const input = setList.find(
             e => e.id === id
         )
 
         if (e.target.id === "weight") input[e.target.id] = e.target.value.toString();
         else input[e.target.id] = parseInt(e.target.value);
-
-        setRoutine({ id: routine.id, setList: updateRoutineList });
     }
 
     const onSubmit = () => {
         setShowLoaderbutton(true);
-        let validationCheck = true;
-        routine.setList.forEach(exercise => {
-            if (exercise.reps === 0 || exercise.sets === 0 || !exercise.weight || exercise.weight.trim().length === 0) {
-                validationCheck = false;
+
+        routine.setList.forEach(r => {
+            setList.forEach(s => {
+                if (r.id === s.id) {
+                    r.weight = s.weight;
+                    r.sets = s.sets;
+                    r.reps = s.reps;
+                }
+            });
+        });
+        UpdateRoutine(routine.id, routine.setList).then(response => {
+            if (response === 400) {
                 setShowError(true);
                 setShowLoaderbutton(false);
             }
-        });
-        if (validationCheck) {
-            UpdateRoutine(routine.id, routine.setList).then(routine => {
-                // sessionStorage.setItem("routine", JSON.stringify(routine));
-                navigate(publicUrlAppender("/history/" + routine.id));
+            else {
+                navigate(publicUrlAppender("/history/" + response.id));
                 setShowLoaderbutton(false);
-            })
-        }
+            }
+        })
     }
 
     const onDelete = (id) => {
