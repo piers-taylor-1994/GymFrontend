@@ -68,7 +68,7 @@ body {
 .submit-container {
     position: fixed;
     width: 100%;
-    bottom: 6em;
+    bottom: 6.3em;
     left: 0;
     background-color: var(--background-primary);
     flex-direction: column;
@@ -135,4 +135,12 @@ body {
 
 .warning {
     color: var(--error);
+}
+
+select {
+    padding: 0.25em;
+}
+
+input[type=text] {
+    padding-left: 0.3em;
 }

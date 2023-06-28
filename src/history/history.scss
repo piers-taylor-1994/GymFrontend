@@ -1,11 +1,21 @@
 .history {
-    .rows {
+    .row {
         display: grid;
-        grid-template-columns: 1fr 1.5fr 2fr;
+        padding: 0.5em 0;
+
+        .exercise-name {
+            font-weight: bold;
+        }
 
         .sets {
             display: flex;
-            justify-content: space-between;
+            gap: 0.7em;
+            grid-column: 1 / 3;
+            padding-top: 0.25em;
         }
+    }
+
+    .row:last-child {
+        padding-bottom: 0;
     }
 }

@@ -96,7 +96,7 @@ function Routine() {
                 <div>
                     <span className="exercise-name">{exercise.name}</span>
                 </div>
-                <div className="rows">
+                <div className="row">
                     <label>
                         <input id="weight" type="number" defaultValue={exercise.weight} onChange={e => { onExerciseUpdate(e, exercise.id) }} />
                         kg

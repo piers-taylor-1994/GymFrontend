@@ -8,7 +8,7 @@
         position: fixed;
         width: 100%;
         z-index: 1;
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: repeat(3, 1fr);
 
         .nav-item {
             display: flex;
@@ -18,6 +18,14 @@
             align-items: center;
             color: white;
             text-decoration: none;
+
+            i {
+                height: 2em;
+                width: 2em;
+                svg {
+                    fill: var(--color-white);
+                }
+            }
         }
     }
 

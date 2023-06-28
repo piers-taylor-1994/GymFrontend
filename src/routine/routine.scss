@@ -11,21 +11,27 @@
 
     .sets {
         height: calc(100vh - 16.5em);
-        margin: 0 0.5em;
         overflow: scroll;
         display: flex;
         flex-direction: column;
+        margin-top: 0.5em;
 
         .set {
             .exercise-name {
                 font-weight: bold;
             }
 
-            .rows {
+            .row {
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
                 padding: 1em 0;
+                margin-right: 0.5em;
+
+
+                label {
+                    height: 1.7em;
+                }
 
                 input {
                     width: 1.7em;

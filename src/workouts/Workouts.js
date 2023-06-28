@@ -91,7 +91,7 @@ function Workouts(props) {
 
     const row = (exercise) => {
         return (
-            <div key={exercise.exerciseId} className="rows">
+            <div key={exercise.exerciseId} className="row">
                 <p>{MuscleGroup[exercise.muscleGroup]}</p>
                 <p>{exercise.name}</p>
                 <input type="checkbox" checked={selectedExercises.some(s => s.exerciseId === exercise.exerciseId)} onChange={(e) => onCheck(e, exercise)} />
@@ -147,7 +147,7 @@ function Workouts(props) {
             <div className="workouts content">
                 <h1>Workouts</h1>
                 <div className="filters-container">
-                    <input type="" placeholder="Search exercises" onChange={searchFilter} />
+                    <input type="text" placeholder="Search exercises" onChange={searchFilter} />
                     <select onChange={dropdownFilter} defaultValue={-1}>
                         <option value={-1}>All</option>
                         {options}

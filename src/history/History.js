@@ -47,13 +47,12 @@ function WorkoutsHistory(props) {
 
     const row = (exercise) => {
         return (
-            <div key={exercise.id} className="rows">
-                <p>{MuscleGroup[exercise.muscleGroup]}</p>
-                <p>{exercise.name}</p>
+            <div key={exercise.id} className="row">
+                <span className="exercise-name">{exercise.name}</span>
                 <div className="sets">
-                    <p>{exercise.weight}kg</p>
-                    <p>{exercise.sets} sets</p>
-                    <p>{exercise.reps} reps</p>
+                    <span>{exercise.weight}kg</span>
+                    <span>{exercise.sets} sets</span>
+                    <span>{exercise.reps} reps</span>
                 </div>
             </div>
         )

@@ -13,10 +13,9 @@ function TopNav(props) {
 function BottomNav(props) {
     return (
         <div className="navigation-bottom">
-            <Link className="nav-item" to={"/workouts"}>Workouts</Link>
-            <Link className="nav-item" to={"/routine"}>Routine</Link>
-            <Link className="nav-item" to={"/history"}>History</Link>
-            <Link className="nav-item" to={"/tutorials"}>Tutorials</Link>
+            <Link className="nav-item" to={"/workouts"}><Icon.Workouts /></Link>
+            <Link className="nav-item" to={"/routine"}><Icon.Routine /></Link>
+            <Link className="nav-item" to={"/history"}><Icon.History /></Link>
         </div>
     )
 }

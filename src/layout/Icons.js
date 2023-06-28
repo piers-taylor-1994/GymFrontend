@@ -7,3 +7,50 @@ export const Settings = (props) => {
         </i>
     )
 }
+
+export const Workouts = (props) => {
+    return (
+        <i className="icon" role="button" alt="workouts button">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <g data-name="Layer 2">
+                    <g data-name="activity">
+                        <rect width="24" height="24" transform="rotate(90 12 12)" opacity="0" /><path d="M14.33 20h-.21a2 2 0 0 1-1.76-1.58L9.68 6l-2.76 6.4A1 1 0 0 1 6 13H3a1 1 0 0 1 0-2h2.34l2.51-5.79a2 2 0 0 1 3.79.38L14.32 18l2.76-6.38A1 1 0 0 1 18 11h3a1 1 0 0 1 0 2h-2.34l-2.51 5.79A2 2 0 0 1 14.33 20z" />
+                    </g>
+                </g>
+            </svg>
+        </i>
+    )
+}
+
+export const Routine = (props) => {
+    return (
+        <i className="icon" role="button" alt="routine button">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <g data-name="Layer 2">
+                    <g data-name="list">
+                        <rect width="24" height="24" transform="rotate(180 12 12)" opacity="0" />
+                        <circle cx="4" cy="7" r="1" />
+                        <circle cx="4" cy="12" r="1" />
+                        <circle cx="4" cy="17" r="1" />
+                        <rect x="7" y="11" width="14" height="2" rx=".94" ry=".94" /><rect x="7" y="16" width="14" height="2" rx=".94" ry=".94" /><rect x="7" y="6" width="14" height="2" rx=".94" ry=".94" />
+                    </g>
+                </g>
+            </svg>
+        </i>
+    )
+}
+
+export const History = (props) => {
+    return (
+        <i className="icon" role="button" alt="history button">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g data-name="Layer 2">
+                <g data-name="clock">
+                    <rect width="24" height="24" transform="rotate(180 12 12)" opacity="0" />
+                    <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8z" />
+                    <path d="M16 11h-3V8a1 1 0 0 0-2 0v4a1 1 0 0 0 1 1h4a1 1 0 0 0 0-2z" />
+                </g>
+            </g>
+            </svg>
+        </i>
+    )
+}
