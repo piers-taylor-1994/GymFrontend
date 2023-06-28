@@ -64,7 +64,7 @@ function Login(props) {
         })
     }
 
-    const error = showError ? <span className="warning">Your credentials are wrong, please try again</span> : <></>;
+    const error = showError ? <span className="warning">Your credentials are wrong, please try again</span> : <><br /><br /></>;
 
     return (
         <form className="login">
@@ -78,6 +78,9 @@ function Login(props) {
             </label>
             <LoaderButton show={loading} submit={onSubmit}>Login</LoaderButton>
             {error}
+            <div className="create-container" onClick={() => console.log("Test")}>
+                <span>Create a new account</span>
+            </div>
         </form>
     )
 }
@@ -92,7 +95,7 @@ function Logout(props) {
     }
 
     useEffect(() => {
-        navigate("");
+        navigate("/");
     }, [navigate])
 }
 
