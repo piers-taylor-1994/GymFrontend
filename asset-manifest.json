@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/GymFrontend/static/css/main.c256990c.css",
-    "main.js": "/GymFrontend/static/js/main.93c5d897.js",
+    "main.js": "/GymFrontend/static/js/main.a32e8d30.js",
     "static/js/787.88979130.chunk.js": "/GymFrontend/static/js/787.88979130.chunk.js",
     "index.html": "/GymFrontend/index.html",
     "main.c256990c.css.map": "/GymFrontend/static/css/main.c256990c.css.map",
-    "main.93c5d897.js.map": "/GymFrontend/static/js/main.93c5d897.js.map",
+    "main.a32e8d30.js.map": "/GymFrontend/static/js/main.a32e8d30.js.map",
     "787.88979130.chunk.js.map": "/GymFrontend/static/js/787.88979130.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.c256990c.css",
-    "static/js/main.93c5d897.js"
+    "static/js/main.a32e8d30.js"
   ]
 }
