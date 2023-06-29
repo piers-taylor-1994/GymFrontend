@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { GetRoutine, RemoveExerciseFromRoutine, UpdateRoutine, UpdateSetOrder } from "./Data";
+import { GetRoutine, RemoveExerciseFromRoutine, UpdateRoutine } from "./Data";
 import "./routine.scss";
 import { Link, useNavigate } from "react-router-dom";
 import { Loader, LoaderButton } from "../layout/Layout";
@@ -15,12 +15,19 @@ function Routine() {
     let setList = [];
 
     useEffect(() => {
-        GetRoutine().then(routine => {
-            if (routine) {
-                setRoutine(routine);
-            }
+        let storedRoutine = JSON.parse(sessionStorage.getItem("routine"));
+        if (storedRoutine && storedRoutine.setList && storedRoutine.setList.length > 0) {
+            setRoutine(storedRoutine);
             setLoading(false);
-        })
+        }
+        else {
+            GetRoutine().then(routine => {
+                if (routine) {
+                    setRoutine(routine);
+                }
+                setLoading(false);
+            })
+        }
     }, [])
 
     const onExerciseUpdate = (e, id) => {
@@ -31,6 +38,35 @@ function Routine() {
 
         if (e.target.id === "weight") input[e.target.id] = e.target.value.toString();
         else input[e.target.id] = parseInt(e.target.value);
+        sessionStorage.setItem("routine", JSON.stringify({
+            id: routine.id,
+            setList: setList
+        }));
+    }
+
+    const onDelete = (id) => {
+        RemoveExerciseFromRoutine(id).then(() => {
+            const updatedRoutine = ({
+                id: routine.id,
+                setList: routine.setList.filter((r) => r.id !== id)
+            });
+            if (JSON.parse(sessionStorage.getItem("routine")).setList.length > 1) sessionStorage.setItem("routine", JSON.stringify(updatedRoutine));
+            else sessionStorage.removeItem("routine");
+            setRoutine(updatedRoutine);
+        });
+    }
+
+    const onOrderUpdate = (setDict) => {
+        const setList = [...routine.setList];
+        for (const [key, value] of Object.entries(setDict)) {
+            setList.find(t => t.id === key).order = value;
+        }
+        const updatedRoutine = ({
+            id: routine.id,
+            setList: setList
+        });
+        sessionStorage.setItem("routine", JSON.stringify(updatedRoutine));
+        setRoutine(updatedRoutine);
     }
 
     const onSubmit = () => {
@@ -55,32 +91,6 @@ function Routine() {
                 setShowLoaderbutton(false);
             }
         })
-    }
-
-    const onDelete = (id) => {
-        RemoveExerciseFromRoutine(id).then(() => {
-            setRoutine((ro => {
-                return {
-                    id: ro.id,
-                    setList: routine.setList.filter((r) => r.id !== id)
-                }
-            }));
-        });
-    }
-
-    const onOrderUpdate = (setDict) => {
-        UpdateSetOrder(setDict);
-
-        const setList = [...routine.setList];
-        for (const [key, value] of Object.entries(setDict)) {
-            setList.find(t => t.id === key).order = value;
-        }
-        setRoutine((r) => {
-            return {
-                id: r.id,
-                setList: setList
-            }
-        });
     }
 
     const error = showError ? <span className="warning">Please fill in all fields before submitting</span> : <></>;

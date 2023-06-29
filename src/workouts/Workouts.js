@@ -111,7 +111,21 @@ function Workouts(props) {
         selectedExercises.forEach(exercise => {
             selectedExercisesIds.push(exercise.exerciseId);
         });
-        AddRoutine(selectedExercisesIds).then((exercises) => {
+        AddRoutine(selectedExercisesIds).then((routine) => {
+            let newRoutine = routine;
+            let storedRoutine = JSON.parse(sessionStorage.getItem("routine"));
+            if (storedRoutine && storedRoutine.setList.length > 0) {
+                newRoutine.setList.forEach(n => {
+                    storedRoutine.setList.forEach(s => {
+                        if (n.exerciseId === s.exerciseId) {
+                            n.weight = s.weight;
+                            n.sets = s.sets;
+                            n.reps = s.reps;
+                        }
+                    });
+                });
+            }
+            sessionStorage.setItem("routine", JSON.stringify(newRoutine));
             setShowLoaderbutton(false);
             navigate("/routine");
         })
