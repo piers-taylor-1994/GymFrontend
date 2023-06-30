@@ -19,13 +19,28 @@
             color: white;
             text-decoration: none;
 
-            i {
-                height: 2em;
-                width: 2em;
-                svg {
-                    fill: var(--color-white);
+            &-container {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 0.3em;
+
+                span {
+                    font-size: 0.8em;
+                    font-weight: 500;
+                }
+
+                i {
+                    height: 2em;
+                    width: 2em;
+
+                    svg {
+                        fill: var(--color-white);
+                    }
                 }
             }
+
+
         }
     }
 

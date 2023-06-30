@@ -78,9 +78,9 @@ function Login(props) {
             </label>
             <LoaderButton show={loading} submit={onSubmit}>Login</LoaderButton>
             {error}
-            <div className="create-container" onClick={() => console.log("Test")}>
+            {/* <div className="create-container" onClick={() => console.log("Test")}>
                 <span>Create a new account</span>
-            </div>
+            </div> */}
         </form>
     )
 }

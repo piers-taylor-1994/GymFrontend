@@ -13,9 +13,24 @@ function TopNav(props) {
 function BottomNav(props) {
     return (
         <div className="navigation-bottom">
-            <Link className="nav-item" to={"/workouts"}><Icon.Workouts /></Link>
-            <Link className="nav-item" to={"/routine"}><Icon.Routine /></Link>
-            <Link className="nav-item" to={"/history"}><Icon.History /></Link>
+            <Link className="nav-item" to={"/workouts"}>
+                <div className="nav-item-container">
+                    <Icon.Workouts />
+                    <span>Workouts</span>
+                </div>
+            </Link>
+            <Link className="nav-item" to={"/routine"}>
+                <div className="nav-item-container">
+                    <Icon.Routine />
+                    <span>Routine</span>
+                </div>
+            </Link>
+            <Link className="nav-item" to={"/history"}>
+                <div className="nav-item-container">
+                    <Icon.History />
+                    <span>History</span>
+                </div>
+            </Link>
         </div>
     )
 }
@@ -23,8 +38,8 @@ function BottomNav(props) {
 function Navigation(props) {
     return (
         <>
-        <TopNav />
-        <BottomNav />
+            <TopNav />
+            <BottomNav />
         </>
     )
 }
