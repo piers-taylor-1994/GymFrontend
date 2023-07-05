@@ -16,4 +16,8 @@ const UpdateSetOrder = (setDict) => {
     return api.put("workouts/routine/set/order", setDict);
 }
 
-export { GetRoutine, UpdateRoutine, RemoveExerciseFromRoutine, UpdateSetOrder };
+const GetLastSetForExercises = (setList) => {
+    return api.post("workouts/routine/last", setList);
+}
+
+export { GetRoutine, UpdateRoutine, RemoveExerciseFromRoutine, UpdateSetOrder, GetLastSetForExercises };

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { GetRoutine, RemoveExerciseFromRoutine, UpdateRoutine } from "./Data";
+import { GetLastSetForExercises, GetRoutine, RemoveExerciseFromRoutine, UpdateRoutine } from "./Data";
 import "./routine.scss";
 import { Link, useNavigate } from "react-router-dom";
 import { Loader, LoaderButton } from "../layout/Layout";
@@ -10,6 +10,7 @@ function Routine() {
     const [showLoaderbutton, setShowLoaderbutton] = useState(false);
     const [showError, setShowError] = useState(false);
     const [loading, setLoading] = useState(true);
+    const [lastSets, setLastSets] = useState([]);
     const navigate = useNavigate();
 
     let setList = [];
@@ -29,6 +30,18 @@ function Routine() {
             })
         }
     }, [])
+
+    useEffect(() => {
+        setLoading(true);
+        if (routine && routine.setList) {
+            let routineExerciseIds = []
+            routine.setList.map((r) => routineExerciseIds.push(r.exerciseId));
+            GetLastSetForExercises(routineExerciseIds).then((sets) => {
+                setLastSets(sets);
+            })
+            setLoading(false);
+        }
+    }, [routine])
 
     const onExerciseUpdate = (e, id) => {
         setList = [...routine.setList];
@@ -101,6 +114,8 @@ function Routine() {
     const SetCard = (props) => {
         const opacity = props.isDragging ? 0.5 : 1;
         const exercise = props.card;
+        const lastExercise = lastSets ? lastSets.find(t => t.exerciseId === exercise.exerciseId) : {};
+
         return (
             <div ref={props.cardRef} style={{ ...props.styleCard, opacity }} data-handler-id={props.handlerId} className="set">
                 <div>
@@ -108,15 +123,15 @@ function Routine() {
                 </div>
                 <div className="row">
                     <label>
-                        <input id="weight" type="number" defaultValue={exercise.weight} onChange={e => { onExerciseUpdate(e, exercise.id) }} />
+                        <input id="weight" type="number" defaultValue={exercise.weight} placeholder={lastExercise ? lastExercise.weight : null} onChange={e => { onExerciseUpdate(e, exercise.id) }} />
                         kg
                     </label>
                     <label>
-                        <input id="sets" type="number" defaultValue={exercise.sets ? exercise.sets : null} onChange={e => { onExerciseUpdate(e, exercise.id) }} />
+                        <input id="sets" type="number" defaultValue={exercise.sets ? exercise.sets : null} placeholder={lastExercise ? lastExercise.sets : null} onChange={e => { onExerciseUpdate(e, exercise.id) }} />
                         sets
                     </label>
                     <label>
-                        <input id="reps" type="number" defaultValue={exercise.reps ? exercise.reps : null} onChange={e => { onExerciseUpdate(e, exercise.id) }} />
+                        <input id="reps" type="number" defaultValue={exercise.reps ? exercise.reps : null} placeholder={lastExercise ? lastExercise.reps : null} onChange={e => { onExerciseUpdate(e, exercise.id) }} />
                         reps
                     </label>
                     <button onClick={() => onDelete(exercise.id)}>X</button>
