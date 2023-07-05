@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { GetRoutineHistory, GetRoutinesHistory } from "./Data";
-import { MuscleGroup } from "../workouts/Workouts";
 import "./history.scss"
 import { Format } from "../layout/dates";
 import { useParams } from "react-router-dom";
@@ -12,8 +11,9 @@ function WorkoutsHistory(props) {
     const [selectValue, setSelectValue] = useState("dates");
     const [loading, setLoading] = useState(true);
     const [sectionLoading, setSectionLoading] = useState(false);
-    const historyId = useParams().id;
 
+    const historyId = useParams().id;
+    
     const getRoutine = (id) => {
         setSectionLoading(true);
         GetRoutineHistory(id).then((r) => {
@@ -31,9 +31,15 @@ function WorkoutsHistory(props) {
     }, [])
 
     useEffect(() => {
+        const selectedHistory = JSON.parse(sessionStorage.getItem("selectedHistory"));
         if (historyId) {
             getRoutine(historyId);
             setSelectValue(historyId);
+            sessionStorage.setItem("selectedHistory", JSON.stringify(historyId));
+        }
+        else if (selectedHistory) {
+            getRoutine(selectedHistory);
+            setSelectValue(selectedHistory);
         }
     }, [historyId])
 
@@ -61,6 +67,11 @@ function WorkoutsHistory(props) {
     const rows = routineList.map(ex => row(ex));
     const display = sectionLoading ? <Loader /> : rows;
 
+    const onDropdownChange = (e) => {
+        getRoutine(e.target.value);
+        sessionStorage.setItem("selectedHistory", JSON.stringify(e.target.value));
+    }
+
     if (loading) {
         return (
             <div className="history content">
@@ -74,7 +85,7 @@ function WorkoutsHistory(props) {
         return (
             <div className="history content">
                 <h1>History</h1>
-                <select onChange={(e) => getRoutine(e.target.value)} value={selectValue}>
+                <select onChange={onDropdownChange} value={selectValue}>
                     <option value="dates" disabled> Select a date </option>
                     {options}
                 </select>

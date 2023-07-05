@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { AddRoutine, GetExercises } from "./Data";
+import { AddRoutine, GetExercises, SearchExerciseMuscles } from "./Data";
 import './workouts.scss';
 import { useNavigate } from "react-router-dom";
 import { GetRoutine } from "../routine/Data";
@@ -10,14 +10,15 @@ const MuscleGroup = {
     1: "Chest",
     2: "Triceps",
     3: "Biceps",
-    4: "Upper back",
-    5: "Lower back",
+    4: "Upper-back",
+    5: "Lower-back",
     6: "Core",
     7: "Glutes",
     8: "Hips",
     9: "Quads",
     10: "Hamstrings",
-    11: "Calves"
+    11: "Calves",
+    12: "Thighs"
 }
 Object.freeze(MuscleGroup);
 
@@ -25,12 +26,12 @@ function Workouts(props) {
     const [unfilteredExercises, setUnfilteredExercises] = useState([]);
     const [exercises, setExercises] = useState([]);
     const [selectedExercises, setSelectedExercises] = useState([]);
-    const [muscleTypes, setMuscleTypes] = useState([]);
     const [showLoaderbutton, setShowLoaderbutton] = useState(false);
     const [loading, setLoading] = useState(true);
 
     const [searchFilterQuery, setSearchFilterQuery] = useState("");
     const [dropdownFilterQuery, setDropdownFilterQuery] = useState(-1);
+    const [searchedArray, setSearchedArray] = useState([]);
 
     const navigate = useNavigate();
 
@@ -64,19 +65,14 @@ function Workouts(props) {
     }, [])
 
     useEffect(() => {
-        if (muscleTypes.length === 0) {
-            let muscleSet = new Set();
-            unfilteredExercises.forEach(ex => {
-                muscleSet.add(parseInt(ex.muscleGroup));
-                setMuscleTypes(Array.from(muscleSet));
-            });
+        if (parseInt(dropdownFilterQuery) !== -1 && searchFilterQuery) {
+            setExercises(unfilteredExercises.filter((ex) => searchedArray.includes(ex.exerciseId) && ex.name.toLowerCase().includes(searchFilterQuery.toLowerCase())));
         }
-    }, [unfilteredExercises, muscleTypes])
-
-    useEffect(() => {
-        if (searchFilterQuery) setExercises(unfilteredExercises.filter((ex) => ex.name.toLowerCase().includes(searchFilterQuery.toLowerCase())));
-        if (parseInt(dropdownFilterQuery) !== -1) setExercises(unfilteredExercises.filter((ex) => parseInt(ex.muscleGroup) === parseInt(dropdownFilterQuery)));
-    }, [unfilteredExercises, searchFilterQuery, dropdownFilterQuery])
+        else if (parseInt(dropdownFilterQuery) !== -1) {
+            setExercises(unfilteredExercises.filter((ex) => searchedArray.includes(ex.exerciseId) && ex.name.toLowerCase().includes(searchFilterQuery.toLowerCase())));
+        }
+        else if (searchFilterQuery) setExercises(unfilteredExercises.filter((ex) => ex.name.toLowerCase().includes(searchFilterQuery.toLowerCase())));
+    }, [unfilteredExercises, searchFilterQuery, dropdownFilterQuery, searchedArray])
 
     const onCheck = (e, exercise) => {
         if (e.target.checked) {
@@ -99,9 +95,9 @@ function Workouts(props) {
         )
     }
 
-    const toDropdown = (m) => {
+    const toDropdown = (m, i) => {
         return (
-            <option value={m} key={m}>{MuscleGroup[m]}</option>
+            <option value={i} key={i}>{m}</option>
         )
     }
 
@@ -132,18 +128,22 @@ function Workouts(props) {
     }
 
     const searchFilter = (e) => {
+        if (e.target.value === "" && parseInt(dropdownFilterQuery) === -1) setExercises(unfilteredExercises);
         setSearchFilterQuery(e.target.value);
-        setExercises(unfilteredExercises.filter((ex) => ex.name.toLowerCase().includes(e.target.value.toLowerCase())));
     }
 
     const dropdownFilter = (e) => {
         if (parseInt(e.target.value) === -1) setExercises(unfilteredExercises);
-        else setExercises(unfilteredExercises.filter((ex) => parseInt(ex.muscleGroup) === parseInt(e.target.value)));
+        else {
+            SearchExerciseMuscles(e.target.value).then((se) => {
+                setSearchedArray(se);
+            })
+        }
         setDropdownFilterQuery(e.target.value);
     }
 
     const exercisesDisplay = exercises.map(e => row(e));
-    const options = muscleTypes.map(m => toDropdown(m));
+    const options = Object.values(MuscleGroup).map((m, i) => toDropdown(m, i));
 
     const submit = selectedExercises.length > 0 ? <div className="button-container submit-container"><LoaderButton buttonStyle="button-smaller" submit={onSubmit} show={showLoaderbutton}>Submit</LoaderButton></div> : <></>;
 
