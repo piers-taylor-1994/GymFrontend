@@ -63,7 +63,7 @@ function Routine() {
                 id: routine.id,
                 setList: routine.setList.filter((r) => r.id !== id)
             });
-            if (JSON.parse(sessionStorage.getItem("routine")).setList.length > 1) sessionStorage.setItem("routine", JSON.stringify(updatedRoutine));
+            if (JSON.parse(sessionStorage.getItem("routine")) && JSON.parse(sessionStorage.getItem("routine")).setList.length > 1) sessionStorage.setItem("routine", JSON.stringify(updatedRoutine));
             else sessionStorage.removeItem("routine");
             setRoutine(updatedRoutine);
         });
