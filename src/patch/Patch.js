@@ -16,6 +16,7 @@ function Patch() {
     const username = user.username;
 
     useEffect(() => {
+        if (!patch) navigate("/logout");
         if (parseFloat(patch) < parseFloat(Object.keys(Version)[Object.keys(Version).length - 1])) {
             Object.keys(Version).reverse().forEach(version => {
                 if (parseFloat(patch) < version) {
@@ -24,7 +25,7 @@ function Patch() {
                 }
             }); 
         }
-    }, [patch])
+    }, [patch, navigate])
 
     const closeModal = () => {
         setShowModal(false);
