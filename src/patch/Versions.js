@@ -1,5 +1,5 @@
 const Version = {
-    1.01: (
+    1.10: (
         <>
             <h1>Release notes 05/07</h1>
             <div className='image-container'>

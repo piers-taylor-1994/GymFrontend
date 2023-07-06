@@ -3,6 +3,7 @@ import { AuthContext, SetAuthContext } from "../auth/Auth";
 import Version from "./Versions";
 import { ResendToken, SetPatchRead } from "./Data";
 import { useNavigate } from "react-router-dom";
+import * as Icon from "../layout/Icons";
 
 function Patch() {
     const [showModal, setShowModal] = useState(false);
@@ -38,10 +39,8 @@ function Patch() {
     const modalContents = (
         <div className='modal' onClick={closeModal}>
             <div className='modal-main'>
+                <div className="button-container" onClick={closeModal}><Icon.Close /></div>
                 {Version[currentPatch.toString()]}
-                <div className='button-container'>
-                    <button onClick={closeModal}>Close</button>
-                </div>
             </div>
         </div>
     )

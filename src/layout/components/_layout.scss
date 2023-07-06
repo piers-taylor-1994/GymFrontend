@@ -190,12 +190,13 @@ input[type=text] {
         }
 
         .button-container {
-            margin-top: 1em;
+            position: absolute;
+            top: 0.4em;
+            right: 0.4em;
 
-            button {
-                padding: 0.5em 2em;
-                border-radius: 1em;
-                border: 1px;
+            i {
+                height: auto;
+                width: 1.75em;
             }
         }
     }
