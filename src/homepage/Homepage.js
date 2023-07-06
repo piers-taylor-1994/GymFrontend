@@ -4,12 +4,15 @@ import { GetPatchRead, SetPatchRead } from "./Data";
 
 function Homepage(props) {
     const [showModal, setShowModal] = useState(false);
+    const jwt = localStorage.getItem("jwt");
 
     useEffect(() => {
-        GetPatchRead().then((bool) => {
-            setShowModal(!bool);
-        })
-    }, [])
+        if (jwt !== null) {
+            GetPatchRead().then((bool) => {
+                setShowModal(!bool);
+            })
+        }
+    }, [jwt])
 
     const closeModal = () => {
         setShowModal(false);
@@ -17,7 +20,7 @@ function Homepage(props) {
     }
 
     const modalContents = (
-        <div className='modal'>
+        <div className='modal' onClick={closeModal}>
             <div className='modal-main'>
                 <h1>Release notes 05/07</h1>
                 <div className='image-container'>
