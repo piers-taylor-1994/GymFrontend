@@ -15,21 +15,24 @@ function Patch() {
     const username = user.username;
 
     useEffect(() => {
-        Object.keys(Version).reverse().forEach(version => {
-            if (parseFloat(patch) < version) {
-                setShowModal(true);
-                setCurrentPatch(version);
-            }
-        }); 
+        if (parseFloat(patch) < parseFloat(Object.keys(Version)[Object.keys(Version).length - 1])) {
+            Object.keys(Version).reverse().forEach(version => {
+                if (parseFloat(patch) < version) {
+                    setShowModal(true);
+                    setCurrentPatch(version);
+                }
+            }); 
+        }
     }, [patch])
 
     const closeModal = () => {
         setShowModal(false);
-        SetPatchRead(currentPatch);
-        ResendToken(username).then((jwt) => {
-            SetAuthContext(jwt);
-            navigate(0);
-        })
+        SetPatchRead(currentPatch).then(() => {
+            ResendToken(username).then((jwt) => {
+                SetAuthContext(jwt);
+                navigate(0);
+            })
+        });
     }
 
     const modalContents = (
