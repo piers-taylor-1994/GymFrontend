@@ -27,7 +27,7 @@ function Homepage(props) {
                 <div className='image-container'>
                     <img src='images/screenshot2.png' alt='screenshot1' />
                 </div>
-                <span>Added every muscle group affected by each exercise and the filter reflects this.</span>
+                <span>Added multiple muscle groups to each exercise.</span>
                 <div className='button-container'>
                     <button onClick={closeModal}>Close</button>
                 </div>
