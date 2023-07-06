@@ -5,6 +5,7 @@ import { AuthContext, BuildContext } from './auth/Auth';
 import ROUTES from './Routes';
 import { Navigation } from './navigation/Navigation';
 import './layout/components/themes.scss'
+import Patch from './patch/Patch';
 
 function App() {
   const router = useRoutes(ROUTES);
@@ -43,6 +44,7 @@ function App() {
     <div className="app">
         <AuthContext.Provider value={authProvider}>
           <Navigation />
+          <Patch />
           {router}
         </AuthContext.Provider>
     </div>

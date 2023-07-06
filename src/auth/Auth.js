@@ -99,4 +99,4 @@ function Logout(props) {
     }, [navigate])
 }
 
-export { AuthContext, BuildContext, Login, Logout };
+export { AuthContext, BuildContext, SetAuthContext, Login, Logout };
