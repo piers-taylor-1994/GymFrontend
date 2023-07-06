@@ -1,7 +1,6 @@
 const Version = {
     1.10: (
         <>
-            <h1>Release notes 05/07</h1>
             <div className='image-container'>
                 <img src='images/screenshot1.png' alt='screenshot1' />
             </div>

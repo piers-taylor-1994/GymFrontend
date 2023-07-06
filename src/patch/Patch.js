@@ -40,6 +40,7 @@ function Patch() {
         <div className='modal' onClick={closeModal}>
             <div className='modal-main'>
                 <div className="button-container" onClick={closeModal}><Icon.Close /></div>
+                <h1>Release notes v{currentPatch.toString()}</h1>
                 {Version[currentPatch.toString()]}
             </div>
         </div>
