@@ -197,6 +197,10 @@ input[type=text] {
             i {
                 height: auto;
                 width: 1.75em;
+
+                svg {
+                    fill: var(--icon);
+                }
             }
         }
     }
