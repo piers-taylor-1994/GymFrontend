@@ -1,0 +1,43 @@
+.modal {
+    &-main {
+        h1 {
+            margin: 0.5em 0;
+        }
+
+        span {
+            font-size: 0.9em;
+        }
+
+        .image-container {
+            display: flex;
+            justify-content: center;
+            border: 1px solid var(--border);
+            border-radius: 0.5em;
+            margin: 0.5em 0;
+            background: var(--color-white);
+
+            img {
+                width: 90%;
+            }
+
+            &-dark {
+                background: var(--color-black);
+            }
+        }
+
+        .button-container {
+            position: absolute;
+            top: 0.4em;
+            right: 0.4em;
+
+            i {
+                height: auto;
+                width: 1.75em;
+
+                svg {
+                    fill: var(--icon);
+                }
+            }
+        }
+    }
+}

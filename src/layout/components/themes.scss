@@ -43,6 +43,8 @@ $square-button: 0.75rem;
 
     --icon: #{$black};
 
+    --border: #{$black};
+
     --error: #{$red-darker};
     --read-only: #{$grey-light};
 }
@@ -63,6 +65,8 @@ $square-button: 0.75rem;
     --nav-background: #{$black-lighter};
 
     --icon: #{$white};
+
+    --border: #{$white};
 
     --error: #{$red};
     --read-only: #{$grey-dark};

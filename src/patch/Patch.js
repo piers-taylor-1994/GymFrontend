@@ -4,6 +4,7 @@ import Version from "./Versions";
 import { ResendToken, SetPatchRead } from "./Data";
 import { useNavigate } from "react-router-dom";
 import * as Icon from "../layout/Icons";
+import './patch.scss'
 
 function Patch() {
     const [showModal, setShowModal] = useState(false);
