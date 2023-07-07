@@ -1,6 +1,7 @@
 import { Logout } from "./auth/Auth";
 import HistoryRoutes from "./history/Routes";
 import Homepage from "./homepage/Homepage";
+import LeaderboardRoutes from "./leaderboard/Routes";
 import RoutinesRoutes from "./routine/Routes";
 import Settings from "./settings/Settings";
 import Stopwatch from "./stopwatch/Stopwatch";
@@ -20,6 +21,7 @@ const ROUTES = [
     WorkoutsRoutes,
     RoutinesRoutes,
     HistoryRoutes,
+    LeaderboardRoutes,
     {
         path: "/settings",
         element: <Settings />,

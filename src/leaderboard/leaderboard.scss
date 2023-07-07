@@ -1,0 +1,30 @@
+.leaderboard {
+    select {
+        margin-bottom: 1em;
+    }
+
+    .row-container {
+        .row {
+            padding: 0.5em 0em;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            border-radius: 0.75em;
+            box-shadow: 1px 1px;
+            margin-bottom: 0.2em;
+            color: var(--color-black);
+            justify-items: center;
+
+            &-one {
+                background-color: var(--color-gold);
+            }
+
+            &-two {
+                background-color: var(--color-silver);
+            }
+
+            &-three {
+                background-color: var(--color-bronze);
+            }
+        }
+    }
+}

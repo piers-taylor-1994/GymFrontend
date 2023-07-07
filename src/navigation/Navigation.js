@@ -31,6 +31,12 @@ function BottomNav(props) {
                     <span>History</span>
                 </div>
             </Link>
+            <Link className="nav-item" to={"/leaderboard"}>
+                <div className="nav-item-container">
+                    <Icon.Leaderboard />
+                    <span>Leaderboard</span>
+                </div>
+            </Link>
         </div>
     )
 }

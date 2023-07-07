@@ -49,7 +49,7 @@ function Routine() {
             e => e.id === id
         )
 
-        if (e.target.id === "weight") input[e.target.id] = e.target.value.toString();
+        if (e.target.id === "weight") input[e.target.id] = parseFloat(e.target.value);
         else input[e.target.id] = parseInt(e.target.value);
         sessionStorage.setItem("routine", JSON.stringify({
             id: routine.id,
@@ -123,7 +123,7 @@ function Routine() {
                 </div>
                 <div className="row">
                     <label>
-                        <input id="weight" type="number" defaultValue={exercise.weight} placeholder={lastExercise ? lastExercise.weight : null} onChange={e => { onExerciseUpdate(e, exercise.id) }} />
+                        <input id="weight" type="number" defaultValue={exercise.weight ? exercise.weight : null} placeholder={lastExercise ? lastExercise.weight : null} onChange={e => { onExerciseUpdate(e, exercise.id) }} />
                         kg
                     </label>
                     <label>

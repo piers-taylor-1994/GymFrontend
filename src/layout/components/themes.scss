@@ -9,6 +9,9 @@ $green: #4DBF7D;
 $red: #FF0000;
 $red-dark: #BE0202;
 $red-darker: #AA0101;
+$gold: #FFD700;
+$silver: #D8D8D8;
+$bronze: #CD7F32;
 
 $white: #FFF;
 $white-darker: #F5F5F5;
@@ -82,6 +85,10 @@ body,:root {
     --color-dark-black: #{$black-darker};
     --color-dark-grey: #{$black-lighter};
     --color-dark-white: #{$white};
+
+    --color-gold: #{$gold};
+    --color-silver: #{$silver};
+    --color-bronze: #{$bronze};
 
     --button-styling-round: #{$round-button};
     --button-styling-square: #{$square-button};

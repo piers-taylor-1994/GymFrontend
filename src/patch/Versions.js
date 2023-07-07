@@ -10,6 +10,18 @@ const Version = {
             </div>
             <span>Added multiple muscle groups to each exercise.</span>
         </>
+    ),
+    1.20: (
+        <>
+            <div className='image-container' style={{background: "#2E2E2E"}}>
+                <img src='images/screenshot3.png' alt='screenshot1' />
+            </div>
+            <span>Added leaderboard to nav.</span>
+            <div className='image-container'>
+                <img src='images/screenshot4.png' alt='screenshot1' />
+            </div>
+            <span>Added leaderboard page.</span>
+        </>
     )
 }
 Object.freeze(Version);

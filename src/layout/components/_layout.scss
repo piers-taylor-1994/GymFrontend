@@ -186,6 +186,10 @@ input[type=text] {
             img {
                 width: 90%;
             }
+
+            &-dark {
+                background: var(--color-black);
+            }
         }
 
         .button-container {
