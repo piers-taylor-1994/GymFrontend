@@ -4,4 +4,8 @@ const GetLeaderboard = (exerciseId) => {
     return api.get("workouts/routine/leaderboard/" + exerciseId);
 }
 
-export { GetLeaderboard }
+const DataExport = () => {
+    return api.postPdf("workouts/export");
+}
+
+export { GetLeaderboard, DataExport }

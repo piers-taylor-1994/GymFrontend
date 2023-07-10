@@ -28,6 +28,13 @@ const auth = (method) => {
     }
 }
 
+const pdf = (request) => {
+    request.headers["Content-Type"] = "multipart/form-data";
+    request.responseType = "arraybuffer";
+
+    return request;
+}
+
 const err = (response) => {
     if (response.status === 204) return false;
 
@@ -79,6 +86,14 @@ const api = {
                     return response.json();
                 }
             })
+    },
+    postPdf: function (url) {
+        return fetch(config.host + url, pdf(auth("POST")))
+        .then(response => {
+            if (err(response)) {
+                return response.blob();
+            }
+        });
     },
     postText: function (url, request) {
         return fetch(config.host + url, data("POST", request))

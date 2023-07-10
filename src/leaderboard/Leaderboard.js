@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react"
 import { GetExercises } from "../workouts/Data"
-import { GetLeaderboard } from "./Data";
+import { DataExport, GetLeaderboard } from "./Data";
 import { Loader } from "../layout/Layout";
 import "./leaderboard.scss"
+import { saveAs } from "file-saver";
 
 function Leaderboard() {
     const [exercises, setExercises] = useState([]);
@@ -63,6 +64,13 @@ function Leaderboard() {
     const rows = leaderboard.map((s, i) => row(s, (i + 1)));
     const display = sectionLoading ? <Loader /> : rows;
 
+    const dataExport = () => {
+        DataExport().then((response) => {
+            console.log(response);
+            saveAs(response, "data-export.pdf");
+        }, (error) => console.log('Promise rejected. Error: ', error));
+    }
+
     if (loading) {
         return (
             <div className="leaderboard content">
@@ -83,6 +91,7 @@ function Leaderboard() {
             <div className="row-container">
                 {display}
             </div>
+            <button onClick={dataExport}>Data export button</button>
         </div>
     )
 }
