@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { AddRoutine, GetExercises, SearchExerciseMuscles } from "./Data";
+import { GetExercises, SearchExerciseMuscles } from "./Data";
 import './workouts.scss';
 import { useNavigate } from "react-router-dom";
 import { GetRoutine } from "../routine/Data";
@@ -112,10 +112,9 @@ function Workouts(props) {
             selectedExerciseObjects.push({
                 exerciseId: selectedExercises[i].exerciseId,
                 name: selectedExercises[i].name,
-                muscleGroup: selectedExercises[i].muscleGroup,
-                weight: parseFloat(0),
-                sets: 0,
-                reps: 0,
+                weight: selectedExercises[i].weight ? parseFloat(selectedExercises[i].weight) : parseFloat(0),
+                sets: selectedExercises[i].sets ? selectedExercises[i].sets : 0,
+                reps: selectedExercises[i].reps ? selectedExercises[i].reps : 0,
                 order: i
             });
         }

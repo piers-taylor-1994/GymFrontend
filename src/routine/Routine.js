@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { AddRoutine, GetLastSetForExercises, GetRoutine, RemoveExerciseFromRoutine, UpdateRoutine } from "./Data";
+import { AddRoutine, GetLastSetForExercises, GetRoutine } from "./Data";
 import "./routine.scss";
 import { Link, useNavigate } from "react-router-dom";
 import { Loader, LoaderButton } from "../layout/Layout";
@@ -24,7 +24,7 @@ function Routine() {
         else {
             GetRoutine().then(routine => {
                 if (routine) {
-                    setRoutine(routine);
+                    setRoutine(routine.setList);
                 }
                 setLoading(false);
             })
@@ -74,15 +74,24 @@ function Routine() {
 
         routine.forEach(r => {
             setList.forEach(s => {
-                if (r.id === s.id) {
+                if (r.exerciseId === s.exerciseId) {
                     r.weight = s.weight;
                     r.sets = s.sets;
                     r.reps = s.reps;
                 }
             });
         });
-        console.log(routine);
-        AddRoutine(routine);
+        AddRoutine(routine).then(response => {
+            if (response === 400) {
+                setShowError(true);
+                setShowLoaderbutton(false);
+            }
+            else {
+                sessionStorage.removeItem("routine");
+                setShowLoaderbutton(false);
+                navigate("/history/" + response.id);
+            }
+        });
         // UpdateRoutine(routine.id, routine).then(response => {
         //     if (response === 400) {
         //         setShowError(true);
