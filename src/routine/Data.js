@@ -5,7 +5,7 @@ const GetRoutine = () => {
 }
 
 const UpdateRoutine = (routineId, setList) => {
-    return api.put("workouts/routine/" + routineId, setList);
+    return api.put("workouts/routine" + routineId, setList);
 }
 
 const RemoveExerciseFromRoutine = (setId) => {
@@ -20,4 +20,8 @@ const GetLastSetForExercises = (setList) => {
     return api.post("workouts/routine/last", setList);
 }
 
-export { GetRoutine, UpdateRoutine, RemoveExerciseFromRoutine, UpdateSetOrder, GetLastSetForExercises };
+const AddRoutine = (exercises) => {
+    return api.post("workouts/routine", exercises);
+}
+
+export { GetRoutine, UpdateRoutine, RemoveExerciseFromRoutine, UpdateSetOrder, GetLastSetForExercises, AddRoutine };

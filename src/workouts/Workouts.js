@@ -41,6 +41,10 @@ function Workouts(props) {
                 setSelectedExercises(routine.setList);
             }
         })
+        let storedRoutine = JSON.parse(sessionStorage.getItem("routine"));
+        if (storedRoutine && storedRoutine.length > 0) {
+            setSelectedExercises(storedRoutine);
+        }
     }, [])
 
     useEffect(() => {
@@ -103,28 +107,33 @@ function Workouts(props) {
 
     const onSubmit = () => {
         setShowLoaderbutton(true);
-        let selectedExercisesIds = [];
-        selectedExercises.forEach(exercise => {
-            selectedExercisesIds.push(exercise.exerciseId);
-        });
-        AddRoutine(selectedExercisesIds).then((routine) => {
-            let newRoutine = routine;
-            let storedRoutine = JSON.parse(sessionStorage.getItem("routine"));
-            if (storedRoutine && storedRoutine.setList.length > 0) {
-                newRoutine.setList.forEach(n => {
-                    storedRoutine.setList.forEach(s => {
-                        if (n.exerciseId === s.exerciseId) {
-                            n.weight = s.weight;
-                            n.sets = s.sets;
-                            n.reps = s.reps;
-                        }
-                    });
+        let selectedExerciseObjects = [];
+        for (let i = 0; i < selectedExercises.length; i++) {
+            selectedExerciseObjects.push({
+                exerciseId: selectedExercises[i].exerciseId,
+                name: selectedExercises[i].name,
+                muscleGroup: selectedExercises[i].muscleGroup,
+                weight: parseFloat(0),
+                sets: 0,
+                reps: 0,
+                order: i
+            });
+        }
+        let storedRoutine = JSON.parse(sessionStorage.getItem("routine"));
+        if (storedRoutine && storedRoutine.length > 0) {
+            selectedExerciseObjects.forEach(n => {
+                storedRoutine.forEach(s => {
+                    if (n.exerciseId === s.exerciseId) {
+                        n.weight = s.weight;
+                        n.sets = s.sets;
+                        n.reps = s.reps;
+                    }
                 });
-            }
-            sessionStorage.setItem("routine", JSON.stringify(newRoutine));
-            setShowLoaderbutton(false);
-            navigate("/routine");
-        })
+            });
+        }
+        sessionStorage.setItem("routine", JSON.stringify(selectedExerciseObjects));
+        setShowLoaderbutton(false);
+        navigate("/routine");
     }
 
     const searchFilter = (e) => {
