@@ -36,30 +36,29 @@ function Workouts(props) {
     const navigate = useNavigate();
 
     useEffect(() => {
-        GetRoutine().then(routine => {
-            if (routine) {
-                setSelectedExercises(routine.setList);
-            }
-        })
-        let storedRoutine = JSON.parse(sessionStorage.getItem("routine"));
-        if (storedRoutine && storedRoutine.length > 0) {
-            setSelectedExercises(storedRoutine);
+        if (JSON.parse(sessionStorage.getItem("routine")) && JSON.parse(sessionStorage.getItem("routine")).length > 0) {
+            setSelectedExercises(JSON.parse(sessionStorage.getItem("routine")));
+        }
+        else {
+            GetRoutine().then(routine => {
+                if (routine) {
+                    setSelectedExercises(routine.setList);
+                }
+            })
         }
     }, [])
 
     useEffect(() => {
         GetExercises().then(exercises => {
             exercises.sort((a, b) => {
-                const nameA = MuscleGroup[a.muscleGroup].toUpperCase(); // ignore upper and lowercase
-                const nameB = MuscleGroup[b.muscleGroup].toUpperCase(); // ignore upper and lowercase
+                const nameA = MuscleGroup[a.muscleGroup].toUpperCase();
+                const nameB = MuscleGroup[b.muscleGroup].toUpperCase();
                 if (nameA < nameB) {
                     return -1;
                 }
                 if (nameA > nameB) {
                     return 1;
                 }
-
-                // names must be equal
                 return 0;
             });
             setExercises(exercises);
@@ -112,9 +111,9 @@ function Workouts(props) {
             selectedExerciseObjects.push({
                 exerciseId: selectedExercises[i].exerciseId,
                 name: selectedExercises[i].name,
-                weight: selectedExercises[i].weight ? parseFloat(selectedExercises[i].weight) : parseFloat(0),
-                sets: selectedExercises[i].sets ? selectedExercises[i].sets : 0,
-                reps: selectedExercises[i].reps ? selectedExercises[i].reps : 0,
+                weight: selectedExercises[i].weight ? parseFloat(selectedExercises[i].weight) : null,
+                sets: selectedExercises[i].sets ? selectedExercises[i].sets : null,
+                reps: selectedExercises[i].reps ? selectedExercises[i].reps : null,
                 order: i
             });
         }

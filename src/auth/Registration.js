@@ -8,7 +8,6 @@ function Registration() {
     const[loading, setLoading] = useState(false);
 
     const error = showError ? <span className="warning">Error</span> : <></>;
-    const test = "";
 
     return (
         <form className="registration content">

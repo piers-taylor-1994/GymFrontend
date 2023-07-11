@@ -16,9 +16,8 @@ function Routine() {
     let setList = [];
 
     useEffect(() => {
-        let storedRoutine = JSON.parse(sessionStorage.getItem("routine"));
-        if (storedRoutine && storedRoutine.length > 0) {
-            setRoutine(storedRoutine);
+        if (JSON.parse(sessionStorage.getItem("routine")) && JSON.parse(sessionStorage.getItem("routine")).length > 0) {
+            setRoutine(JSON.parse(sessionStorage.getItem("routine")));
             setLoading(false);
         }
         else {
@@ -43,7 +42,7 @@ function Routine() {
         }
     }, [routine])
 
-    const onExerciseUpdate = (e, exerciseId) => {
+    const onExerciseDataUpdate = (e, exerciseId) => {
         setList = [...routine];
         const input = setList.find(
             e => e.exerciseId === exerciseId
@@ -60,7 +59,7 @@ function Routine() {
         setRoutine(routine.filter((r) => r.exerciseId !== exerciseId));
     }
 
-    const onOrderUpdate = (setDict) => {
+    const onExerciseOrderUpdate = (setDict) => {
         const setList = [...routine];
         for (const [key, value] of Object.entries(setDict)) {
             setList.find(t => t.exerciseId === key).order = value;
@@ -92,16 +91,6 @@ function Routine() {
                 navigate("/history/" + response.id);
             }
         });
-        // UpdateRoutine(routine.id, routine).then(response => {
-        //     if (response === 400) {
-        //         setShowError(true);
-        //         setShowLoaderbutton(false);
-        //     }
-        //     else {
-        //         navigate("/history/" + response.id);
-        //         setShowLoaderbutton(false);
-        //     }
-        // })
     }
 
     const error = showError ? <span className="warning">Please fill in all fields before submitting</span> : <></>;
@@ -121,15 +110,15 @@ function Routine() {
                 </div>
                 <div className="row">
                     <label>
-                        <input id="weight" type="number" defaultValue={exercise.weight ? exercise.weight : null} placeholder={lastExercise ? lastExercise.weight : null} onChange={e => { onExerciseUpdate(e, exercise.exerciseId) }} />
+                        <input id="weight" type="number" defaultValue={exercise.weight ? exercise.weight : null} placeholder={lastExercise ? lastExercise.weight : null} onChange={e => { onExerciseDataUpdate(e, exercise.exerciseId) }} />
                         kg
                     </label>
                     <label>
-                        <input id="sets" type="number" defaultValue={exercise.sets ? exercise.sets : null} placeholder={lastExercise ? lastExercise.sets : null} onChange={e => { onExerciseUpdate(e, exercise.exerciseId) }} />
+                        <input id="sets" type="number" defaultValue={exercise.sets ? exercise.sets : null} placeholder={lastExercise ? lastExercise.sets : null} onChange={e => { onExerciseDataUpdate(e, exercise.exerciseId) }} />
                         sets
                     </label>
                     <label>
-                        <input id="reps" type="number" defaultValue={exercise.reps ? exercise.reps : null} placeholder={lastExercise ? lastExercise.reps : null} onChange={e => { onExerciseUpdate(e, exercise.exerciseId) }} />
+                        <input id="reps" type="number" defaultValue={exercise.reps ? exercise.reps : null} placeholder={lastExercise ? lastExercise.reps : null} onChange={e => { onExerciseDataUpdate(e, exercise.exerciseId) }} />
                         reps
                     </label>
                     <button onClick={() => onDelete(exercise.exerciseId)}>X</button>
@@ -147,7 +136,7 @@ function Routine() {
             )
         }
 
-        const sets = routine && routine.length > 0 ? <DnD array={routine} component={SetCard} update={onOrderUpdate} /> : <p>A routine for today hasn't been added yet. <Link to="/workouts">Please add one.</Link></p>;
+        const sets = routine && routine.length > 0 ? <DnD array={routine} component={SetCard} update={onExerciseOrderUpdate} /> : <p>A routine for today hasn't been added yet. <Link to="/workouts">Please add one.</Link></p>;
 
         return (
             <div className="sets">
