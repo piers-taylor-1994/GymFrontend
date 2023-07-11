@@ -29,10 +29,10 @@ function Patch() {
     }, [patch, navigate])
 
     const closeModal = () => {
+        setShowModal(false);
         SetPatchRead(currentPatch).then(() => {
             ResendToken(username).then((jwt) => {
                 SetAuthContext(jwt);
-                setShowModal(false);
                 navigate(0);
             })
         });

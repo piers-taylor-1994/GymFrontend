@@ -233,19 +233,20 @@ function Routine() {
         }
         return 0;
     }).map(r => toDropdown(r));
-    
+
     const select = routineTemplates && routineTemplates.length > 0
         ? <select onChange={onDropdownSelect} defaultValue="default">
             <option value="default" disabled></option>
             {options}
         </select>
         : <></>
+    const templateAdd = routine && routine.length > 0 ? <div onClick={() => setModalShow(true)}><Icon.Add /></div> : <></>;
 
     return (
         <div className="routine content">
             <div className="routine-template-container">
                 {select}
-                <div onClick={() => setModalShow(true)}><Icon.Add /></div>
+                {templateAdd}
             </div>
             <h1>Routine</h1>
             {routine && routine.length > 0 ? <span className="blurb">Drag and drop to re-order</span> : <></>}
