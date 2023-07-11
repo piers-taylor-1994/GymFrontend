@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { AddRoutine, GetExercises, SearchExerciseMuscles } from "./Data";
+import { GetExercises, SearchExerciseMuscles } from "./Data";
 import './workouts.scss';
 import { useNavigate } from "react-router-dom";
 import { GetRoutine } from "../routine/Data";
@@ -36,26 +36,29 @@ function Workouts(props) {
     const navigate = useNavigate();
 
     useEffect(() => {
-        GetRoutine().then(routine => {
-            if (routine) {
-                setSelectedExercises(routine.setList);
-            }
-        })
+        if (JSON.parse(sessionStorage.getItem("routine")) && JSON.parse(sessionStorage.getItem("routine")).length > 0) {
+            setSelectedExercises(JSON.parse(sessionStorage.getItem("routine")));
+        }
+        else {
+            GetRoutine().then(routine => {
+                if (routine) {
+                    setSelectedExercises(routine.setList);
+                }
+            })
+        }
     }, [])
 
     useEffect(() => {
         GetExercises().then(exercises => {
             exercises.sort((a, b) => {
-                const nameA = MuscleGroup[a.muscleGroup].toUpperCase(); // ignore upper and lowercase
-                const nameB = MuscleGroup[b.muscleGroup].toUpperCase(); // ignore upper and lowercase
+                const nameA = MuscleGroup[a.muscleGroup].toUpperCase();
+                const nameB = MuscleGroup[b.muscleGroup].toUpperCase();
                 if (nameA < nameB) {
                     return -1;
                 }
                 if (nameA > nameB) {
                     return 1;
                 }
-
-                // names must be equal
                 return 0;
             });
             setExercises(exercises);
@@ -103,28 +106,32 @@ function Workouts(props) {
 
     const onSubmit = () => {
         setShowLoaderbutton(true);
-        let selectedExercisesIds = [];
-        selectedExercises.forEach(exercise => {
-            selectedExercisesIds.push(exercise.exerciseId);
-        });
-        AddRoutine(selectedExercisesIds).then((routine) => {
-            let newRoutine = routine;
-            let storedRoutine = JSON.parse(sessionStorage.getItem("routine"));
-            if (storedRoutine && storedRoutine.setList.length > 0) {
-                newRoutine.setList.forEach(n => {
-                    storedRoutine.setList.forEach(s => {
-                        if (n.exerciseId === s.exerciseId) {
-                            n.weight = s.weight;
-                            n.sets = s.sets;
-                            n.reps = s.reps;
-                        }
-                    });
+        let selectedExerciseObjects = [];
+        for (let i = 0; i < selectedExercises.length; i++) {
+            selectedExerciseObjects.push({
+                exerciseId: selectedExercises[i].exerciseId,
+                name: selectedExercises[i].name,
+                weight: selectedExercises[i].weight ? parseFloat(selectedExercises[i].weight) : null,
+                sets: selectedExercises[i].sets ? selectedExercises[i].sets : null,
+                reps: selectedExercises[i].reps ? selectedExercises[i].reps : null,
+                order: i
+            });
+        }
+        let storedRoutine = JSON.parse(sessionStorage.getItem("routine"));
+        if (storedRoutine && storedRoutine.length > 0) {
+            selectedExerciseObjects.forEach(n => {
+                storedRoutine.forEach(s => {
+                    if (n.exerciseId === s.exerciseId) {
+                        n.weight = s.weight;
+                        n.sets = s.sets;
+                        n.reps = s.reps;
+                    }
                 });
-            }
-            sessionStorage.setItem("routine", JSON.stringify(newRoutine));
-            setShowLoaderbutton(false);
-            navigate("/routine");
-        })
+            });
+        }
+        sessionStorage.setItem("routine", JSON.stringify(selectedExerciseObjects));
+        setShowLoaderbutton(false);
+        navigate("/routine");
     }
 
     const searchFilter = (e) => {

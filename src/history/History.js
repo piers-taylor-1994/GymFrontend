@@ -53,7 +53,7 @@ function WorkoutsHistory(props) {
 
     const row = (exercise) => {
         return (
-            <div key={exercise.id} className="row">
+            <div key={exercise.exerciseId} className="row">
                 <span className="exercise-name">{exercise.name}</span>
                 <div className="sets">
                     <span>{exercise.weight}kg</span>

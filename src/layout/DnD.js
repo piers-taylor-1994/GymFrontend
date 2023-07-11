@@ -97,7 +97,7 @@ const Container = (props) => {
 		let cardDict = {};
 		let order = 0;
 		cards.forEach(card => {
-			cardDict[card.id] = order++;
+			cardDict[card.exerciseId] = order++;
 		});
 
 		props.update(cardDict);
@@ -117,9 +117,9 @@ const Container = (props) => {
 	const renderCard = useCallback((card, index) => {
 		return (
 			<Card
-				key={card.id}
+				key={card.exerciseId}
 				index={index}
-				id={card.id}
+				id={card.exerciseId}
 				moveCard={moveCard}
 				ComponentCard={props.component}
 				update={UpdateOrders}
