@@ -152,6 +152,7 @@ input[type=text] {
     top: 0;
     width: 100%;
     z-index: 999;
+    
 
     &-main {
         background: var(--background-primary);
@@ -166,5 +167,20 @@ input[type=text] {
         -webkit-transform: translate(-50%, -50%);
         transform: translate(-50%, -50%);
         width: 80%;
+        transition: 5s all;
+
+        .input {
+            margin-bottom: 2em;
+            width: 100%;
+            padding: 0.3em 0;
+        }
+    }
+}
+
+.icon {
+    display: flex;
+
+    svg {
+        fill: var(--icon);
     }
 }

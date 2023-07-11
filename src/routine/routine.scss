@@ -50,5 +50,28 @@
             padding-top: 1em;
         }
     }
-}
 
+    &-template-container {
+        display: flex;
+        position: absolute;
+        right: 0.6em;
+        top: 3.8em;
+        gap: 0.4em;
+
+        select {
+            border-radius: 1em;
+            width: 8em;
+            text-overflow: ellipsis;
+        }
+
+        div {
+            i {
+                svg {
+                    height: 1.6em;
+                    width: auto;
+                    fill: var(--icon);
+                }
+            }
+        }
+    }
+}

@@ -1,3 +1,5 @@
+import * as Icon from './Icons'
+
 function Loader(props) {
     return (
         <div className="loader loader-section">
@@ -28,4 +30,15 @@ function LoaderButton(props) {
     )
 }
 
-export { Loader, LoaderPage, LoaderButton }
+function Modal(props) {
+    return (
+        <div className="modal">
+            <div className="modal-main">
+                <div className="button-container button-container-exit" onClick={() => props.setShow(false)}><Icon.Close /></div>
+                {props.children}
+            </div>
+        </div>
+    )
+}
+
+export { Loader, LoaderPage, LoaderButton, Modal }

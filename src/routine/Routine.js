@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
-import { AddRoutine, GetLastSetForExercises, GetRoutine } from "./Data";
+import { AddRoutine, AddRoutineTemplate, GetLastSetForExercises, GetRoutine, GetRoutineTemplateSets, GetRoutineTemplates } from "./Data";
 import "./routine.scss";
 import { Link, useNavigate } from "react-router-dom";
-import { Loader, LoaderButton } from "../layout/Layout";
+import { Loader, LoaderButton, Modal } from "../layout/Layout";
 import DnD from "../layout/DnD";
+import * as Icon from '../layout/Icons';
 
 function Routine() {
     const [routine, setRoutine] = useState([]);
@@ -11,6 +12,10 @@ function Routine() {
     const [showError, setShowError] = useState(false);
     const [loading, setLoading] = useState(true);
     const [lastSets, setLastSets] = useState([]);
+    const [routineTemplates, setRoutineTemplates] = useState([]);
+
+    const [modalShow, setModalShow] = useState(false);
+
     const navigate = useNavigate();
 
     let setList = [];
@@ -41,6 +46,12 @@ function Routine() {
             setLoading(false);
         }
     }, [routine])
+
+    useEffect(() => {
+        GetRoutineTemplates().then((templates) => {
+            setRoutineTemplates(templates);
+        })
+    }, [])
 
     const onExerciseDataUpdate = (e, exerciseId) => {
         setList = [...routine];
@@ -80,23 +91,26 @@ function Routine() {
                 }
             });
         });
-        AddRoutine(routine).then(response => {
-            if (response === 400) {
-                setShowError(true);
-                setShowLoaderbutton(false);
-            }
-            else {
-                sessionStorage.removeItem("routine");
-                setShowLoaderbutton(false);
-                navigate("/history/" + response.id);
-            }
-        });
-    }
 
-    const error = showError ? <span className="warning">Please fill in all fields before submitting</span> : <></>;
-    const submit = routine && routine.length > 0
-        ? <div className="button-container submit-container">{error}<LoaderButton buttonStyle="button-smaller" submit={onSubmit} show={showLoaderbutton}>Submit</LoaderButton></div>
-        : <></>;
+        if (routine.find(r => !r.weight || !r.sets || !r.reps)) {
+            setShowError(true);
+            setShowLoaderbutton(false);
+        }
+
+        else {
+            AddRoutine(routine).then(response => {
+                if (response === 400) {
+                    setShowError(true);
+                    setShowLoaderbutton(false);
+                }
+                else {
+                    sessionStorage.removeItem("routine");
+                    setShowLoaderbutton(false);
+                    navigate("/history/" + response.id);
+                }
+            });
+        }
+    }
 
     const SetCard = (props) => {
         const opacity = props.isDragging ? 0.5 : 1;
@@ -127,6 +141,8 @@ function Routine() {
         )
     }
 
+    const error = showError ? <span className="warning">Please fill in all fields before submitting</span> : <></>;
+
     function Sets(props) {
         if (loading) {
             return (
@@ -145,12 +161,97 @@ function Routine() {
         )
     }
 
+    const submitButton = (
+        <div className="button-container submit-container">
+            {error}
+            <LoaderButton buttonStyle="button-smaller" submit={onSubmit} show={showLoaderbutton}>
+                Submit
+            </LoaderButton>
+        </div>
+    )
+
+    const ModalComponent = () => {
+        const [routineName, setRoutineName] = useState("");
+        const [showModalLoaderButton, setShowModalLoaderButton] = useState(false);
+
+        const onModalSubmit = (e) => {
+            setShowModalLoaderButton(true);
+            let exerciseIds = [];
+            routine.forEach(exercise => {
+                exerciseIds.push(exercise.exerciseId);
+            });
+            AddRoutineTemplate({ name: routineName, exerciseIds: exerciseIds }).then((rt) => {
+                setShowModalLoaderButton(false);
+                setModalShow(false);
+                setRoutineTemplates((rts) => {
+                    return [...rts, rt];
+                })
+            })
+        }
+
+        return (
+            <Modal setShow={setModalShow}>
+                <h2>Add routine template</h2>
+                <label>
+                    Routine template name:
+                    <input className="input" id="routineName" autoCapitalize="none" onChange={(e) => setRoutineName(e.target.value)} />
+                    <br />
+                    <div className="button-container button-container-bottom">
+                        <LoaderButton buttonStyle="button-smaller" submit={onModalSubmit} show={showModalLoaderButton}>
+                            Submit
+                        </LoaderButton>
+                    </div>
+                </label>
+            </Modal>
+        )
+    };
+
+    const toDropdown = (routine) => {
+        return (
+            <option key={routine.id} value={routine.id}>{routine.name}</option>
+        )
+    }
+
+    const onDropdownSelect = (e) => {
+        GetRoutineTemplateSets(e.target.value).then((sets) => {
+            sessionStorage.setItem("routine", JSON.stringify(sets));
+            setRoutine(sets);
+        })
+    }
+
+    const submit = routine && routine.length > 0 ? submitButton : <></>;
+    const modal = modalShow ? <ModalComponent /> : <></>;
+
+    const options = routineTemplates.sort((a, b) => {
+        const nameA = a.name.toUpperCase();
+        const nameB = b.name.toUpperCase();
+        if (nameA < nameB) {
+            return -1;
+        }
+        if (nameA > nameB) {
+            return 1;
+        }
+        return 0;
+    }).map(r => toDropdown(r));
+    
+    const select = routineTemplates && routineTemplates.length > 0
+        ? <select onChange={onDropdownSelect} defaultValue="default">
+            <option value="default" disabled></option>
+            {options}
+        </select>
+        : <></>
+
     return (
         <div className="routine content">
+            <div className="routine-template-container">
+                {select}
+                <div onClick={() => setModalShow(true)}><Icon.Add /></div>
+            </div>
             <h1>Routine</h1>
             {routine && routine.length > 0 ? <span className="blurb">Drag and drop to re-order</span> : <></>}
             <Sets />
             {submit}
+            {modal}
         </div>
     )
 }

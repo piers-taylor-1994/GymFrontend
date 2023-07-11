@@ -3,8 +3,8 @@ import { AuthContext, SetAuthContext } from "../auth/Auth";
 import Version from "./Versions";
 import { ResendToken, SetPatchRead } from "./Data";
 import { useNavigate } from "react-router-dom";
-import * as Icon from "../layout/Icons";
 import './patch.scss'
+import { Modal } from "../layout/Layout";
 
 function Patch() {
     const [showModal, setShowModal] = useState(false);
@@ -39,13 +39,10 @@ function Patch() {
     }
 
     const modalContents = (
-        <div className='modal' onClick={closeModal}>
-            <div className='modal-main'>
-                <div className="button-container" onClick={closeModal}><Icon.Close /></div>
-                <h1>Release notes v{currentPatch.toString()}</h1>
+        <Modal setShow={closeModal}>
+            <h1>Release notes v{currentPatch.toString()}</h1>
                 {Version[currentPatch.toString()]}
-            </div>
-        </div>
+        </Modal>
     )
 
     const modal = showModal ? modalContents : <></>;
