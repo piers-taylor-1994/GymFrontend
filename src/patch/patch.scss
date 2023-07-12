@@ -8,6 +8,19 @@
             font-size: 0.9em;
         }
 
+        background: var(--background-primary);
+    border-radius: 1em;
+    color: var(--text-primary);
+    height: 80%;
+    left: 50%;
+    max-width: 24.1em;
+    padding: 1em;
+    position: fixed;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    overflow-y: scroll;
+
         .image-container {
             display: flex;
             justify-content: center;

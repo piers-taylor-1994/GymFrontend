@@ -1,10 +1,10 @@
 import api from "../api";
 
-const SetPatchRead = (version) => {
+async function SetPatchRead (version) {
     return api.post("patch/" + version);
 }
 
-const ResendToken = (username) => {
+async function ResendToken (username) {
     return api.postText("auth/token/resend/" + username);
 }
 

@@ -2,50 +2,57 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext, SetAuthContext } from "../auth/Auth";
 import Version from "./Versions";
 import { ResendToken, SetPatchRead } from "./Data";
-import { useNavigate } from "react-router-dom";
 import './patch.scss'
 import { Modal } from "../layout/Layout";
 
 function Patch() {
-    const [showModal, setShowModal] = useState(false);
+    const [showPage, setShowPage] = useState(false);
     const [currentPatch, setCurrentPatch] = useState(1.00);
-
-    const navigate = useNavigate();
+    const [patchContents, setPatchContents] = useState();
 
     const user = useContext(AuthContext).user();
-    const patch = user.patch;
+    let patch = user.patch;
     const username = user.username;
 
     useEffect(() => {
-        if (!patch) navigate("/logout");
-        if (parseFloat(patch) < parseFloat(Object.keys(Version)[Object.keys(Version).length - 1])) {
-            Object.keys(Version).reverse().forEach(version => {
-                if (parseFloat(patch) < version) {
-                    setShowModal(true);
+        let currentPatch = parseFloat(patch);
+        let contents = <></>;
+        if (currentPatch < parseFloat(Object.keys(Version)[Object.keys(Version).length - 1])) {
+            Object.keys(Version).forEach(version => {
+                if (currentPatch < version) {
+                    contents = 
+                        <>
+                            {contents}
+                            <h2>v{version}</h2>
+                            {Version[version.toString()]}
+                        </>
+                    currentPatch = version;
                     setCurrentPatch(version);
                 }
-            }); 
+            })
+            setPatchContents(contents);
+            setShowPage(true);
         }
-    }, [patch, navigate])
+    }, [patch])
+
 
     const closeModal = () => {
-        setShowModal(false);
+        setShowPage(false);
         SetPatchRead(currentPatch).then(() => {
             ResendToken(username).then((jwt) => {
                 SetAuthContext(jwt);
-                navigate(0);
             })
         });
     }
 
-    const modalContents = (
-        <Modal setShow={closeModal}>
-            <h1>Release notes v{currentPatch.toString()}</h1>
-                {Version[currentPatch.toString()]}
+    const page = (
+        <Modal setShow={closeModal} modalExit={true}>
+            <h1>Release notes</h1>
+                {patchContents}
         </Modal>
     )
 
-    const modal = showModal ? modalContents : <></>;
+    const modal = showPage ? page : <></>;
 
     return (
         <>

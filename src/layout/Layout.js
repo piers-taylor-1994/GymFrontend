@@ -32,7 +32,7 @@ function LoaderButton(props) {
 
 function Modal(props) {
     return (
-        <div className="modal">
+        <div className="modal" onClick={props.modalExit ? () => props.setShow(false) : null}>
             <div className="modal-main">
                 <div className="button-container button-container-exit" onClick={() => props.setShow(false)}><Icon.Close /></div>
                 {props.children}

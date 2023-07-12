@@ -11,6 +11,7 @@ function Routine() {
     const [showLoaderbutton, setShowLoaderbutton] = useState(false);
     const [showError, setShowError] = useState(false);
     const [loading, setLoading] = useState(true);
+    const [dropdownLoading, setDropdownLoading] = useState(true);
     const [lastSets, setLastSets] = useState([]);
     const [routineTemplates, setRoutineTemplates] = useState([]);
 
@@ -33,6 +34,10 @@ function Routine() {
                 setLoading(false);
             })
         }
+        GetRoutineTemplates().then((templates) => {
+            setRoutineTemplates(templates);
+            setDropdownLoading(false);
+        })
     }, [])
 
     useEffect(() => {
@@ -47,12 +52,6 @@ function Routine() {
         }
     }, [routine])
 
-    useEffect(() => {
-        GetRoutineTemplates().then((templates) => {
-            setRoutineTemplates(templates);
-        })
-    }, [])
-
     const onExerciseDataUpdate = (e, exerciseId) => {
         setList = [...routine];
         const input = setList.find(
@@ -64,7 +63,6 @@ function Routine() {
     }
 
     const onDelete = (exerciseId) => {
-        // RemoveExerciseFromRoutine(id).then(() => {});
         if (JSON.parse(sessionStorage.getItem("routine")) && JSON.parse(sessionStorage.getItem("routine")).length > 1) sessionStorage.setItem("routine", JSON.stringify(routine.filter((r) => r.exerciseId !== exerciseId)));
         else sessionStorage.removeItem("routine");
         setRoutine(routine.filter((r) => r.exerciseId !== exerciseId));
@@ -234,8 +232,9 @@ function Routine() {
         return 0;
     }).map(r => toDropdown(r));
 
-    const select =
-        (
+    const select = dropdownLoading
+        ? <div className="spinner">&nbsp;</div>
+        : (
             <select onChange={onDropdownSelect} defaultValue="default">
                 <option value="default" disabled>Select</option>
                 {options}

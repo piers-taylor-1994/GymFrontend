@@ -90,9 +90,6 @@ body {
     }
 
     .spinner {
-        color: var(--color-white);
-        background-color: var(--background-secondary);
-        border-bottom-color: var(--color-purple);
         height: 2.5em;
         width: 2.5em;
     }
@@ -100,12 +97,12 @@ body {
 
 .spinner {
     border: 5px solid;
+    border-bottom-color: var(--color-purple);
     height: 0.7em;
     width: 0.7em;
     -webkit-animation: fadein 1s, rotation 1s linear infinite;
     animation: fadein 1s, rotation 1s linear infinite;
     border-radius: 50%;
-    border-bottom-color: transparent;
 
     transition: all 1s;
     transition-timing-function: ease-in;
