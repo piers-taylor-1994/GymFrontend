@@ -234,12 +234,13 @@ function Routine() {
         return 0;
     }).map(r => toDropdown(r));
 
-    const select = routineTemplates && routineTemplates.length > 0
-        ? <select onChange={onDropdownSelect} defaultValue="default">
-            <option value="default" disabled></option>
-            {options}
-        </select>
-        : <></>
+    const select =
+        (
+            <select onChange={onDropdownSelect} defaultValue="default">
+                <option value="default" disabled>Select</option>
+                {options}
+            </select>
+        )
     const templateAdd = routine && routine.length > 0 ? <div onClick={() => setModalShow(true)}><Icon.Add /></div> : <></>;
 
     return (

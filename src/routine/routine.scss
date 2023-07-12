@@ -16,6 +16,10 @@
         flex-direction: column;
         margin-top: 0.5em;
 
+        p {
+            margin-top: 2em;
+        }
+
         .set {
             .exercise-name {
                 font-weight: bold;
@@ -57,11 +61,15 @@
         right: 0.6em;
         top: 3.8em;
         gap: 0.4em;
+        padding: 0.5em 0.5em;
+        background-color: var(--routine-template-background);
+        border-radius: 1.4em;
 
         select {
             border-radius: 1em;
-            width: 8em;
+            width: 6em;
             text-overflow: ellipsis;
+            height: 2.2em;
         }
 
         div {

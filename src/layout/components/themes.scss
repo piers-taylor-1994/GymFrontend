@@ -45,6 +45,8 @@ $square-button: 0.75rem;
 
     --border: #{$black};
 
+    --routine-template-background: #{$grey-light};
+
     --error: #{$red-darker};
     --read-only: #{$grey-light};
 }
@@ -67,6 +69,8 @@ $square-button: 0.75rem;
     --icon: #{$white};
 
     --border: #{$white};
+
+    --routine-template-background: #{$grey-dark};
 
     --error: #{$red};
     --read-only: #{$grey-dark};
