@@ -142,8 +142,10 @@ function Workouts(props) {
     const dropdownFilter = (e) => {
         if (parseInt(e.target.value) === -1) setExercises(unfilteredExercises);
         else {
+            setLoading(true);
             SearchExerciseMuscles(e.target.value).then((se) => {
                 setSearchedArray(se);
+                setLoading(false);
             })
         }
         setDropdownFilterQuery(e.target.value);
@@ -154,33 +156,28 @@ function Workouts(props) {
 
     const submit = selectedExercises.length > 0 ? <div className="button-container submit-container"><LoaderButton buttonStyle="button-smaller" submit={onSubmit} show={showLoaderbutton}>Submit</LoaderButton></div> : <></>;
 
-    if (loading) {
-        return (
-            <div className="workouts content">
-                <h1>Workouts</h1>
-                <Loader />
+    const display = loading
+        ? <Loader />
+        : <>
+            <div className="workouts-container">
+                {exercisesDisplay}
             </div>
-        )
-    }
+            {submit}
+        </>;
 
-    else {
-        return (
-            <div className="workouts content">
-                <h1>Workouts</h1>
-                <div className="filters-container">
-                    <input type="text" placeholder="Search exercises" onChange={searchFilter} />
-                    <select onChange={dropdownFilter} defaultValue={-1}>
-                        <option value={-1}>All</option>
-                        {options}
-                    </select>
-                </div>
-                <div className="workouts-container">
-                    {exercisesDisplay}
-                </div>
-                {submit}
+    return (
+        <div className="workouts content">
+            <h1>Workouts</h1>
+            <div className="filters-container">
+                <input type="text" placeholder="Search exercises" onChange={searchFilter} />
+                <select onChange={dropdownFilter} defaultValue={-1}>
+                    <option value={-1}>All</option>
+                    {options}
+                </select>
             </div>
-        )
-    }
+            {display}
+        </div>
+    )
 }
 
 export { MuscleGroup, Workouts };

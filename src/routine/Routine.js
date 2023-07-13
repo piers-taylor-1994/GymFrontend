@@ -14,11 +14,9 @@ function Routine() {
     const [dropdownLoading, setDropdownLoading] = useState(true);
     const [lastSets, setLastSets] = useState([]);
     const [routineTemplates, setRoutineTemplates] = useState([]);
-
     const [modalShow, setModalShow] = useState(false);
 
     const navigate = useNavigate();
-
     let setList = [];
 
     useEffect(() => {
@@ -41,14 +39,12 @@ function Routine() {
     }, [])
 
     useEffect(() => {
-        setLoading(true);
         if (routine) {
             let routineExerciseIds = []
             routine.map((r) => routineExerciseIds.push(r.exerciseId));
             GetLastSetForExercises(routineExerciseIds).then((sets) => {
                 setLastSets(sets);
             })
-            setLoading(false);
         }
     }, [routine])
 
@@ -142,6 +138,8 @@ function Routine() {
     const error = showError ? <span className="warning">Please fill in all fields before submitting</span> : <></>;
 
     function Sets(props) {
+        const sets = routine && routine.length > 0 ? <DnD array={routine} component={SetCard} update={onExerciseOrderUpdate} /> : <p>A routine for today hasn't been added yet. <Link to="/workouts">Please add one.</Link></p>;
+
         if (loading) {
             return (
                 <div className="sets">
@@ -150,13 +148,13 @@ function Routine() {
             )
         }
 
-        const sets = routine && routine.length > 0 ? <DnD array={routine} component={SetCard} update={onExerciseOrderUpdate} /> : <p>A routine for today hasn't been added yet. <Link to="/workouts">Please add one.</Link></p>;
-
-        return (
-            <div className="sets">
-                {sets}
-            </div>
-        )
+        else {
+            return (
+                <div className="sets">
+                    {sets}
+                </div>
+            )
+        }
     }
 
     const submitButton = (
@@ -212,6 +210,10 @@ function Routine() {
 
     const onDropdownSelect = (e) => {
         GetRoutineTemplateSets(e.target.value).then((sets) => {
+            for (let i = 0; i < sets.length; i++) {
+                const set = sets[i];
+                set.order = i
+            }
             sessionStorage.setItem("routine", JSON.stringify(sets));
             setRoutine(sets);
         })

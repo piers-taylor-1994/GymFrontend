@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useState } from "react";
 import { Logon } from "./Data";
 import { useNavigate } from "react-router-dom";
 import jwtDecode from "jwt-decode";
@@ -43,10 +43,10 @@ function SetAuthContext(jwt) {
 }
 
 function Login(props) {
-    const[username, setUsername] = useState("")
-    const[password, setPassword] = useState("")
-    const[showError, setShowError] = useState(false);
-    const[loading, setLoading] = useState(false);
+    const [username, setUsername] = useState("")
+    const [password, setPassword] = useState("")
+    const [showError, setShowError] = useState(false);
+    const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
     const onSubmit = (e) => {
@@ -86,17 +86,13 @@ function Login(props) {
 }
 
 function Logout(props) {
-    const navigate = useNavigate();
     localStorage.removeItem("jwt");
     if (navigator.serviceWorker.controller !== null) {
         navigator.serviceWorker.controller.postMessage({
             type: 'CLEAR-TOKEN'
         });
     }
-
-    useEffect(() => {
-        navigate("/");
-    }, [navigate])
+    window.history.replaceState('', '', '/'); //dirty vanilla JS hack as useNavigate is inconsistent
 }
 
 export { AuthContext, BuildContext, SetAuthContext, Login, Logout };
