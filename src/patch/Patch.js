@@ -46,7 +46,7 @@ function Patch() {
     }
 
     const page = (
-        <Modal setShow={closeModal} modalExit={true}>
+        <Modal setShow={closeModal} modalExit={true} modalStyle={"modal-main-patch"}>
             <h1>Release notes</h1>
                 {patchContents}
         </Modal>

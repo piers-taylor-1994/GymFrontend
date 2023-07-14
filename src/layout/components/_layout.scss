@@ -139,6 +139,7 @@ select {
 
 input[type=text] {
     padding-left: 0.3em;
+    box-sizing: border-box;
 }
 
 .modal {
@@ -164,6 +165,21 @@ input[type=text] {
         -webkit-transform: translate(-50%, -50%);
         transform: translate(-50%, -50%);
         width: 80%;
+
+        .button-container-exit {
+            position: absolute;
+            top: 0.4em;
+            right: 0.4em;
+
+            i {
+                height: auto;
+                width: 1.5em;
+
+                svg {
+                    fill: var(--icon);
+                }
+            }
+        }
 
         .input {
             margin-bottom: 2em;

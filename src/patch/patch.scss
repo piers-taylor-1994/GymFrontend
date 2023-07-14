@@ -1,56 +1,34 @@
 .modal {
     &-main {
-        h1 {
-            margin: 0.4em 0 0.5em 0;
-        }
+        &-patch {
+            height: 80%;
+            overflow-y: scroll;
 
-        span {
-            font-size: 0.9em;
-        }
+            h1 {
+                margin: 0.4em 0 0.5em 0;
+            }
 
-        background: var(--background-primary);
-    border-radius: 1em;
-    color: var(--text-primary);
-    height: 80%;
-    left: 50%;
-    max-width: 24.1em;
-    padding: 1em;
-    position: fixed;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    width: 80%;
-    overflow-y: scroll;
+            span {
+                font-size: 0.9em;
+            }
 
-        .image-container {
-            display: flex;
-            justify-content: center;
-            border-radius: 0.5em;
-            margin: 0.5em 0;
-
-            img {
-                width: 90%;
-                border: 1px solid var(--border);
+            .image-container {
+                display: flex;
+                justify-content: center;
                 border-radius: 0.5em;
-            }
+                margin: 0.5em 0;
 
-            &-dark {
-                background: var(--color-black);
-            }
-        }
+                img {
+                    width: 90%;
+                    border: 1px solid var(--border);
+                    border-radius: 0.5em;
+                }
 
-        .button-container-exit {
-            position: absolute;
-            top: 0.4em;
-            right: 0.4em;
-
-            i {
-                height: auto;
-                width: 1.5em;
-
-                svg {
-                    fill: var(--icon);
+                &-dark {
+                    background: var(--color-black);
                 }
             }
         }
+
     }
 }

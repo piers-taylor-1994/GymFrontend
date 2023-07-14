@@ -31,9 +31,11 @@ function LoaderButton(props) {
 }
 
 function Modal(props) {
+    const style = props.modalStyle ? "modal-main " + props.style : "modal-main";
+
     return (
         <div className="modal" onClick={props.modalExit ? () => props.setShow(false) : null}>
-            <div className="modal-main">
+            <div className={style}>
                 <div className="button-container button-container-exit" onClick={() => props.setShow(false)}><Icon.Close /></div>
                 {props.children}
             </div>

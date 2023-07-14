@@ -188,16 +188,16 @@ function Routine() {
         return (
             <Modal setShow={setModalShow}>
                 <h2>Add routine template</h2>
-                <label>
-                    Routine template name:
-                    <input className="input" id="routineName" autoCapitalize="none" onChange={(e) => setRoutineName(e.target.value)} />
-                    <br />
-                    <div className="button-container button-container-bottom">
-                        <LoaderButton buttonStyle="button-smaller" submit={onModalSubmit} show={showModalLoaderButton}>
-                            Submit
-                        </LoaderButton>
-                    </div>
-                </label>
+                    <label>
+                        Routine template name:
+                        <input className="input" id="routineName" type="text" autoCapitalize="none" onChange={(e) => setRoutineName(e.target.value)} />
+                        <br />
+                        <div className="button-container button-container-bottom">
+                            <LoaderButton buttonStyle="button-smaller" submit={onModalSubmit} show={showModalLoaderButton}>
+                                Submit
+                            </LoaderButton>
+                        </div>
+                    </label>
             </Modal>
         )
     };
