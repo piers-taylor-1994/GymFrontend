@@ -31,7 +31,7 @@ function LoaderButton(props) {
 }
 
 function Modal(props) {
-    const style = props.modalStyle ? "modal-main " + props.style : "modal-main";
+    const style = props.modalStyle ? "modal-main " + props.modalStyle : "modal-main";
 
     return (
         <div className="modal" onClick={props.modalExit ? () => props.setShow(false) : null}>
