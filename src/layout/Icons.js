@@ -84,7 +84,7 @@ export const Leaderboard = (props) => {
 
 export const Add = (props) => {
     return (
-        <i className="icon" role="button" alt="ladd button">
+        <i className="icon" role="button" alt="add button">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g data-name="Layer 2">
                 <g data-name="plus-circle">
                     <rect width="24" height="24" opacity="0" /><
@@ -92,6 +92,17 @@ export const Add = (props) => {
                     <path d="M15 11h-2V9a1 1 0 0 0-2 0v2H9a1 1 0 0 0 0 2h2v2a1 1 0 0 0 2 0v-2h2a1 1 0 0 0 0-2z" />
                 </g>
             </g>
+            </svg>
+        </i>
+    )
+}
+
+export const Back = (props) => {
+    return (
+        <i className="icon" role="button" alt="go back">
+            <svg fill="#000000" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
+                <path d="M 24 4 C 12.972066 4 4 12.972074 4 24 C 4 35.027926 12.972066 44 24 44 C 35.027934 44 44 35.027926 44 24 C 44 12.972074 35.027934 4 24 4 z M 24 7 C 33.406615 7 41 14.593391 41 24 C 41 33.406609 33.406615 41 24 41 C 14.593385 41 7 33.406609 7 24 C 7 14.593391 14.593385 7 24 7 z M 26.470703 13.986328 A 1.50015 1.50015 0 0 0 25.439453 14.439453 L 17.439453 22.439453 A 1.50015 1.50015 0 0 0 17.439453 24.560547 L 25.439453 32.560547 A 1.50015 1.50015 0 1 0 27.560547 30.439453 L 20.621094 23.5 L 27.560547 16.560547 A 1.50015 1.50015 0 0 0 26.470703 13.986328 z">
+                </path>
             </svg>
         </i>
     )

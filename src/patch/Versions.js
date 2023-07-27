@@ -34,6 +34,14 @@ const Version = {
             </div>
             <span>Once a template has been added, users can now select routine templates to pre-populate routine page.</span>
         </>
+    ),
+    1.31: (
+        <>
+            <div className='image-container'>
+                <img src='images/screenshot7.png' alt='screenshot' />
+            </div>
+            <span>History has been revamped.</span>
+        </>
     )
 }
 Object.freeze(Version);

@@ -4,52 +4,66 @@ import "./history.scss"
 import { Format } from "../layout/dates";
 import { useParams } from "react-router-dom";
 import { Loader } from "../layout/Layout";
+import * as Icon from "../layout/Icons";
 
 function WorkoutsHistory(props) {
     const [history, setHistory] = useState([]);
+
+    const [historyMonth, setHistoryMonth] = useState([]);
+    const [currentMonth, setCurrentMonth] = useState(0);
+
     const [routineList, setRoutineList] = useState([]);
-    const [selectValue, setSelectValue] = useState("dates");
+    const [routineListDate, setRoutineListDate] = useState("");
+
     const [loading, setLoading] = useState(true);
     const [sectionLoading, setSectionLoading] = useState(false);
 
     const historyId = useParams().id;
-    
+
     const getRoutine = (id) => {
         setSectionLoading(true);
         GetRoutineHistory(id).then((r) => {
             setRoutineList(r.setList);
             setSectionLoading(false);
-            setSelectValue(id);
         })
     }
 
     useEffect(() => {
         GetRoutinesHistory().then((history) => {
             setHistory(history);
+            let dateArray = new Set();
+            history.forEach(h => {
+                dateArray.add(Format(h.date).monthYear);
+            });
+            setHistoryMonth(Array.from(dateArray));
             setLoading(false);
         })
     }, [])
 
+
     useEffect(() => {
-        const selectedHistory = JSON.parse(sessionStorage.getItem("selectedHistory"));
         if (historyId) {
             getRoutine(historyId);
-            setSelectValue(historyId);
-            sessionStorage.setItem("selectedHistory", JSON.stringify(historyId));
-        }
-        else if (selectedHistory) {
-            getRoutine(selectedHistory);
-            setSelectValue(selectedHistory);
+            setRoutineListDate(new Date());
         }
     }, [historyId])
 
-    const toDropdown = (routine) => {
-        return (
-            <option value={routine.id} key={routine.id}>{Format(routine.date).dayYear}</option>
-        )
+    const toSquare = (routine) => {
+        const onSquareClick = () => {
+            getRoutine(routine.id);
+            setRoutineListDate(routine.date);
+        }
+
+        if (Format(routine.date).monthYear === historyMonth[currentMonth]) {
+            return (
+                <div className="square" key={routine.id} onClick={onSquareClick}>
+                    {Format(routine.date).date}
+                </div>
+            )
+        }
     }
 
-    const options = history.map((routine) => toDropdown(routine));
+    const options = history.map((routine) => toSquare(routine));
 
     const row = (exercise) => {
         return (
@@ -65,35 +79,61 @@ function WorkoutsHistory(props) {
     }
 
     const rows = routineList.map(ex => row(ex));
-    const display = sectionLoading ? <Loader /> : rows;
 
-    const onDropdownChange = (e) => {
-        getRoutine(e.target.value);
-        sessionStorage.setItem("selectedHistory", JSON.stringify(e.target.value));
-    }
+    const HistorySquares = (props) => {
+        var months = ["January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December"];
 
-    if (loading) {
+        const formatDate = (date) => {
+            let month = date.substring(1, 2);
+            month = months[month - 1];
+
+            return month + " " + date.substring(2);
+        }
+
         return (
-            <div className="history content">
+            <div className="history-squares">
                 <h1>History</h1>
-                <Loader />
-            </div>
-        )
-    }
-
-    else {
-        return (
-            <div className="history content">
-                <h1>History</h1>
-                <select onChange={onDropdownChange} value={selectValue}>
-                    <option value="dates" disabled> Select a date </option>
+                <h2>{formatDate(historyMonth[currentMonth])}</h2>
+                <div className="squares-container">
                     {options}
-                </select>
-                <br />
-                {display}
+                </div>
+                <div className="navigation-container">
+                    {currentMonth ? <button id="previous" onClick={() => setCurrentMonth((c) => { return (c - 1) })}>Previous</button> : <></>}
+                    {currentMonth + 1 !== historyMonth.length ? <button id="next" onClick={() => setCurrentMonth((c) => { return (c + 1) })}>Next</button> : <></>}
+                </div>
             </div>
         )
     }
+
+    const HistorySets = (props) => {
+        if (sectionLoading) return (
+            <Loader />
+        )
+
+        else {
+            return (
+                <div className="history-sets">
+                    <h1>{Format(routineListDate).dayYearShorter}</h1>
+                    {rows}
+                </div>
+            )
+        }
+    }
+
+    const display = routineList.length === 0 ? <HistorySquares /> : <HistorySets />;
+    const backButton = routineList.length !== 0
+        ? <div id="back-container" onClick={() => setRoutineList([])}>
+            <Icon.Back />
+        </div>
+        : <></>
+
+    return (
+        <div className="history content">
+            {backButton}
+            {loading ? <Loader /> : display}
+        </div>
+    )
 }
 
 export default WorkoutsHistory;
