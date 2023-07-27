@@ -22,18 +22,16 @@
 
         .set {
             width: 90%;
-            
+
             .exercise-name {
                 font-weight: bold;
             }
 
             .row {
                 display: flex;
-                align-items: center;
                 justify-content: space-between;
                 padding: 1em 0;
                 margin-right: 0.5em;
-
 
                 label {
                     height: 1.7em;
