@@ -129,7 +129,7 @@ function Routine() {
                         <input id="reps" type="number" defaultValue={exercise.reps ? exercise.reps : null} placeholder={lastExercise ? lastExercise.reps : null} onChange={e => { onExerciseDataUpdate(e, exercise.exerciseId) }} />
                         reps
                     </label>
-                    <div onClick={() => onDelete(exercise.exerciseId)}><Icon.Close /></div>
+                    <div className="delete-container" onClick={() => onDelete(exercise.exerciseId)}><Icon.Close /></div>
                 </div>
             </div>
         )

@@ -150,7 +150,7 @@ input[type=text] {
     top: 0;
     width: 100%;
     z-index: 999;
-    
+
 
     &-main {
         background: var(--background-primary);
@@ -168,8 +168,10 @@ input[type=text] {
 
         .button-container-exit {
             position: absolute;
-            top: 0.4em;
-            right: 0.4em;
+            top: 0.6em;
+            right: 0.5em;
+            height: 1.3em;
+            width: 1.3em;
 
             i {
                 height: auto;
