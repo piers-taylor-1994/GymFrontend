@@ -21,6 +21,8 @@
         }
 
         .set {
+            width: 90%;
+            
             .exercise-name {
                 font-weight: bold;
             }
@@ -42,6 +44,14 @@
                     height: 1.4em;
                     margin-right: 0.2em;
                     text-align: center;
+                }
+
+                i {
+                    height: 1.5em;
+
+                    svg {
+                        fill: var(--icon);
+                    }
                 }
             }
         }
