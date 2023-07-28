@@ -40,7 +40,6 @@ function WorkoutsHistory(props) {
         })
     }, [])
 
-
     useEffect(() => {
         if (historyId) {
             getRoutine(historyId);
@@ -48,22 +47,24 @@ function WorkoutsHistory(props) {
         }
     }, [historyId])
 
+    const filterHistoryByMonth = () => {
+        return history.filter(h => Format(h.date).monthYear === historyMonth[currentMonth]);
+    }
+
     const toSquare = (routine) => {
         const onSquareClick = () => {
             getRoutine(routine.id);
             setRoutineListDate(routine.date);
         }
 
-        if (Format(routine.date).monthYear === historyMonth[currentMonth]) {
-            return (
-                <div className="square" key={routine.id} onClick={onSquareClick}>
-                    {Format(routine.date).date}
-                </div>
-            )
-        }
+        return (
+            <div className="square" key={routine.id} onClick={onSquareClick}>
+                {Format(routine.date).date}
+            </div>
+        )
     }
 
-    const options = history.map((routine) => toSquare(routine));
+    const options = filterHistoryByMonth().reverse().map((routine) => toSquare(routine));
 
     const row = (exercise) => {
         return (
@@ -94,7 +95,7 @@ function WorkoutsHistory(props) {
         return (
             <div className="history-squares">
                 <h1>History</h1>
-                <h2>{formatDate(historyMonth[currentMonth])}</h2>
+                <h2>{formatDate(historyMonth[currentMonth])} ({filterHistoryByMonth().length})</h2>
                 <div className="squares-container">
                     {options}
                 </div>

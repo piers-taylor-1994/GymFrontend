@@ -35,7 +35,7 @@ $square-button: 0.75rem;
 
     --action-primary: #{$green};
     --action-secondary: #{$grey-light};
-    --action-tertiary: #{$purple};
+    --action-tertiary: #{$grey-light};
 
     --action-text-primary: #{$white};
 
@@ -44,8 +44,6 @@ $square-button: 0.75rem;
     --icon: #{$black};
 
     --border: #{$black};
-
-    --routine-template-background: #{$grey-light};
 
     --error: #{$red-darker};
     --read-only: #{$grey-light};
@@ -61,6 +59,7 @@ $square-button: 0.75rem;
 
     --action-primary: #{$purple};
     --action-secondary: #{$black-lighter};
+    --action-tertiary: #{$grey-dark};
 
     --action-text-primary: #{$white};
 
@@ -69,8 +68,6 @@ $square-button: 0.75rem;
     --icon: #{$white};
 
     --border: #{$white};
-
-    --routine-template-background: #{$grey-dark};
 
     --error: #{$red};
     --read-only: #{$grey-dark};

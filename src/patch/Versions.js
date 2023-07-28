@@ -4,11 +4,11 @@ const Version = {
             <div className='image-container'>
                 <img src='images/screenshot1.png' alt='screenshot' />
             </div>
-            <span>Added routine set placeholders so user can easily see what they did the last time they did an exercise.</span>
+            <ul><li>Added routine set placeholders so user can easily see what they did the last time they did an exercise.</li></ul>
             <div className='image-container'>
                 <img src='images/screenshot2.png' alt='screenshot' />
             </div>
-            <span>Added multiple muscle groups to each exercise.</span>
+            <ul><li>Added multiple muscle groups to each exercise.</li></ul>
         </>
     ),
     1.20: (
@@ -16,11 +16,11 @@ const Version = {
             <div className='image-container' style={{background: "#2E2E2E"}}>
                 <img src='images/screenshot3.png' alt='screenshot' />
             </div>
-            <span>Added leaderboard to nav.</span>
+            <ul><li>Added leaderboard to nav.</li></ul>
             <div className='image-container'>
                 <img src='images/screenshot4.png' alt='screenshot' />
             </div>
-            <span>Added leaderboard page.</span>
+            <ul><li>Added leaderboard page.</li></ul>
         </>
     ),
     1.30: (
@@ -28,11 +28,11 @@ const Version = {
             <div className='image-container'>
                 <img src='images/screenshot5.png' alt='screenshot' />
             </div>
-            <span>User can now add routine templates.</span>
+            <ul><li>User can now add routine templates.</li></ul>
             <div className='image-container'>
                 <img src='images/screenshot6.png' alt='screenshot' />
             </div>
-            <span>Once a template has been added, users can now select routine templates to pre-populate routine page.</span>
+            <ul><li>Once a template has been added, users can now select routine templates to pre-populate routine page.</li></ul>
         </>
     ),
     1.31: (
@@ -40,7 +40,18 @@ const Version = {
             <div className='image-container'>
                 <img src='images/screenshot7.png' alt='screenshot' />
             </div>
-            <span>History has been revamped.</span>
+            <ul><li>History has been revamped.</li></ul>
+        </>
+    ),
+    1.311: (
+        <>
+            <div className='image-container'>
+                <img src='images/screenshot8.png' alt='screenshot' />
+            </div>
+            <ul>
+                <li>History design tweaked.</li>
+                <li>Workouts for the month now displayed next to date.</li>
+            </ul>
         </>
     )
 }

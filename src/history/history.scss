@@ -6,6 +6,10 @@
     }
 
     &-squares {
+        h2 {
+            text-align: center;
+        }
+
         .squares-container {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -18,7 +22,7 @@
                 height: 5em;
                 justify-content: center;
                 align-items: center;
-                background-color: grey;
+                background-color: var(--action-tertiary);
                 border: 1px solid black;
                 border-radius: 1em;
             }
@@ -30,6 +34,13 @@
             top: calc(100% - 8em);
             width: 100%;
             left: 0;
+
+            button {
+                border-radius: 1em;
+                border: 1px solid black;
+                padding: 0.5em 0;
+                width: 6em;
+            }
 
             #previous {
                 justify-self: baseline;
