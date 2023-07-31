@@ -1,0 +1,52 @@
+.homepage {
+
+    h1, span {
+        opacity: 0;
+    }
+
+    h2 {
+        font-family: 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+    }
+
+    i {
+        height: 0.7em;
+        display: inline-flex;
+    }
+
+    .subheader {
+        display: block;
+        font-weight: 600;
+        font-size: 1.4em;
+    }
+
+    #header1 {
+        animation: fadeIn 2s linear 0.25s 1 normal forwards;
+    }
+
+    #header2 {
+        animation: fadeIn 2s linear 1s 1 normal forwards;
+        margin-bottom: 1em
+    }
+
+    #count1 {
+        animation: fadeIn 2s linear 1.5s 1 normal forwards;
+    }
+
+    #header3 {
+        animation: fadeIn 2s linear 2s 1 normal forwards;
+    }
+
+    #count2 {
+        animation: fadeIn 2s linear 2.5s 1 normal forwards;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+
+        to {
+            opacity: 1;
+        }
+    }
+}

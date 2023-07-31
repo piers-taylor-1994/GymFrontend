@@ -107,3 +107,78 @@ export const Back = (props) => {
         </i>
     )
 }
+
+export const LeftArrow = (props) => {
+    return (
+        <i className="icon" role="button" alt="left arrow">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <g data-name="Layer 2">
+                    <g data-name="arrow-circle-left">
+                        <rect width="24" height="24" opacity="0" />
+                        <path d="M16 11h-5.66l1.25-1.31a1 1 0 0 0-1.45-1.38l-2.86 3a1 1 0 0 0-.09.13.72.72 0 0 0-.11.19.88.88 0 0 0-.06.28L7 12a1 1 0 0 0 .08.38 1 1 0 0 0 .21.32l3 3a1 1 0 0 0 1.42 0 1 1 0 0 0 0-1.42L10.41 13H16a1 1 0 0 0 0-2z" />
+                        <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8z" />
+                    </g>
+                </g>
+            </svg>
+        </i>
+    )
+}
+
+export const RightArrow = (props) => {
+    return (
+        <i className="icon" role="button" alt="right arrow">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <g data-name="Layer 2">
+                    <g data-name="arrow-circle-right">
+                        <rect width="24" height="24" transform="rotate(-90 12 12)" opacity="0" />
+                        <path d="M17 12v-.09a.88.88 0 0 0-.06-.28.72.72 0 0 0-.11-.19 1 1 0 0 0-.09-.13l-2.86-3a1 1 0 0 0-1.45 1.38L13.66 11H8a1 1 0 0 0 0 2h5.59l-1.3 1.29a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3-3a1 1 0 0 0 .21-.32A1 1 0 0 0 17 12z" />
+                        <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8z" />
+                    </g>
+                </g>
+            </svg>
+        </i>
+    )
+}
+
+export const UpStonks = (props) => {
+    return (
+        <i className="icon" role="button" alt="up arrow">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="1 -1 24 24" style={{ fill: "green" }}>
+                <g data-name="Layer 2">
+                    <g data-name="arrowhead-up">
+                        <rect width="24" height="24" transform="rotate(180 12 12)" opacity="0" />
+                        <path d="M6.63 11.61L12 7.29l5.37 4.48A1 1 0 0 0 18 12a1 1 0 0 0 .77-.36 1 1 0 0 0-.13-1.41l-6-5a1 1 0 0 0-1.27 0l-6 4.83a1 1 0 0 0-.15 1.41 1 1 0 0 0 1.41.14z" />
+                        <path d="M12.64 12.23a1 1 0 0 0-1.27 0l-6 4.83a1 1 0 0 0-.15 1.41 1 1 0 0 0 1.41.15L12 14.29l5.37 4.48A1 1 0 0 0 18 19a1 1 0 0 0 .77-.36 1 1 0 0 0-.13-1.41z" />
+                    </g>
+                </g>
+            </svg>
+        </i>
+    )
+}
+
+export const DownStonks = (props) => {
+    return (
+        <i className="icon" role="button" alt="down arrow">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="1 -1 24 24" style={{ fill: "red" }}>
+                <g data-name="Layer 2">
+                    <g data-name="arrowhead-down">
+                        <rect width="24" height="24" opacity="0" />
+                        <path d="M17.37 12.39L12 16.71l-5.36-4.48a1 1 0 1 0-1.28 1.54l6 5a1 1 0 0 0 1.27 0l6-4.83a1 1 0 0 0 .15-1.41 1 1 0 0 0-1.41-.14z" />
+                        <path d="M11.36 11.77a1 1 0 0 0 1.27 0l6-4.83a1 1 0 0 0 .15-1.41 1 1 0 0 0-1.41-.15L12 9.71 6.64 5.23a1 1 0 0 0-1.28 1.54z" />
+                    </g>
+                </g>
+            </svg>
+        </i>
+    )
+}
+
+export const Home = (props) => {
+    return (
+        <i className="icon" role="button" alt="home button">
+            <svg fill="#000000" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
+                <path d="M 23.951172 4 A 1.50015 1.50015 0 0 0 23.072266 4.3222656 L 8.859375 15.519531 C 7.0554772 16.941163 6 19.113506 6 21.410156 L 6 40.5 C 6 41.863594 7.1364058 43 8.5 43 L 18.5 43 C 19.863594 43 21 41.863594 21 40.5 L 21 30.5 C 21 30.204955 21.204955 30 21.5 30 L 26.5 30 C 26.795045 30 27 30.204955 27 30.5 L 27 40.5 C 27 41.863594 28.136406 43 29.5 43 L 39.5 43 C 40.863594 43 42 41.863594 42 40.5 L 42 21.410156 C 42 19.113506 40.944523 16.941163 39.140625 15.519531 L 24.927734 4.3222656 A 1.50015 1.50015 0 0 0 23.951172 4 z M 24 7.4101562 L 37.285156 17.876953 C 38.369258 18.731322 39 20.030807 39 21.410156 L 39 40 L 30 40 L 30 30.5 C 30 28.585045 28.414955 27 26.5 27 L 21.5 27 C 19.585045 27 18 28.585045 18 30.5 L 18 40 L 9 40 L 9 21.410156 C 9 20.030807 9.6307412 18.731322 10.714844 17.876953 L 24 7.4101562 z">
+                </path>
+            </svg>
+        </i>
+    )
+}

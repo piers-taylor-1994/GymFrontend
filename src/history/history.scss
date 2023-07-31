@@ -14,8 +14,12 @@
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 0.5em;
-            max-height: calc(100vh - 17.9em);
+            max-height: calc(100vh - 17.3em);
             overflow-y: scroll;
+
+            div {
+                opacity: 0;
+            }
 
             .square {
                 display: flex;
@@ -25,6 +29,12 @@
                 background-color: var(--action-tertiary);
                 border: 1px solid black;
                 border-radius: 1em;
+                animation: fadeIn 1s linear 0s 1 normal forwards;
+
+                @keyframes fadeIn {
+                    from { opacity: 0; }
+                    to   { opacity: 1; }
+                }
             }
         }
 

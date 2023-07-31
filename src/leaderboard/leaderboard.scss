@@ -4,6 +4,9 @@
     }
 
     .row-container {
+        height: calc(100vh - 15em);
+        overflow-y: scroll;
+
         .row {
             padding: 0.5em 0em;
             display: grid;

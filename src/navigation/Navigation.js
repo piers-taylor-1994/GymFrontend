@@ -1,10 +1,13 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import "./navigation.scss";
 import * as Icon from '../layout/Icons';
 
 function TopNav(props) {
+    const location = useLocation();
+
     return (
         <div className="navigation-top">
+            {location.pathname !== "/" ? <Link className="nav-item" to={"/"}><Icon.Home /></Link> : <></>}
             <Link className="nav-item" to={"/settings"}><Icon.Settings /></Link>
         </div>
     )
