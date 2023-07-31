@@ -53,6 +53,17 @@ const Version = {
                 <li>Workouts for the month now displayed next to date.</li>
             </ul>
         </>
+    ),
+    1.312: (
+        <>
+            <div className='image-container'>
+                <img src='images/screenshot9.png' alt='screenshot' />
+            </div>
+            <ul>
+                <li>History navigation redesigned.</li>
+                <li>Arrows will show when a user has a month to navigate from/to.</li>
+            </ul>
+        </>
     )
 }
 Object.freeze(Version);
