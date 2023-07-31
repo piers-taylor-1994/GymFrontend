@@ -20,7 +20,7 @@ function WorkoutsHistory(props) {
 
     const touchStart = useRef(null);
     const touchEnd = useRef(null);
-    const minSwipeDistance = 50;
+    const minSwipeDistance = 100;
 
     const historyId = useParams().id;
 
@@ -119,7 +119,7 @@ function WorkoutsHistory(props) {
         return (
             <div className="history-squares" onTouchStart={onTouchStart} onTouchMove={onTouchMove} onTouchEnd={onTouchEnd}>
                 <h1>History</h1>
-                {historyMonth.length > 1 ? <span className="blurb">Swipe left/right to change month</span> : <></>}
+                {historyMonth.length > 1 ? <span className="blurb">Swipe to change month</span> : <></>}
                 <h2>{formatDate(historyMonth[currentMonth])} ({filterHistoryByMonth().length})</h2>
                 <div className="squares-container">
                     {options}
