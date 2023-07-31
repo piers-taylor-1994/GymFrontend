@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { AddRoutine, AddRoutineTemplate, GetLastSetForExercises, GetRoutine, GetRoutineTemplateSets, GetRoutineTemplates } from "./Data";
 import "./routine.scss";
 import { Link, useNavigate } from "react-router-dom";
@@ -17,7 +17,7 @@ function Routine() {
     const [modalShow, setModalShow] = useState(false);
 
     const navigate = useNavigate();
-    let setList = [];
+    const setList = useRef([]);
 
     useEffect(() => {
         if (JSON.parse(sessionStorage.getItem("routine")) && JSON.parse(sessionStorage.getItem("routine")).length > 0) {
@@ -49,13 +49,13 @@ function Routine() {
     }, [routine])
 
     const onExerciseDataUpdate = (e, exerciseId) => {
-        setList = [...routine];
-        const input = setList.find(
+        setList.current = [...routine];
+        const input = setList.current.find(
             e => e.exerciseId === exerciseId
         )
         if (e.target.id === "weight") input[e.target.id] = parseFloat(e.target.value);
         else input[e.target.id] = parseInt(e.target.value);
-        sessionStorage.setItem("routine", JSON.stringify(setList));
+        sessionStorage.setItem("routine", JSON.stringify(setList.current));
     }
 
     const onDelete = (exerciseId) => {
@@ -77,7 +77,7 @@ function Routine() {
         setShowLoaderbutton(true);
 
         routine.forEach(r => {
-            setList.forEach(s => {
+            setList.current.forEach(s => {
                 if (r.exerciseId === s.exerciseId) {
                     r.weight = s.weight;
                     r.sets = s.sets;
