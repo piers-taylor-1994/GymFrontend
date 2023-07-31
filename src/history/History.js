@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { GetRoutineHistory, GetRoutinesHistory } from "./Data";
 import "./history.scss"
 import { Format } from "../layout/dates";
@@ -17,6 +17,10 @@ function WorkoutsHistory(props) {
 
     const [loading, setLoading] = useState(true);
     const [sectionLoading, setSectionLoading] = useState(false);
+
+    const touchStart = useRef(null);
+    const touchEnd = useRef(null);
+    const minSwipeDistance = 50;
 
     const historyId = useParams().id;
 
@@ -46,6 +50,25 @@ function WorkoutsHistory(props) {
             setRoutineListDate(new Date());
         }
     }, [historyId])
+
+    const onTouchStart = (e) => {
+        console.log("On touch start");
+        touchStart.current = null;
+        touchStart.current = e.targetTouches[0].clientX;
+    }
+
+    const onTouchMove = (e) => touchEnd.current = e.targetTouches[0].clientX;
+
+    const onTouchEnd = (e) => {
+        if (!touchStart || !touchEnd) return
+        const distance = touchStart - touchEnd
+        const isLeftSwipe = distance > minSwipeDistance
+        const isRightSwipe = distance < -minSwipeDistance
+        if (isLeftSwipe || isRightSwipe) console.log('swipe', isLeftSwipe ? 'left' : 'right')
+    }
+
+    console.log(touchStart);
+    console.log(touchEnd);
 
     const filterHistoryByMonth = () => {
         return history.filter(h => Format(h.date).monthYear === historyMonth[currentMonth]);
@@ -130,7 +153,7 @@ function WorkoutsHistory(props) {
         : <></>
 
     return (
-        <div className="history content">
+        <div className="history content" onTouchStart={onTouchStart} onTouchMove={onTouchMove} onTouchEnd={onTouchEnd}>
             {backButton}
             {loading ? <Loader /> : display}
         </div>
