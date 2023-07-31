@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { GetRoutineHistory, GetRoutinesHistory } from "./Data";
 import "./history.scss"
 import { Format } from "../layout/dates";
@@ -17,6 +17,10 @@ function WorkoutsHistory(props) {
 
     const [loading, setLoading] = useState(true);
     const [sectionLoading, setSectionLoading] = useState(false);
+
+    const touchStart = useRef(null);
+    const touchEnd = useRef(null);
+    const minSwipeDistance = 100;
 
     const historyId = useParams().id;
 
@@ -92,16 +96,37 @@ function WorkoutsHistory(props) {
             return month + " " + date.substring(2);
         }
 
+        const onTouchStart = (e) => {
+            touchStart.current = null;
+            touchStart.current = e.targetTouches[0].clientX;
+        }
+
+        const onTouchMove = (e) => {
+            touchEnd.current = e.targetTouches[0].clientX;
+        }
+
+        const onTouchEnd = (e) => {
+            if (!touchStart || !touchEnd) return
+            const distance = touchStart.current - touchEnd.current;
+            const isLeftSwipe = distance > minSwipeDistance
+            const isRightSwipe = distance < -minSwipeDistance
+            if (isLeftSwipe || isRightSwipe) {
+                if (isLeftSwipe && currentMonth + 1 !== historyMonth.length) setCurrentMonth((c) => { return (c + 1) });
+                else if (isRightSwipe && currentMonth) setCurrentMonth((c) => { return (c - 1) });
+            }
+        }
+
         return (
-            <div className="history-squares">
+            <div className="history-squares" onTouchStart={onTouchStart} onTouchMove={onTouchMove} onTouchEnd={onTouchEnd}>
                 <h1>History</h1>
+                {historyMonth.length > 1 ? <span className="blurb">Swipe to change month</span> : <></>}
                 <h2>{formatDate(historyMonth[currentMonth])} ({filterHistoryByMonth().length})</h2>
                 <div className="squares-container">
                     {options}
-                </div>
-                <div className="navigation-container">
-                    {currentMonth ? <button id="previous" onClick={() => setCurrentMonth((c) => { return (c - 1) })}>Previous</button> : <></>}
-                    {currentMonth + 1 !== historyMonth.length ? <button id="next" onClick={() => setCurrentMonth((c) => { return (c + 1) })}>Next</button> : <></>}
+                    <div className="arrows-container">
+                        {currentMonth ? <div id="left"><Icon.LeftArrow /></div> : <></>}
+                        {currentMonth + 1 !== historyMonth.length ? <div id="right"><Icon.RightArrow /></div> : <></>}
+                    </div>
                 </div>
             </div>
         )
