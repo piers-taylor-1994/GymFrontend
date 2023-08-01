@@ -120,13 +120,13 @@ function WorkoutsHistory(props) {
             <div className="history-squares" onTouchStart={onTouchStart} onTouchMove={onTouchMove} onTouchEnd={onTouchEnd}>
                 <h1>History</h1>
                 {historyMonth.length > 1 ? <span className="blurb">Swipe to change month</span> : <></>}
-                <h2>{formatDate(historyMonth[currentMonth])} ({filterHistoryByMonth().length})</h2>
+                <div className="subtitle-container">
+                    {currentMonth ? <Icon.LeftArrow /> : <></>}
+                    <h2>{formatDate(historyMonth[currentMonth])} ({filterHistoryByMonth().length})</h2>
+                    {currentMonth + 1 !== historyMonth.length ? <Icon.RightArrow /> : <></>}
+                </div>
                 <div className="squares-container">
                     {options}
-                    <div className="arrows-container">
-                        {currentMonth ? <div id="left"><Icon.LeftArrow /></div> : <></>}
-                        {currentMonth + 1 !== historyMonth.length ? <div id="right"><Icon.RightArrow /></div> : <></>}
-                    </div>
                 </div>
             </div>
         )

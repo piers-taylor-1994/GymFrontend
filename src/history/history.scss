@@ -14,6 +14,18 @@
 
         h2 {
             text-align: center;
+            height: 1.5em;
+        }
+
+        .subtitle-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.3em;
+
+            i {
+                height: 0.8em;
+            }
         }
 
         .squares-container {
@@ -23,10 +35,6 @@
             max-height: calc(100vh - 17.3em);
             overflow-y: scroll;
 
-            div {
-                opacity: 0;
-            }
-
             .square {
                 display: flex;
                 aspect-ratio: 1;
@@ -35,36 +43,6 @@
                 background-color: var(--action-tertiary);
                 border: 1px solid black;
                 border-radius: 1em;
-                animation: fadeIn 1s linear 0s 1 normal forwards;
-
-                @keyframes fadeIn {
-                    from { opacity: 0; }
-                    to   { opacity: 1; }
-                }
-            }
-        }
-
-        .arrows-container {
-            display: grid;
-            position: fixed;
-            top: 50%;
-            width: 100%;
-            left: 0;
-
-            i {
-                height: 1.3em;
-            }
-
-            #left {
-                justify-self: baseline;
-                grid-row: 1;
-                margin-left: 0.17em;
-            }
-
-            #right {
-                justify-self: end;
-                grid-row: 1;
-                margin-right: 0.17em;
             }
         }
     }

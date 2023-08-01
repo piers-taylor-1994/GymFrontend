@@ -111,12 +111,11 @@ export const Back = (props) => {
 export const LeftArrow = (props) => {
     return (
         <i className="icon" role="button" alt="left arrow">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="6 6 12 12">
                 <g data-name="Layer 2">
-                    <g data-name="arrow-circle-left">
+                    <g data-name="arrow-left">
                         <rect width="24" height="24" opacity="0" />
-                        <path d="M16 11h-5.66l1.25-1.31a1 1 0 0 0-1.45-1.38l-2.86 3a1 1 0 0 0-.09.13.72.72 0 0 0-.11.19.88.88 0 0 0-.06.28L7 12a1 1 0 0 0 .08.38 1 1 0 0 0 .21.32l3 3a1 1 0 0 0 1.42 0 1 1 0 0 0 0-1.42L10.41 13H16a1 1 0 0 0 0-2z" />
-                        <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8z" />
+                        <path d="M13.54 18a2.06 2.06 0 0 1-1.3-.46l-5.1-4.21a1.7 1.7 0 0 1 0-2.66l5.1-4.21a2.1 2.1 0 0 1 2.21-.26 1.76 1.76 0 0 1 1.05 1.59v8.42a1.76 1.76 0 0 1-1.05 1.59 2.23 2.23 0 0 1-.91.2zm-4.86-6l4.82 4V8.09z" />
                     </g>
                 </g>
             </svg>
@@ -127,12 +126,10 @@ export const LeftArrow = (props) => {
 export const RightArrow = (props) => {
     return (
         <i className="icon" role="button" alt="right arrow">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="6 6 12 12">
                 <g data-name="Layer 2">
-                    <g data-name="arrow-circle-right">
-                        <rect width="24" height="24" transform="rotate(-90 12 12)" opacity="0" />
-                        <path d="M17 12v-.09a.88.88 0 0 0-.06-.28.72.72 0 0 0-.11-.19 1 1 0 0 0-.09-.13l-2.86-3a1 1 0 0 0-1.45 1.38L13.66 11H8a1 1 0 0 0 0 2h5.59l-1.3 1.29a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3-3a1 1 0 0 0 .21-.32A1 1 0 0 0 17 12z" />
-                        <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8z" />
+                    <g data-name="arrow-right">
+                        <path d="M10.46 18a2.23 2.23 0 0 1-.91-.2 1.76 1.76 0 0 1-1.05-1.59V7.79A1.76 1.76 0 0 1 9.55 6.2a2.1 2.1 0 0 1 2.21.26l5.1 4.21a1.7 1.7 0 0 1 0 2.66l-5.1 4.21a2.06 2.06 0 0 1-1.3.46zm0-10v7.9l4.86-3.9z" />
                     </g>
                 </g>
             </svg>
@@ -143,10 +140,9 @@ export const RightArrow = (props) => {
 export const UpStonks = (props) => {
     return (
         <i className="icon" role="button" alt="up arrow">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="1 -1 24 24" style={{ fill: "green" }}>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="4 4 16 16" style={{ fill: "green" }}>
                 <g data-name="Layer 2">
                     <g data-name="arrowhead-up">
-                        <rect width="24" height="24" transform="rotate(180 12 12)" opacity="0" />
                         <path d="M6.63 11.61L12 7.29l5.37 4.48A1 1 0 0 0 18 12a1 1 0 0 0 .77-.36 1 1 0 0 0-.13-1.41l-6-5a1 1 0 0 0-1.27 0l-6 4.83a1 1 0 0 0-.15 1.41 1 1 0 0 0 1.41.14z" />
                         <path d="M12.64 12.23a1 1 0 0 0-1.27 0l-6 4.83a1 1 0 0 0-.15 1.41 1 1 0 0 0 1.41.15L12 14.29l5.37 4.48A1 1 0 0 0 18 19a1 1 0 0 0 .77-.36 1 1 0 0 0-.13-1.41z" />
                     </g>
@@ -159,7 +155,7 @@ export const UpStonks = (props) => {
 export const DownStonks = (props) => {
     return (
         <i className="icon" role="button" alt="down arrow">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="1 -1 24 24" style={{ fill: "red" }}>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="4 4 16 16" style={{ fill: "red" }}>
                 <g data-name="Layer 2">
                     <g data-name="arrowhead-down">
                         <rect width="24" height="24" opacity="0" />

@@ -1,43 +1,73 @@
 .homepage {
+    margin-top: 5em;
 
-    h1, span {
+    h1 {
+        font-size: 4em;
+    }
+
+    h1,
+    span {
         opacity: 0;
-    }
-
-    h2 {
-        font-family: 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-    }
-
-    i {
-        height: 0.7em;
-        display: inline-flex;
-    }
-
-    .subheader {
-        display: block;
-        font-weight: 600;
-        font-size: 1.4em;
     }
 
     #header1 {
         animation: fadeIn 2s linear 0.25s 1 normal forwards;
     }
 
-    #header2 {
-        animation: fadeIn 2s linear 1s 1 normal forwards;
-        margin-bottom: 1em
+    .subheaders-container {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5em;
     }
 
-    #count1 {
-        animation: fadeIn 2s linear 1.5s 1 normal forwards;
-    }
+    .subheader-container {
+        display: flex;
+        height: 2em;
+        gap: 0.4em;
 
-    #header3 {
-        animation: fadeIn 2s linear 2s 1 normal forwards;
-    }
+        .difference-container {
+            display: flex;
+            align-items: center;
+            gap: 0.2em;
+        }
 
-    #count2 {
-        animation: fadeIn 2s linear 2.5s 1 normal forwards;
+        i {
+            height: 0.5em;
+            display: inline-flex;
+            margin-left: 0.1em;
+        }
+
+        .count {
+            display: flex;
+            align-items: center;
+        }
+
+        .subheader {
+            font-weight: 600;
+            font-size: 1.4em;
+        }
+
+        #header2 {
+            animation: fadeIn 2s linear 0.5s 1 normal forwards;
+            margin-bottom: 1em
+        }
+
+        .count1 {
+            animation: fadeIn 2s linear 1s 1 normal forwards;
+        }
+
+        #header3 {
+            animation: fadeIn 2s linear 1.5s 1 normal forwards;
+        }
+
+        .count2 {
+            animation: fadeIn 2s linear 2s 1 normal forwards;
+        }
+
+        .difference-show {
+            font-size: 0.8em;
+            font-weight: 500;
+        }
     }
 
     @keyframes fadeIn {

@@ -8,6 +8,7 @@ import * as Icon from "../layout/Icons";
 function Homepage(props) {
     const [counts, setCounts] = useState({});
     const [loading, setLoading] = useState(true);
+    
     let authContext = useContext(AuthContext);
     let user = authContext.user();
 
@@ -18,24 +19,42 @@ function Homepage(props) {
         })
     }, [])
 
-    let weekStyle = counts.weekCount > counts.lastWeekCount ? { color: "green" } : counts.weekCount === counts.lastWeekCount ? { color: "grey" } : { color: "red" };
-    let monthStyle = counts.monthCount > counts.lastMonthCount ? { color: "green" } : counts.monthCount === counts.lastMonthCount ? { color: "grey" } : { color: "red" };
-    let weekIcon = counts.weekCount > counts.lastWeekCount ? <Icon.UpStonks /> : counts.weekCount === counts.lastWeekCount ? <></> : <Icon.DownStonks />;
-    let monthIcon = counts.monthCount > counts.lastMonthCount ? <Icon.UpStonks />  : counts.monthCount === counts.lastMonthCount ? <></> : <Icon.DownStonks />;
+    let weekDifference = counts.weekCount > counts.lastWeekCount
+        ? <span className="count2 difference-show" style={{ color: "green" }}>(&#43;{counts.weekCount - counts.lastWeekCount}<Icon.UpStonks />)</span>
+        : counts.weekCount === counts.lastWeekCount ? <span className="count2 difference-show" style={{ color: "grey" }}>(=)</span>
+            : <span className="count2 difference-show" style={{ color: "red" }}>({counts.weekCount - counts.lastWeekCount}<Icon.DownStonks />)</span>;
+
+    let monthDifference = counts.monthCount > counts.lastMonthCount
+        ? <span className="count1 difference-show" style={{ color: "green" }}>(&#43;{counts.monthCount - counts.lastMonthCount}<Icon.UpStonks />)</span>
+        : counts.monthCount === counts.lastMonthCount ? <span className="count1 difference-show" style={{ color: "grey" }}>(=)</span>
+            : <span className="count1 difference-show" style={{ color: "red" }}>({counts.monthCount - counts.lastMonthCount}<Icon.DownStonks />)</span>;
+
 
     const display = loading
         ? <Loader />
         : <>
-            <h1 id="header1">Welcome back {user.username}</h1>
-            <span className="subheader" id="header2">This month's streak: <span id="count1" style={monthStyle}>{counts.monthCount}{monthIcon}</span></span>
-            <span className="subheader" id="header3">This week's streak: <span id="count2" style={weekStyle}>{counts.weekCount}{weekIcon}</span></span>
+            <h1 id="header1">Welcome</h1>
+            <div className="subheaders-container">
+                <div className="subheader-container">
+                    <span className="subheader" id="header2">This month's streak: </span>
+                    <div className="difference-container">
+                        <span className="subheader count count1">{counts.monthCount}</span>
+                        {monthDifference}
+                    </div>
+                </div>
+                <div className="subheader-container">
+                    <span className="subheader" id="header3">This week's streak:</span>
+                    <div className="difference-container">
+                        <span className="subheader count count2">{counts.weekCount}</span>
+                        {weekDifference}
+                    </div>
+                </div>
+            </div>
         </>
 
     return (
-        <div>
-            <div className="homepage content">
-                {display}
-            </div>
+        <div className="homepage content">
+            {display}
         </div>
     )
 }

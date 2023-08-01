@@ -3,6 +3,11 @@ body {
     overscroll-behavior: none;
 }
 
+h1 {
+    font-family: 'Roboto';
+    font-weight: 600;
+}
+
 body {
     background-color: var(--background-primary);
     font-weight: 400;
