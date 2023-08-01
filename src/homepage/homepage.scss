@@ -22,8 +22,8 @@
 
     .subheader-container {
         display: flex;
-        height: 2em;
         gap: 0.4em;
+        align-items: center;
 
         .difference-container {
             display: flex;
@@ -49,7 +49,6 @@
 
         #header2 {
             animation: fadeIn 2s linear 0.5s 1 normal forwards;
-            margin-bottom: 1em
         }
 
         .count1 {
