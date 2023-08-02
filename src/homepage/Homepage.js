@@ -20,14 +20,14 @@ function Homepage(props) {
     }, [])
 
     let weekDifference = counts.weekCount > counts.lastWeekCount
-        ? <span className="count2 difference-show" style={{ color: "green" }}>(&#43;{counts.weekCount - counts.lastWeekCount}<Icon.UpStonks />)</span>
-        : counts.weekCount === counts.lastWeekCount ? <span className="count2 difference-show" style={{ color: "grey" }}>(=)</span>
-            : <span className="count2 difference-show" style={{ color: "red" }}>({counts.weekCount - counts.lastWeekCount}<Icon.DownStonks />)</span>;
+        ? <span className="count2 difference" style={{ color: "green" }}>(&#43;{counts.weekCount - counts.lastWeekCount}<Icon.UpStonks />)</span>
+        : counts.weekCount === counts.lastWeekCount ? <span className="count2 difference" style={{ color: "grey" }}>(=)</span>
+            : <span className="count2 difference" style={{ color: "red" }}>({counts.weekCount - counts.lastWeekCount}<Icon.DownStonks />)</span>;
 
     let monthDifference = counts.monthCount > counts.lastMonthCount
-        ? <span className="count1 difference-show" style={{ color: "green" }}>(&#43;{counts.monthCount - counts.lastMonthCount}<Icon.UpStonks />)</span>
-        : counts.monthCount === counts.lastMonthCount ? <span className="count1 difference-show" style={{ color: "grey" }}>(=)</span>
-            : <span className="count1 difference-show" style={{ color: "red" }}>({counts.monthCount - counts.lastMonthCount}<Icon.DownStonks />)</span>;
+        ? <span className="count1 difference" style={{ color: "green" }}>(&#43;{counts.monthCount - counts.lastMonthCount}<Icon.UpStonks />)</span>
+        : counts.monthCount === counts.lastMonthCount ? <span className="count1 difference" style={{ color: "grey" }}>(=)</span>
+            : <span className="count1 difference" style={{ color: "red" }}>({counts.monthCount - counts.lastMonthCount}<Icon.DownStonks />)</span>;
 
 
     const display = loading
@@ -38,14 +38,14 @@ function Homepage(props) {
                 <div className="subheader-container">
                     <span className="subheader" id="header2">This month's streak: </span>
                     <div className="difference-container">
-                        <span className="subheader count count1">{counts.monthCount}</span>
+                        <span className="subheader count1">{counts.monthCount}</span>
                         {monthDifference}
                     </div>
                 </div>
                 <div className="subheader-container">
                     <span className="subheader" id="header3">This week's streak:</span>
                     <div className="difference-container">
-                        <span className="subheader count count2">{counts.weekCount}</span>
+                        <span className="subheader count2">{counts.weekCount}</span>
                         {weekDifference}
                     </div>
                 </div>
