@@ -82,6 +82,18 @@ const Version = {
                 <li>Home page button added.</li>
             </ul>
         </>
+    ),
+    2.00: (
+        <>
+            <div className='image-container'>
+                <img src='images/screenshot12.png' alt='screenshot' />
+            </div>
+            <ul>
+                <li>App name and logo added.</li>
+                <li>To update app's name and display in your app draw, the user will have to uninstall the app, and then reinstall it from the website.</li>
+                <li>A link to the website is <a href="https://delightful-ground-052848a03.3.azurestaticapps.net/" target="_blank" rel="noopener noreferrer">here.</a></li>
+            </ul>
+        </>
     )
 }
 Object.freeze(Version);
