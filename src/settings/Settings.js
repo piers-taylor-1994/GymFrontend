@@ -13,6 +13,7 @@ function Theme() {
         localStorage.setItem("theme", e.target.value);
         document.documentElement.className = e.target.value;
     }
+    
     const checked = (value) => value === theme;
 
     return (

@@ -1,5 +1,15 @@
-.login-container {
-    .login {
+.login {
+    .logo-container {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 1em;
+    
+        img {
+            height: 14.2em;
+        }
+    }
+    
+    &-form {
         display: flex;
         flex-direction: column;
         gap: 1em;

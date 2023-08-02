@@ -19,13 +19,11 @@ function App() {
     if (theme !== null) {
       document.documentElement.className = theme;
     } else {
-      document.documentElement.className = "light";
+      document.documentElement.className = "dark";
     }
     return (
       <div className='app'>
-        <div className='login-container content'>
-          {anonRouter}
-        </div>
+        {anonRouter}
       </div>
     )
   }
@@ -35,7 +33,7 @@ function App() {
   if (theme !== null) {
     document.documentElement.className = theme;
   } else {
-    const newTheme = "light";
+    const newTheme = "dark";
     localStorage.setItem("theme", newTheme);
     document.documentElement.className = newTheme;
   }

@@ -51,6 +51,8 @@ function Login(props) {
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
+    const logoPath = "/icons/logo512.png";
+
     const onSubmit = (e) => {
         setLoading(true);
         e.preventDefault();
@@ -68,7 +70,11 @@ function Login(props) {
     const error = showError ? <span className="warning">Your credentials are wrong, please try again</span> : <><br /><br /></>;
 
     return (
-        <form className="login">
+        <div className="login content">
+            <div className="logo-container">
+                <img fetchpriority="high" src={logoPath} alt="app logo"/>
+            </div>
+            <form className="login-form">
             <label>
                 Username
                 <input id="username" autoCapitalize="none" onChange={(e) => setUsername(e.target.value)} />
@@ -83,6 +89,7 @@ function Login(props) {
                 <span>Create a new account</span>
             </div> */}
         </form>
+        </div>
     )
 }
 
