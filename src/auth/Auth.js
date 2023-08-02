@@ -32,7 +32,7 @@ const BuildContext = (jwt) => {
     return authProvider;
 }
 
-function SetAuthContext(jwt) {
+function SetAuthContext(jwt, navigate) {
     localStorage.setItem("jwt", jwt);
     if (navigator.serviceWorker.controller !== null) {
         navigator.serviceWorker.controller.postMessage({
@@ -40,6 +40,8 @@ function SetAuthContext(jwt) {
             token: jwt
         });
     }
+    
+    navigate(0);
 }
 
 function Login(props) {
@@ -57,8 +59,7 @@ function Login(props) {
                 setShowError(true);
             }
             else {
-                SetAuthContext(r).then(() => navigate(0));
-                
+                SetAuthContext(r, navigate);
             }
             setLoading(false);
         })
