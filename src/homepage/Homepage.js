@@ -10,14 +10,15 @@ function Homepage(props) {
     const [loading, setLoading] = useState(true);
     
     let authContext = useContext(AuthContext);
-    let user = authContext.user();
 
     useEffect(() => {
-        GetWorkoutsCount().then((c) => {
-            setLoading(false);
-            setCounts(c);
-        })
-    }, [])
+        if (authContext.jwt()) {
+            GetWorkoutsCount().then((c) => {
+                setLoading(false);
+                setCounts(c);
+            })
+        }
+    }, [authContext])
 
     let weekDifference = counts.weekCount > counts.lastWeekCount
         ? <span className="count2 difference" style={{ color: "green" }}>(&#43;{counts.weekCount - counts.lastWeekCount}<Icon.UpStonks />)</span>

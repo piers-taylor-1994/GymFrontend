@@ -57,8 +57,8 @@ function Login(props) {
                 setShowError(true);
             }
             else {
-                SetAuthContext(r);
-                navigate(0);
+                SetAuthContext(r).then(() => navigate(0));
+                
             }
             setLoading(false);
         })
