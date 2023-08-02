@@ -17,7 +17,7 @@ function Patch() {
     useEffect(() => {
         let currentPatch = parseFloat(patch);
         let contents = <></>;
-        if (currentPatch < parseFloat(Object.keys(Version)[Object.keys(Version).length - 1])) {
+        if (currentPatch < Math.max.apply(Math, Object.keys(Version).map(i => parseFloat(i)))) {
             Object.keys(Version).forEach(version => {
                 if (currentPatch < version) {
                     contents = 
