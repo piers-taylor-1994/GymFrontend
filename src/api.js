@@ -2,29 +2,21 @@ import config from './config';
 
 const auth = (method) => {
     const jwt = localStorage.getItem("jwt");
-    if (navigator.serviceWorker.controller === null) {
-        return {
-            method: method,
-            withCredentials: true,
-            credentials: 'include',
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": "Bearer " + jwt
-            }
-        }
-    } else {
+
+    if (navigator.serviceWorker.controller !== null) {
         navigator.serviceWorker.controller.postMessage({
             type: 'STORE-TOKEN',
             token: jwt
         });
-        return {
-            method: method,
-            withCredentials: true,
-            credentials: 'include',
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": "Bearer " + jwt
-            }
+    }
+
+    return {
+        method: method,
+        withCredentials: true,
+        credentials: 'include',
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + jwt
         }
     }
 }
@@ -34,14 +26,14 @@ const err = (response) => {
 
     if (response.ok) return true;
 
-    // if (response.status === 401) {
-    //     localStorage.removeItem("jwt");
-    //     if (navigator.serviceWorker.controller !== null) {
-    //         navigator.serviceWorker.controller.postMessage({
-    //             type: 'CLEAR-TOKEN'
-    //         });
-    //     }
-    // }
+    if (response.status === 401) {
+        localStorage.removeItem("jwt");
+        if (navigator.serviceWorker.controller !== null) {
+            navigator.serviceWorker.controller.postMessage({
+                type: 'CLEAR-TOKEN'
+            });
+        }
+    }
 
     return false;
 }
