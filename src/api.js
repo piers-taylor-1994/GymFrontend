@@ -33,14 +33,14 @@ const err = (response) => {
 
     if (response.ok) return true;
 
-    if (response.status === 401) {
-        localStorage.removeItem("jwt");
-        if (navigator.serviceWorker.controller !== null) {
-            navigator.serviceWorker.controller.postMessage({
-                type: 'CLEAR-TOKEN'
-            });
-        }
-    }
+    // if (response.status === 401) {
+    //     localStorage.removeItem("jwt");
+    //     if (navigator.serviceWorker.controller !== null) {
+    //         navigator.serviceWorker.controller.postMessage({
+    //             type: 'CLEAR-TOKEN'
+    //         });
+    //     }
+    // }
 
     return false;
 }
