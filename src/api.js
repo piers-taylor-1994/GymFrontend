@@ -22,7 +22,8 @@ const auth = (method) => {
             withCredentials: true,
             credentials: 'include',
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + jwt
             }
         }
     }
