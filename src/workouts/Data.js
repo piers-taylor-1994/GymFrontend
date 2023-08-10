@@ -8,4 +8,8 @@ const SearchExerciseMuscles = (muscleGroup) => {
     return api.get("workouts/search/" + muscleGroup);
 }
 
-export { GetExercises, SearchExerciseMuscles };
+const AddExercise = (exerciseName, exerciseMuscles) => {
+    return api.post("workouts/add?name=" + exerciseName, exerciseMuscles);
+}
+
+export { GetExercises, SearchExerciseMuscles, AddExercise };

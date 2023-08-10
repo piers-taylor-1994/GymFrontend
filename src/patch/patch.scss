@@ -8,12 +8,22 @@
                 margin: 0.4em 0 0.5em 0;
             }
 
-            span {
-                font-size: 0.9em;
+            .version-header {
+                text-align: center;
+                text-decoration: underline;
+                display: block;
+                font-size: 1.25em;
+                font-weight: 500;
+                margin-bottom: 1em;
             }
 
             ul {
                 padding: 0 0 0 1.3em;
+            }
+
+            .hyperlink {
+                text-decoration: underline;
+                font-weight: 500;
             }
 
             .image-container {

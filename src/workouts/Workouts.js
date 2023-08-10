@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
-import { GetExercises, SearchExerciseMuscles } from "./Data";
+import { AddExercise, GetExercises, SearchExerciseMuscles } from "./Data";
 import './workouts.scss';
 import { useNavigate } from "react-router-dom";
 import { GetRoutine } from "../routine/Data";
-import { Loader, LoaderButton } from "../layout/Layout";
+import { Loader, LoaderButton, Modal } from "../layout/Layout";
+import * as Icon from "../layout/Icons";
 
 const MuscleGroup = {
     0: "Shoulders",
@@ -33,6 +34,8 @@ function Workouts(props) {
     const [dropdownFilterQuery, setDropdownFilterQuery] = useState(-1);
     const [searchedArray, setSearchedArray] = useState([]);
 
+    const [modalShow, setModalShow] = useState(false);
+
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -51,8 +54,8 @@ function Workouts(props) {
     useEffect(() => {
         GetExercises().then(exercises => {
             exercises.sort((a, b) => {
-                const nameA = MuscleGroup[a.muscleGroup].toUpperCase();
-                const nameB = MuscleGroup[b.muscleGroup].toUpperCase();
+                const nameA = a.name.toUpperCase();
+                const nameB = b.name.toUpperCase();
                 if (nameA < nameB) {
                     return -1;
                 }
@@ -77,6 +80,73 @@ function Workouts(props) {
         else if (searchFilterQuery) setExercises(unfilteredExercises.filter((ex) => ex.name.toLowerCase().includes(searchFilterQuery.toLowerCase())));
     }, [unfilteredExercises, searchFilterQuery, dropdownFilterQuery, searchedArray])
 
+    const ModalComponent = () => {
+        const [exerciseName, setExerciseName] = useState(searchFilterQuery);
+        const [muscles, setMuscles] = useState([]);
+        const [showModalLoaderButton, setShowModalLoaderButton] = useState(false);
+        const [showError, setShowError] = useState(false);
+
+        const onCheck = (e, i) => {
+            if (e.target.checked) setMuscles((m) => {
+                return [...m, i]
+            })
+            else {
+                setMuscles(muscles.filter((m) => m !== i));
+            }
+        }
+
+        const toCheckbox = (m, i) => {
+            return (
+                <label key={i}>
+                    {m}
+                    <input type="checkbox" value={i} onChange={(e) => onCheck(e, i)} />
+                </label>
+            )
+        }
+
+        const onModalSubmit = (e) => {
+            setShowModalLoaderButton(true);
+
+            if (!exerciseName || muscles.length === 0) {
+                setShowModalLoaderButton(false);
+                setShowError(true);
+            }
+            else {
+                AddExercise(exerciseName, muscles).then((e) => {
+                    if (e) setExercises((exercises) => {
+                        return [...exercises, e];
+                    })
+
+                    setShowModalLoaderButton(false);
+                    setModalShow(false);
+                })
+            }
+        }
+
+        let checkBoxes = Object.values(MuscleGroup).map((m, i) => toCheckbox(m, i));
+        let error = showError ? <span className="warning">Please fill in all the fields</span> : <br />;
+
+        return (
+            <Modal setShow={setModalShow}>
+                <h2>Add exercise</h2>
+                <label>
+                    Exercise name:
+                    <input className="input" id="exerciseName" type="text" autoCapitalize="none" spellCheck="true" defaultValue={exerciseName} onChange={(e) => setExerciseName(e.target.value)} />
+                </label>
+                <h3>Muscles</h3>
+                <div className="checkbox-container">
+                    {checkBoxes}
+                </div>
+                <div className="button-container button-container-bottom">
+                    {error}
+                    <LoaderButton buttonStyle="button-s" submit={onModalSubmit} show={showModalLoaderButton}>
+                        Submit
+                    </LoaderButton>
+                </div>
+            </Modal>
+        )
+    }
+
     const onCheck = (e, exercise) => {
         if (e.target.checked) {
             setSelectedExercises((se) => {
@@ -91,7 +161,6 @@ function Workouts(props) {
     const row = (exercise) => {
         return (
             <div key={exercise.exerciseId} className="row">
-                <p>{MuscleGroup[exercise.muscleGroup]}</p>
                 <p>{exercise.name}</p>
                 <input type="checkbox" checked={selectedExercises.some(s => s.exerciseId === exercise.exerciseId)} onChange={(e) => onCheck(e, exercise)} />
             </div>
@@ -154,16 +223,15 @@ function Workouts(props) {
     const exercisesDisplay = exercises.map(e => row(e));
     const options = Object.values(MuscleGroup).map((m, i) => toDropdown(m, i));
 
-    const submit = selectedExercises.length > 0 ? <div className="button-container submit-container"><LoaderButton buttonStyle="button-smaller" submit={onSubmit} show={showLoaderbutton}>Submit</LoaderButton></div> : <></>;
+    const submit = selectedExercises.length > 0 ? <div className="button-container submit-container"><LoaderButton buttonStyle="button-s" submit={onSubmit} show={showLoaderbutton}>Submit</LoaderButton></div> : <></>;
 
     const display = loading
         ? <Loader />
-        : <>
-            <div className="workouts-container">
-                {exercisesDisplay}
-            </div>
-            {submit}
-        </>;
+        : exercises.length === 0
+            ? <div className="button-container"><button className="button button-xs" onClick={() => setModalShow(true)}>Add exercise</button></div>
+            : <>{exercisesDisplay}</>;
+
+    const modal = modalShow ? <ModalComponent /> : <></>;
 
     return (
         <div className="workouts content">
@@ -175,7 +243,11 @@ function Workouts(props) {
                     {options}
                 </select>
             </div>
-            {display}
+            <div className="workouts-container">
+                {display}
+            </div>
+            {submit}
+            {modal}
         </div>
     )
 }

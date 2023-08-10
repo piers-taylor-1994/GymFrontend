@@ -4,10 +4,19 @@
         overflow: scroll;
         margin-top: 0.5em;
 
+        .button-container {
+            margin-top: 1em;
+        }
+
         .row {
             display: grid;
-            grid-template-columns: 38% 52% 10%;
+            grid-template-columns: 88% 1fr;
             justify-items: start;
+            width: 96%;
+
+            input {
+                justify-self: center;
+            }
         }
     }
 
@@ -22,5 +31,23 @@
 
     h2 {
         margin: 0.3em 0;
+    }
+
+    .modal {
+        &-main {
+
+            h3 {
+                margin-top: 0;
+                margin-bottom: 0.5em;
+            }
+
+            .checkbox-container {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 1em;
+                margin-top: 0.5em;
+                margin-bottom: 0.75em;
+            }
+        }
     }
 }

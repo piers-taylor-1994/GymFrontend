@@ -160,7 +160,7 @@ function Routine() {
     const submitButton = (
         <div className="button-container submit-container">
             {error}
-            <LoaderButton buttonStyle="button-smaller" submit={onSubmit} show={showLoaderbutton}>
+            <LoaderButton buttonStyle="button-s" submit={onSubmit} show={showLoaderbutton}>
                 Submit
             </LoaderButton>
         </div>
@@ -169,35 +169,47 @@ function Routine() {
     const ModalComponent = () => {
         const [routineName, setRoutineName] = useState("");
         const [showModalLoaderButton, setShowModalLoaderButton] = useState(false);
+        const [showError, setShowError] = useState(false);
 
         const onModalSubmit = (e) => {
             setShowModalLoaderButton(true);
-            let exerciseIds = [];
-            routine.forEach(exercise => {
-                exerciseIds.push(exercise.exerciseId);
-            });
-            AddRoutineTemplate({ name: routineName, exerciseIds: exerciseIds }).then((rt) => {
+
+            if (!routineName) {
                 setShowModalLoaderButton(false);
-                setModalShow(false);
-                setRoutineTemplates((rts) => {
-                    return [...rts, rt];
+                setShowError(true);
+            }
+
+            else {
+                let exerciseIds = [];
+                routine.forEach(exercise => {
+                    exerciseIds.push(exercise.exerciseId);
+                });
+                AddRoutineTemplate({ name: routineName, exerciseIds: exerciseIds }).then((rt) => {
+                    setShowModalLoaderButton(false);
+                    setModalShow(false);
+                    setRoutineTemplates((rts) => {
+                        return [...rts, rt];
+                    })
                 })
-            })
+            }
         }
+
+        let error = showError ? <span className="warning">Please fill in all the fields</span> : <br />;
 
         return (
             <Modal setShow={setModalShow}>
                 <h2>Add routine template</h2>
-                    <label>
-                        Routine template name:
-                        <input className="input" id="routineName" type="text" autoCapitalize="none" onChange={(e) => setRoutineName(e.target.value)} />
-                        <br />
-                        <div className="button-container button-container-bottom">
-                            <LoaderButton buttonStyle="button-smaller" submit={onModalSubmit} show={showModalLoaderButton}>
-                                Submit
-                            </LoaderButton>
-                        </div>
-                    </label>
+                <label>
+                    Routine template name:
+                    <input className="input" id="routineName" type="text" autoCapitalize="none" onChange={(e) => setRoutineName(e.target.value)} />
+                    <br />
+                    <div className="button-container button-container-bottom">
+                        {error}
+                        <LoaderButton buttonStyle="button-s" submit={onModalSubmit} show={showModalLoaderButton}>
+                            Submit
+                        </LoaderButton>
+                    </div>
+                </label>
             </Modal>
         )
     };
