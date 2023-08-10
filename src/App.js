@@ -6,14 +6,35 @@ import ROUTES from './Routes';
 import { Navigation } from './navigation/Navigation';
 import './layout/components/themes.scss'
 import Patch from './patch/Patch';
+import { useEffect, useState } from 'react';
 
 function App() {
   const router = useRoutes(ROUTES);
   const anonRouter = useRoutes(ANONROUTES);
+  const [online, setOnline] = useState(navigator.onLine);
 
   const theme = localStorage.getItem("theme");
   const jwt = localStorage.getItem("jwt");
   let authProvider = undefined;
+
+  useEffect(() => {
+    window.addEventListener("online", () => setOnline(true));
+    window.addEventListener("offline", () => setOnline(false));
+
+    return () => {
+      window.removeEventListener("online", () => setOnline(true));
+      window.removeEventListener("offline", () => setOnline(false));
+    };
+  }, []);
+
+  if (!online) return (
+    <div className='app'>
+      <div className='content'>
+        <h1>You are offline</h1>
+        <span>Please close the app and try opening again when you're back online</span>
+      </div>
+    </div>
+  )
 
   if (jwt === null) {
     if (theme !== null) {
@@ -40,11 +61,11 @@ function App() {
 
   return (
     <div className="app">
-        <AuthContext.Provider value={authProvider}>
-          <Navigation />
-          <Patch />
-          {router}
-        </AuthContext.Provider>
+      <AuthContext.Provider value={authProvider}>
+        <Navigation />
+        <Patch />
+        {router}
+      </AuthContext.Provider>
     </div>
   );
 }

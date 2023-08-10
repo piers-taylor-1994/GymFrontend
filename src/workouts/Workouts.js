@@ -131,7 +131,7 @@ function Workouts(props) {
                 <h2>Add exercise</h2>
                 <label>
                     Exercise name:
-                    <input className="input" id="exerciseName" type="text" autoCapitalize="none" spellCheck="true" defaultValue={exerciseName} onChange={(e) => setExerciseName(e.target.value)} />
+                    <input className="input" id="exerciseName" type="text" spellCheck="true" defaultValue={exerciseName} onChange={(e) => setExerciseName(e.target.value)} />
                 </label>
                 <h3>Muscles</h3>
                 <div className="checkbox-container">
