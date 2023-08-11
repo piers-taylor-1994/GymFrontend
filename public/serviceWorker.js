@@ -29,15 +29,6 @@ self.addEventListener('message', event => {
             }
         })
     }
-
-    if(event.data && event.data.type === "NOTIFICATION"){
-        let data = event.data.notification;
-        if(Notification.permission !== 'granted'){
-            return;
-        }
-
-        registration.showNotification(data.content);
-    }
 })
 
 self.addEventListener('activate', event => {
@@ -56,7 +47,7 @@ self.addEventListener('activate', event => {
     event.waitUntil(self.clients.claim());
 })
 
-const destinations = ['', 'font', 'image'];
+const destinations = ['', 'image'];
 
 self.addEventListener('fetch', event => {
     if(event.request.url.endsWith('auth/logon')){
@@ -67,8 +58,6 @@ self.addEventListener('fetch', event => {
     }
 
     let cache = currentCaches.data;
-    if (event.request.destination === 'font')
-        cache = currentCaches.font;
 
     event.respondWith(
         caches.open(cache).then(cache => {

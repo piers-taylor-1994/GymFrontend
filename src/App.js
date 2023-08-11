@@ -20,18 +20,13 @@ function App() {
   useEffect(() => {
     window.addEventListener("online", () => setOnline(true));
     window.addEventListener("offline", () => setOnline(false));
-
-    return () => {
-      window.removeEventListener("online", () => setOnline(true));
-      window.removeEventListener("offline", () => setOnline(false));
-    };
   }, []);
 
   if (!online) return (
     <div className='app'>
       <div className='content'>
         <h1>You are offline</h1>
-        <span>Please close the app and try opening again when you're back online</span>
+        <span>The app will automatically connect to the server once you have a stable internet connection again.</span>
       </div>
     </div>
   )

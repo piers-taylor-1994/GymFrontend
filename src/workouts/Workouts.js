@@ -4,7 +4,6 @@ import './workouts.scss';
 import { useNavigate } from "react-router-dom";
 import { GetRoutine } from "../routine/Data";
 import { Loader, LoaderButton, Modal } from "../layout/Layout";
-import * as Icon from "../layout/Icons";
 
 const MuscleGroup = {
     0: "Shoulders",
