@@ -1,4 +1,6 @@
 import config from './config';
+const originalFetch = require('isomorphic-fetch');
+const Fetch = require('fetch-retry')(fetch);
 
 const auth = (method) => {
     const jwt = localStorage.getItem("jwt");
@@ -47,7 +49,7 @@ const data = (method, request) => {
 
 const api = {
     get: function (url) {
-        return fetch(config.host + url, auth("GET"))
+        return Fetch(config.host + url, auth("GET"))
             .then(response => {
                 if (err(response)) {
                     return response.json();
@@ -55,7 +57,7 @@ const api = {
             })
     },
     put: function (url, request) {
-        return fetch(config.host + url, data("PUT", request))
+        return Fetch(config.host + url, data("PUT", request))
             .then(response => {
                 if (err(response)) {
                     return response.json();
@@ -66,7 +68,7 @@ const api = {
             })
     },
     post: function (url, request) {
-        return fetch(config.host + url, data("POST", request))
+        return Fetch(config.host + url, data("POST", request))
             .then(response => {
                 if (err(response)) {
                     return response.json();
@@ -77,7 +79,7 @@ const api = {
             })
     },
     postText: function (url, request) {
-        return fetch(config.host + url, data("POST", request))
+        return Fetch(config.host + url, data("POST", request))
             .then(response => {
                 if (err(response)) {
                     return response.text();
@@ -85,7 +87,7 @@ const api = {
             })
     },
     delete: function (url) {
-        return fetch(config.host + url, data("DELETE"))
+        return Fetch(config.host + url, data("DELETE"))
             .then(response => {
                 if (err(response)) {
                 }
