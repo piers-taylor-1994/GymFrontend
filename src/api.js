@@ -1,5 +1,4 @@
 import config from './config';
-const originalFetch = require('isomorphic-fetch');
 const Fetch = require('fetch-retry')(fetch);
 
 const auth = (method) => {
