@@ -1,5 +1,5 @@
 import config from './config';
-const Fetch = require('fetch-retry')(fetch);
+const Fetch = require('fetch-retry')(fetch, { retryOn: [401] });
 
 const auth = (method) => {
     const jwt = localStorage.getItem("jwt");
