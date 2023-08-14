@@ -19,15 +19,25 @@ function Routine() {
     const navigate = useNavigate();
     const setList = useRef([]);
 
+    const getPlaceholders = (r) => {
+        let routineExerciseIds = []
+        r.map((e) => routineExerciseIds.push(e.exerciseId));
+        GetLastSetForExercises(routineExerciseIds).then((sets) => {
+            setLastSets(sets);
+        })
+    }
+
     useEffect(() => {
         if (JSON.parse(sessionStorage.getItem("routine")) && JSON.parse(sessionStorage.getItem("routine")).length > 0) {
             setRoutine(JSON.parse(sessionStorage.getItem("routine")));
+            getPlaceholders(JSON.parse(sessionStorage.getItem("routine")));
             setLoading(false);
         }
         else {
             GetRoutine().then(routine => {
                 if (routine) {
                     setRoutine(routine.setList);
+                    getPlaceholders(routine.setList);
                 }
                 setLoading(false);
             })
@@ -40,11 +50,7 @@ function Routine() {
 
     useEffect(() => {
         if (routine) {
-            let routineExerciseIds = []
-            routine.map((r) => routineExerciseIds.push(r.exerciseId));
-            GetLastSetForExercises(routineExerciseIds).then((sets) => {
-                setLastSets(sets);
-            })
+
         }
     }, [routine])
 
@@ -56,7 +62,7 @@ function Routine() {
         if (e.target.id === "weight") input[e.target.id] = parseFloat(e.target.value);
         else input[e.target.id] = parseInt(e.target.value);
         sessionStorage.setItem("routine", JSON.stringify(setList.current));
-    }
+            }
 
     const onDelete = (exerciseId) => {
         if (JSON.parse(sessionStorage.getItem("routine")) && JSON.parse(sessionStorage.getItem("routine")).length > 1) sessionStorage.setItem("routine", JSON.stringify(routine.filter((r) => r.exerciseId !== exerciseId)));
@@ -65,12 +71,12 @@ function Routine() {
     }
 
     const onExerciseOrderUpdate = (setDict) => {
-        const setList = [...routine];
+        const updatedSetList = [...routine];
         for (const [key, value] of Object.entries(setDict)) {
-            setList.find(t => t.exerciseId === key).order = value;
+            updatedSetList.find(t => t.exerciseId === key).order = value;
         }
-        sessionStorage.setItem("routine", JSON.stringify(setList));
-        setRoutine(setList);
+        sessionStorage.setItem("routine", JSON.stringify(updatedSetList));
+        setList.current = updatedSetList;
     }
 
     const onSubmit = () => {
