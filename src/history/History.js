@@ -27,7 +27,7 @@ function WorkoutsHistory(props) {
     const getRoutine = (id) => {
         setSectionLoading(true);
         GetRoutineHistory(id).then((r) => {
-            setRoutineList(r.setList);
+                        setRoutineList(r.setList);
             setSectionLoading(false);
         })
     }
@@ -106,7 +106,7 @@ function WorkoutsHistory(props) {
         }
 
         const onTouchEnd = (e) => {
-            if (!touchStart || !touchEnd) return
+            if (!touchStart.current || !touchEnd.current) return
             const distance = touchStart.current - touchEnd.current;
             const isLeftSwipe = distance > minSwipeDistance
             const isRightSwipe = distance < -minSwipeDistance

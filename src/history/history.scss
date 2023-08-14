@@ -6,6 +6,8 @@
     }
 
     &-squares {
+        height: calc(100vh - 9.5em);
+
         h1 {
             margin-bottom: 0;
         }
