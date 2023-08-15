@@ -27,7 +27,7 @@ function WorkoutsHistory(props) {
     const getRoutine = (id) => {
         setSectionLoading(true);
         GetRoutineHistory(id).then((r) => {
-                        setRoutineList(r.setList);
+            setRoutineList(r.setList);
             setSectionLoading(false);
         })
     }
@@ -98,6 +98,7 @@ function WorkoutsHistory(props) {
 
         const onTouchStart = (e) => {
             touchStart.current = null;
+            touchEnd.current = null;
             touchStart.current = e.targetTouches[0].clientX;
         }
 

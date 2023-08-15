@@ -92,7 +92,7 @@ function Routine() {
             });
         });
 
-        if (routine.find(r => !r.weight || !r.sets || !r.reps)) {
+        if (routine.find(r => r.weight === null || !r.sets || !r.reps)) {
             setShowError(true);
             setShowLoaderbutton(false);
         }

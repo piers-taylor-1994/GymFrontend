@@ -112,6 +112,17 @@ const Version = {
                 <li>A modal will then appear, where the user will add the name and muscles affected by the workout.</li>
             </ul>
         </>
+    ),
+    2.11: (
+        <>
+            <span className="version-header">Users can now add weightless exercises</span>
+            <div className='image-container'>
+                <img src='images/screenshot15.png' alt='screenshot' />
+            </div>
+            <ul>
+                <li>Users can set the weight to 0 on bodyweight exercises.</li>
+            </ul>
+        </>
     )
 }
 Object.freeze(Version);
