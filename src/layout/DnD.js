@@ -74,7 +74,7 @@ export const Card = ({ id, index, moveCard, ComponentCard, update, card }) => {
 		},
 		{
 			onFinish: () => setCanDrag(false),
-			threshold: 1000,
+			threshold: 500,
 		}
 	);
 

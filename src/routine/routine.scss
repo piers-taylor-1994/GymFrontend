@@ -4,15 +4,11 @@
     }
 
     .sets {
-        height: calc(100vh - 17.5em);
+        height: calc(100vh - 16.5em);
         overflow: scroll;
         display: flex;
         flex-direction: column;
-        margin-top: 0.5em;
-
-        p {
-            margin-top: 2em;
-        }
+        margin: 0.5em 0;
 
         .set {
             width: 95%;
@@ -52,14 +48,6 @@
 
 
             }
-        }
-
-        .set:last-child {
-            padding-bottom: 1em;
-        }
-
-        .set:first-child {
-            padding-top: 1em;
         }
     }
 

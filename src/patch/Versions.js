@@ -131,7 +131,7 @@ const Version = {
                 <img src='images/screenshot16.png' alt='screenshot' />
             </div>
             <ul>
-                <li>Drag & drop will now only activate after the user has pressed for 1 second.</li>
+                <li>Drag & drop will now only activate after the user has pressed for half a second.</li>
                 <li>Routine rows now wider.</li>
                 <li>Fixed intermittent placeholder bug.</li>
             </ul>
