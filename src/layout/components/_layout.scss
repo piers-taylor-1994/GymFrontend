@@ -186,14 +186,14 @@ input[type=text] {
 
             &-exit {
                 position: absolute;
-                top: 0.6em;
+                top: 0.5em;
                 right: 0.5em;
                 height: 1.3em;
                 width: 1.3em;
     
                 i {
                     height: auto;
-                    width: 1.5em;
+                    width: 1em;
     
                     svg {
                         fill: var(--icon);

@@ -19,25 +19,15 @@ function Routine() {
     const navigate = useNavigate();
     const setList = useRef([]);
 
-    const getPlaceholders = (r) => {
-        let routineExerciseIds = []
-        r.map((e) => routineExerciseIds.push(e.exerciseId));
-        GetLastSetForExercises(routineExerciseIds).then((sets) => {
-            setLastSets(sets);
-        })
-    }
-
     useEffect(() => {
         if (JSON.parse(sessionStorage.getItem("routine")) && JSON.parse(sessionStorage.getItem("routine")).length > 0) {
             setRoutine(JSON.parse(sessionStorage.getItem("routine")));
-            getPlaceholders(JSON.parse(sessionStorage.getItem("routine")));
             setLoading(false);
         }
         else {
             GetRoutine().then(routine => {
                 if (routine) {
                     setRoutine(routine.setList);
-                    getPlaceholders(routine.setList);
                 }
                 setLoading(false);
             })
@@ -49,8 +39,12 @@ function Routine() {
     }, [])
 
     useEffect(() => {
-        if (routine) {
-
+        if (routine.length > 0) {
+            let routineExerciseIds = []
+            routine.map((e) => routineExerciseIds.push(e.exerciseId));
+            GetLastSetForExercises(routineExerciseIds).then((sets) => {
+                setLastSets(sets);
+            })
         }
     }, [routine])
 
@@ -62,7 +56,7 @@ function Routine() {
         if (e.target.id === "weight") input[e.target.id] = parseFloat(e.target.value);
         else input[e.target.id] = parseInt(e.target.value);
         sessionStorage.setItem("routine", JSON.stringify(setList.current));
-            }
+    }
 
     const onDelete = (exerciseId) => {
         if (JSON.parse(sessionStorage.getItem("routine")) && JSON.parse(sessionStorage.getItem("routine")).length > 1) sessionStorage.setItem("routine", JSON.stringify(routine.filter((r) => r.exerciseId !== exerciseId)));
@@ -118,7 +112,7 @@ function Routine() {
         const lastExercise = lastSets ? lastSets.find(t => t.exerciseId === exercise.exerciseId) : {};
 
         return (
-            <div ref={props.cardRef} style={{ ...props.styleCard, opacity }} data-handler-id={props.handlerId} className="set">
+            <div ref={props.cardRef} style={{ ...props.styleCard, opacity }} data-handler-id={props.handlerId}>
                 <div>
                     <span className="exercise-name">{exercise.name}</span>
                 </div>

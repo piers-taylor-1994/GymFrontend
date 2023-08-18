@@ -1,6 +1,4 @@
 .routine {
-    margin-right: 0 !important;
-
     h1 {
         margin-bottom: 0;
     }
@@ -17,7 +15,7 @@
         }
 
         .set {
-            width: 85%;
+            width: 95%;
 
             .exercise-name {
                 font-weight: bold;
@@ -26,10 +24,12 @@
             .row {
                 display: flex;
                 justify-content: space-between;
+                align-items: center;
                 padding: 1em 0;
 
                 label {
-                    height: 1.7em;
+                    line-height: 1em;
+                    height: 1.3em;
                 }
 
                 input {
@@ -42,7 +42,6 @@
                 .delete-container {
                     height: 1em;
                     width: 1em;
-                    padding: 0.1em;
 
                     i {
                         svg {

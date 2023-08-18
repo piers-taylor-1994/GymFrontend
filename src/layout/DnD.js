@@ -3,14 +3,15 @@ import { TouchBackend } from 'react-dnd-touch-backend'
 import { HTML5Backend } from 'react-dnd-html5-backend'
 import update from "immutability-helper";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { useLongPress } from "use-long-press";
 
 export const Card = ({ id, index, moveCard, ComponentCard, update, card }) => {
 	const ref = useRef(null);
 
-	const ItemTypes = { 
+	const ItemTypes = {
 		CARD: 'card',
 	}
-	
+
 	const styleCard = {
 		cursor: 'move'
 	}
@@ -65,10 +66,23 @@ export const Card = ({ id, index, moveCard, ComponentCard, update, card }) => {
 		},
 	})
 
-	const [{ isDragging }, drag] = useDrag({
+	const [canDrag, setCanDrag] = useState(false);
+
+	const longPress = useLongPress(
+		() => {
+			setCanDrag(true);
+		},
+		{
+			onFinish: () => setCanDrag(false),
+			threshold: 1000,
+		}
+	);
+
+	let [{ isDragging }, drag] = useDrag({
 		type: ItemTypes.CARD,
 		item: () => {
-			return { id, index }
+			if (canDrag) return { id, index }
+
 		},
 		collect: (monitor) => ({
 			isDragging: monitor.isDragging(),
@@ -78,8 +92,8 @@ export const Card = ({ id, index, moveCard, ComponentCard, update, card }) => {
 	drag(drop(ref));
 
 	return (
-		<ComponentCard cardRef={ref} styleCard={styleCard} isDragging={isDragging} handlerId={handlerId} 
-		id={id} card={card}/>
+		<div {...longPress()} className='set'><ComponentCard cardRef={ref} styleCard={styleCard} isDragging={isDragging || canDrag} handlerId={handlerId}
+			id={id} card={card} /></div>
 	)
 
 }
@@ -88,10 +102,10 @@ const Container = (props) => {
 	const array = props.array
 	array.sort((a, b) => parseInt(a.order) - parseInt(b.order));
 	const [cards, setCards] = useState(array);
-	
-	useEffect(()=>{
+
+	useEffect(() => {
 		setCards(array);
-	},[array])
+	}, [array])
 
 	const UpdateOrders = useCallback(() => {
 		let cardDict = {};
@@ -144,7 +158,7 @@ if (window.matchMedia("(pointer: fine)").matches) {
 function DnD(props) {
 	return (
 		<DndProvider backend={backend}>
-			<Container array={props.array} component={props.component} update={props.update}/>
+			<Container array={props.array} component={props.component} update={props.update} />
 		</DndProvider>
 	)
 }

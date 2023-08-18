@@ -20,7 +20,7 @@ function Patch() {
         if (currentPatch < Math.max.apply(Math, Object.keys(Version).map(i => parseFloat(i)))) {
             Object.keys(Version).sort().forEach(version => {
                 if (currentPatch < version) {
-                    contents = 
+                    contents =
                         <>
                             {contents}
                             <h2>v{version}</h2>
@@ -47,7 +47,9 @@ function Patch() {
     const page = (
         <Modal setShow={closeModal} modalStyle={"modal-main-patch"}>
             <h1>Release notes</h1>
+            <div className="versions">
                 {patchContents}
+            </div>
         </Modal>
     )
 
