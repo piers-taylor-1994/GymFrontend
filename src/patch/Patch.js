@@ -56,9 +56,9 @@ function Patch() {
     const modal = showPage ? page : <></>;
 
     return (
-        <>
+        <div className="patch">
             {modal}
-        </>
+        </div>
     )
 }
 

@@ -5,12 +5,12 @@
         }
     }
 
+    .header {
+        margin-bottom: 0;
+    }
+
     &-squares {
         height: calc(100vh - 9.5em);
-
-        h1 {
-            margin-bottom: 0;
-        }
 
         h2 {
             text-align: center;

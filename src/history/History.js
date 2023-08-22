@@ -119,7 +119,6 @@ function WorkoutsHistory(props) {
 
         return (
             <div className="history-squares" onTouchStart={onTouchStart} onTouchMove={onTouchMove} onTouchEnd={onTouchEnd}>
-                <h1>History</h1>
                 {historyMonth.length > 1 ? <span className="blurb">Swipe to change month</span> : <></>}
                 <div className="subtitle-container">
                     {currentMonth ? <Icon.LeftArrow /> : <></>}
@@ -148,17 +147,27 @@ function WorkoutsHistory(props) {
         }
     }
 
-    const display = routineList.length === 0 ? <HistorySquares /> : <HistorySets />;
+    const display = loading
+        ? <Loader />
+        : history.length === 0
+            ? <span>No routines recorded yet</span>
+            : routineList.length === 0
+                ? <HistorySquares />
+                : <HistorySets />;
+
     const backButton = routineList.length !== 0
         ? <div id="back-container" onClick={() => setRoutineList([])}>
             <Icon.Back />
         </div>
         : <></>
 
+    const header = history.length === 0 || routineList.length === 0 ? <h1 className="header">History</h1> : <></>;
+
     return (
         <div className="history content">
             {backButton}
-            {loading ? <Loader /> : display}
+            {header}
+            {display}
         </div>
     )
 }

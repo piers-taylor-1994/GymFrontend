@@ -1,67 +1,70 @@
-.modal {
-    &-main {
-        padding: 1em 0em;
-        width: 90%;
+.patch {
+    .modal {
+        &-main {
+            padding: 1em 0em;
+            width: 90%;
 
-        &-patch {
-            h1 {
-                margin: 0.4em 0 0.5em 0;
-                padding: 0 0.5em;
-            }
-
-            .versions {
-                max-height: calc(100vh - 9em);
-                overflow-y: scroll;
-                padding: 0 0.5em;
-
-                h2 {
-                    margin: 0.3em 0;;
+            &-patch {
+                h1 {
+                    margin: 0.4em 0 0.5em 0;
                     padding: 0 0.5em;
                 }
 
-                .version:not(:last-child) {
-                    border-bottom: 2.5px solid white;
-                }
+                .versions {
+                    max-height: calc(100vh - 9em);
+                    overflow-y: scroll;
+                    padding: 0 0.5em;
 
-                .version {
-                    .version-header {
-                        text-align: center;
-                        text-decoration: underline;
-                        display: block;
-                        font-size: 1.25em;
-                        font-weight: 500;
-                        margin-bottom: 1em;
-                        padding: 0 0.4em;
+                    h2 {
+                        margin: 0.3em 0;
+                        ;
+                        padding: 0 0.5em;
                     }
 
-                    ul {
-                        padding: 0 0 0 1.3em;
+                    .version:not(:last-child) {
+                        border-bottom: 2.5px solid white;
                     }
 
-                    .hyperlink {
-                        text-decoration: underline;
-                        font-weight: 500;
-                    }
-
-                    .image-container {
-                        display: flex;
-                        justify-content: center;
-                        border-radius: 0.5em;
-                        margin: 0.5em 0;
-
-                        img {
-                            width: 90%;
-                            border: 1px solid var(--border);
-                            border-radius: 0.5em;
+                    .version {
+                        .version-header {
+                            text-align: center;
+                            text-decoration: underline;
+                            display: block;
+                            font-size: 1.25em;
+                            font-weight: 500;
+                            margin-bottom: 1em;
+                            padding: 0 0.4em;
                         }
 
-                        &-dark {
-                            background: var(--color-black);
+                        ul {
+                            padding: 0 0 0 1.3em;
+                        }
+
+                        .hyperlink {
+                            text-decoration: underline;
+                            font-weight: 500;
+                        }
+
+                        .image-container {
+                            display: flex;
+                            justify-content: center;
+                            border-radius: 0.5em;
+                            margin: 0.5em 0;
+
+                            img {
+                                width: 90%;
+                                border: 1px solid var(--border);
+                                border-radius: 0.5em;
+                            }
+
+                            &-dark {
+                                background: var(--color-black);
+                            }
                         }
                     }
                 }
             }
-        }
 
+        }
     }
 }

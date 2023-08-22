@@ -12,10 +12,20 @@
             display: grid;
             grid-template-columns: 88% 1fr;
             justify-items: start;
+            align-items: center;
             width: 96%;
+            height: 2.75em;
+
+            p {
+                line-height: 0.9em;
+                height: 0.9em;
+                margin: 0;
+            }
 
             input {
                 justify-self: center;
+                height: 1em;
+                margin: 0;
             }
         }
     }
