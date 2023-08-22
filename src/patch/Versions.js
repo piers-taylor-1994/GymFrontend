@@ -136,6 +136,18 @@ const Version = {
                 <li>Fixed intermittent placeholder bug.</li>
             </ul>
         </div>
+    ),
+    2.13: (
+        <div className="version">
+            <span className="version-header">Colour-coding added to history</span>
+            <div className='image-container'>
+                <img src='images/screenshot17.png' alt='screenshot' />
+            </div>
+            <ul>
+                <li>Each history square is now colour-coded depending on muscles worked.</li>
+                <li>Magenta for upper, green for core and blue for lowers.</li>
+            </ul>
+        </div>
     )
 }
 Object.freeze(Version);

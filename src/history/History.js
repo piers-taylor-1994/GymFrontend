@@ -56,13 +56,15 @@ function WorkoutsHistory(props) {
     }
 
     const toSquare = (routine) => {
+        let squareClass = routine.muscleArea === 0 ? " upper" : routine.muscleArea === 1 ? " core" : " lower"
+
         const onSquareClick = () => {
             getRoutine(routine.id);
             setRoutineListDate(routine.date);
         }
 
         return (
-            <div className="square" key={routine.id} onClick={onSquareClick}>
+            <div className={"square" + squareClass} key={routine.id} onClick={onSquareClick}>
                 {Format(routine.date).date}
             </div>
         )

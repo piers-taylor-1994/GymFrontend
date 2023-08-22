@@ -42,8 +42,21 @@
                 justify-content: center;
                 align-items: center;
                 background-color: var(--action-tertiary);
-                border: 1px solid black;
+                border: 1.5px solid var(--border);
                 border-radius: 1em;
+                font-weight: 500;
+            }
+
+            .upper {
+                background-color: var(--square-upper);
+            }
+
+            .core {
+                background-color: var(--square-core);
+            }
+
+            .lower {
+                background-color: var(--square-lower);
             }
         }
     }

@@ -13,6 +13,15 @@ $gold: #FFD700;
 $silver: #D8D8D8;
 $bronze: #CD7F32;
 
+$pastel-violet-light: #cb99c9;
+$pastel-jade-light: #66CC99;
+$pastel-blue-light: #A7C7E7;
+
+$pastel-violet-dark: #9c3898;
+$pastel-jade-dark: #339933;
+$pastel-blue-dark: #125aa3;
+
+
 $white: #FFF;
 $white-darker: #F5F5F5;
 $black: #333;
@@ -45,6 +54,10 @@ $square-button: 0.75rem;
 
     --border: #{$black};
 
+    --square-upper: #{$pastel-violet-light};
+    --square-core: #{$pastel-jade-light};
+    --square-lower: #{$pastel-blue-light};
+
     --error: #{$red-darker};
     --read-only: #{$grey-light};
 }
@@ -68,6 +81,10 @@ $square-button: 0.75rem;
     --icon: #{$white};
 
     --border: #{$white};
+
+    --square-upper: #{$pastel-violet-dark};
+    --square-core: #{$pastel-jade-dark};
+    --square-lower: #{$pastel-blue-dark};
 
     --error: #{$red};
     --read-only: #{$grey-dark};
