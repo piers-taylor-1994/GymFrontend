@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./qrcode.scss"
 import QRCode from "react-qr-code";
 import { Format } from "../layout/dates";
@@ -8,7 +8,8 @@ function Qrcode() {
     const [qrValue, setQrValue] = useState("");
     const [randomNumber, setRandomNumber] = useState("A1")
 
-    const alphabet = "ABCDEFGHIJKLMNOPQRSTUVQXYZ"; 
+    const alphabet = "ABCDEFGHIJKLMNOPQRSTUVQXYZ";
+    const colourList = ["red", "green", "blue"];
 
     const updateQrcode = () => {
         setQrValue(inputValue);
@@ -27,7 +28,7 @@ function Qrcode() {
                 />
             </div>
             <div className="randomNumber-container">
-                <span>{randomNumber}</span>
+                <span style={{color: colourList.sort(() => Math.random() - 0.5)[0]}}>{randomNumber}</span>
             </div>
             <div className="dateTime-container-container">
                 <div className="dateTime-container">
