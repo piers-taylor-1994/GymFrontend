@@ -3,10 +3,13 @@
         margin-bottom: 2em;
     }
 
-    .logout {
-        .button {
+    .buttons-container {
+        display: flex;
+        flex-direction: column;
+        gap: 1em;
+        
+        .button-grey {
             background-color: var(--color-dark-grey);
-            width: 50%;
         }
     }
 }

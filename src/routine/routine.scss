@@ -4,11 +4,12 @@
     }
 
     .sets {
-        height: calc(100vh - 16.5em);
-        overflow: scroll;
         display: flex;
         flex-direction: column;
-        margin: 0.5em 0;
+        height: calc(100vh - 17.4em);
+        overflow: scroll;
+        margin-top: 1em;
+        margin-bottom: 0.5em;
 
         .set {
             width: 95%;

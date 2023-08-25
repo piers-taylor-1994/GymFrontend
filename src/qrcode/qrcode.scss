@@ -1,0 +1,59 @@
+.qrcode {
+    h1 {
+        margin-top: 5em;
+        margin-bottom: 1.5em;
+        font-size: 1em;
+        text-align: center;
+        font-weight: 400;
+        color: #a1a1a1;
+    }
+
+    .randomNumber-container {
+        display: flex;
+        justify-content: center;
+
+        span {
+            position: absolute;
+            color: red;
+            font-size: 3.4rem;
+            top: 3.7em;
+            z-index: 3;
+        }
+
+    }
+
+    .dateTime-container-container {
+        display: flex;
+        justify-content: center;
+
+        .dateTime-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 5.3em;
+            width: 11em;
+
+            span {
+                color: #a1a1a1;
+                font-size: 0.80em;
+            }
+        }
+    }
+
+    &-submit {
+        display: flex;
+        flex-direction: column;
+        align-content: center;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1.5em;
+        position: fixed;
+        bottom: 5.4em;
+        left: 0;
+        height: 7em;
+        width: 100%;
+
+        input {
+            margin-left: 0.5em;
+        }
+    }
+}

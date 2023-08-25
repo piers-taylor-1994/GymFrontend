@@ -2,6 +2,7 @@ import { Logout } from "./auth/Auth";
 import HistoryRoutes from "./history/Routes";
 import Homepage from "./homepage/Homepage";
 import LeaderboardRoutes from "./leaderboard/Routes";
+import Qrcode from "./qrcode/Qrcode";
 import RoutinesRoutes from "./routine/Routes";
 import Settings from "./settings/Settings";
 import Stopwatch from "./stopwatch/Stopwatch";
@@ -16,7 +17,7 @@ const ROUTES = [
     {
         path: "/stopwatch",
         element: <Stopwatch />,
-        children: [] 
+        children: []
     },
     WorkoutsRoutes,
     RoutinesRoutes,
@@ -25,6 +26,11 @@ const ROUTES = [
     {
         path: "/settings",
         element: <Settings />,
+        children: []
+    },
+    {
+        path: "/qrcode",
+        element: <Qrcode />,
         children: []
     },
     {
