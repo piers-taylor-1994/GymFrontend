@@ -47,8 +47,6 @@ function Settings(props) {
     }
 
     const qrPage = () => {
-        localStorage.setItem("theme", "light");
-        document.documentElement.className = "light";
         navigate("/qrcode");
     }
 

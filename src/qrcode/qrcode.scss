@@ -1,6 +1,12 @@
 .qrcode {
+    background-color: var(--color-white);
+    height: calc(100vh - 5.4em);
+    color: var(--color-black);
+    top: -13px;
+    position: relative;
+
     h1 {
-        margin-top: 5em;
+        padding-top: 4em;
         margin-bottom: 1.5em;
         font-size: 1em;
         text-align: center;
@@ -8,52 +14,122 @@
         color: #a1a1a1;
     }
 
-    .randomNumber-container {
-        display: flex;
-        justify-content: center;
-
-        span {
-            position: absolute;
-            color: red;
-            font-size: 3.4rem;
-            top: 4em;
-            z-index: 3;
-        }
-
-    }
-
-    .dateTime-container-container {
-        display: flex;
-        justify-content: center;
-
-        .dateTime-container {
-            display: flex;
-            justify-content: space-between;
-            gap: 5.3em;
-            width: 11em;
-
-            span {
-                color: #a1a1a1;
-                font-size: 0.80em;
-            }
-        }
-    }
-
-    &-submit {
+    .content-container {
         display: flex;
         flex-direction: column;
-        align-content: center;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 1.5em;
-        position: fixed;
-        bottom: 5.4em;
-        left: 0;
-        height: 7em;
-        width: 100%;
+        align-items: center;
 
-        input {
-            margin-left: 0.5em;
+        .qrcode-container {
+            height: 211.2px;
+            width: 211.2px;
+            margin: 0 auto;
+            max-width: 11em;
+
+            svg {
+                height: auto;
+                max-width: 100%;
+                width: 100%;
+            }
+        }
+
+        .randomNumber-container {
+            display: flex;
+            height: 211.2px;
+            width: 211.2px;
+            position: absolute;
+            justify-content: center;
+            align-items: center;
+
+            span {
+                height: 0.7em;
+                line-height: 0.6em;
+                font-size: 3.4rem;
+                z-index: 3;
+            }
+
+        }
+
+        .dateTime-container-container {
+            display: flex;
+            justify-content: center;
+
+            .dateTime-container {
+                display: flex;
+                justify-content: space-between;
+                gap: 5.3em;
+                width: 11em;
+
+                span {
+                    color: #a1a1a1;
+                    font-size: 0.80em;
+                }
+            }
+        }
+
+        &-submit {
+            display: flex;
+            flex-direction: column;
+            align-content: center;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1.5em;
+            position: fixed;
+            bottom: 5.4em;
+            left: 0;
+            height: 7em;
+            width: 100%;
+
+            input {
+                margin-left: 0.5em;
+                background-color: var(--color-white);
+            }
+        }
+
+        .timer {
+            margin-top: 2.5em;
+
+            .base-timer {
+                position: relative;
+                width: 200px;
+                height: 200px;
+                color: #8a8a8a;
+            }
+
+            .base-timer__svg {
+                transform: scaleX(1);
+            }
+
+            .base-timer__circle {
+                fill: none;
+                stroke: none;
+            }
+
+            .base-timer__path-elapsed {
+                stroke-width: 7px;
+                stroke: lightgray;
+            }
+
+            .base-timer__path-remaining {
+                stroke-width: 7px;
+                stroke-linecap: round;
+                transform: rotate(90deg);
+                transform-origin: center;
+                transition: 1s linear all;
+                fill-rule: nonzero;
+                stroke: currentColor;
+                color: green;
+            }
+
+            .base-timer__label {
+                position: absolute;
+                width: 200px;
+                height: 200px;
+                top: 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 48px;
+            }
         }
     }
 }
