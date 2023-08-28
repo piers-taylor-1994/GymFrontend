@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import "./qrcode.scss"
 import QRCode from "react-qr-code";
 import { Format } from "../layout/dates";
