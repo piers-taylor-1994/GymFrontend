@@ -2,7 +2,6 @@ const dayjs = require("dayjs")
 
 const Format = (date) => {
     let newDate = dayjs(date);
-    console.log(newDate);
 
     return {
         day: newDate.format('dddd'),
