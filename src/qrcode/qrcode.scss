@@ -18,51 +18,57 @@
         display: flex;
         flex-direction: column;
         align-items: center;
+        gap: calc(100vh - 40em);
 
-        .qrcode-container {
-            height: 211.2px;
-            width: 211.2px;
-            margin: 0 auto;
-            max-width: 11em;
-
-            svg {
-                height: auto;
-                max-width: 100%;
-                width: 100%;
-            }
-        }
-
-        .randomNumber-container {
+        .qrcode-date-container {
             display: flex;
-            height: 211.2px;
-            width: 211.2px;
-            position: absolute;
-            justify-content: center;
-            align-items: center;
+            flex-direction: column;
 
-            span {
-                height: 0.7em;
-                line-height: 0.6em;
-                font-size: 3.4rem;
-                z-index: 3;
+            .qrcode-container {
+                height: 211.2px;
+                width: 211.2px;
+                margin: 0 auto;
+                max-width: 11em;
+
+                svg {
+                    height: auto;
+                    max-width: 100%;
+                    width: 100%;
+                }
             }
 
-        }
-
-        .dateTime-container-container {
-            display: flex;
-            justify-content: center;
-            margin-top: 0.2em;
-
-            .dateTime-container {
+            .randomNumber-container {
                 display: flex;
-                justify-content: space-between;
-                gap: 5.3em;
-                width: 11em;
+                height: 211.2px;
+                width: 211.2px;
+                position: absolute;
+                justify-content: center;
+                align-items: center;
 
                 span {
-                    color: #a1a1a1;
-                    font-size: 0.80em;
+                    height: 0.7em;
+                    line-height: 0.6em;
+                    font-size: 3.4rem;
+                    z-index: 3;
+                }
+
+            }
+
+            .dateTime-container-container {
+                display: flex;
+                justify-content: center;
+                margin-top: 0.2em;
+
+                .dateTime-container {
+                    display: flex;
+                    justify-content: space-between;
+                    gap: 5.3em;
+                    width: 11em;
+
+                    span {
+                        color: #a1a1a1;
+                        font-size: 0.80em;
+                    }
                 }
             }
         }
@@ -87,8 +93,6 @@
         }
 
         .timer {
-            margin-top: 2.5em;
-
             .base-timer {
                 position: relative;
                 width: 200px;

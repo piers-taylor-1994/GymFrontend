@@ -55,10 +55,9 @@ function Qrcode() {
                     timeLeft
                 );
                 setCircleDasharray();
-
-                if (timeLeft === 0) {
-                    onTimesUp();
-                }
+            }
+            if (timeLeft === 0 || !document.getElementById("base-timer-label")) {
+                onTimesUp();
             }
         }, 1000);
     }
@@ -106,20 +105,22 @@ function Qrcode() {
         <div className="qrcode">
             <h1>Scan QR Code to enter</h1>
             <div className="content-container">
-                <div className="qrcode-container">
-                    <QRCode
-                        size={256}
-                        value={qrValue}
-                        viewBox={`0 0 256 256`}
-                    />
-                </div>
-                <div className="randomNumber-container">
-                    <span style={{ color: randomNumberColour }}>{randomNumber}</span>
-                </div>
-                <div className="dateTime-container-container">
-                    <div className="dateTime-container">
-                        <span>{Format(new Date()).date}</span>
-                        <span>{Format(new Date()).time}</span>
+                <div className="qrcode-date-container">
+                    <div className="qrcode-container">
+                        <QRCode
+                            size={256}
+                            value={qrValue}
+                            viewBox={`0 0 256 256`}
+                        />
+                    </div>
+                    <div className="randomNumber-container">
+                        <span style={{ color: randomNumberColour }}>{randomNumber}</span>
+                    </div>
+                    <div className="dateTime-container-container">
+                        <div className="dateTime-container">
+                            <span>{Format(new Date()).date}</span>
+                            <span>{Format(new Date()).time}</span>
+                        </div>
                     </div>
                 </div>
                 <div className="timer">
