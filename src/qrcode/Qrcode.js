@@ -79,12 +79,22 @@ function Qrcode() {
     }
 
     function setCircleDasharray() {
-        const circleDasharray = `${(
-            calculateTimeFraction() * FULL_DASH_ARRAY
-        ).toFixed(0)} 283`;
-        document
-            .getElementById("base-timer-path-remaining")
-            .setAttribute("stroke-dasharray", circleDasharray);
+        const timeFraction = calculateTimeFraction();
+
+        if (timeFraction <= 0) {
+            document.getElementById("base-timer-path-remaining")
+            .style.transition = "0s";
+            document.getElementById("base-timer-path-remaining")
+            .setAttribute("opacity", 0);
+        }
+        else {
+            const circleDasharray = `${(
+                timeFraction * FULL_DASH_ARRAY
+            ).toFixed(0)} 283`;
+            document
+                .getElementById("base-timer-path-remaining")
+                .setAttribute("stroke-dasharray", circleDasharray);
+        }
     }
 
     const ManuallySetQrValue = () => {
