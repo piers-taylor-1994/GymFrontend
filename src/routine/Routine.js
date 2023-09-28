@@ -63,9 +63,10 @@ function Routine() {
     }
 
     const onDelete = (exerciseId, index) => {
-        routine.find((r) => r.exerciseId === exerciseId).exerciseArray.splice(index, 1);
-        if (routine.find((r) => r.exerciseId === exerciseId).exerciseArray.length === 0) routine.splice(routine.findIndex(r => r.exerciseId === exerciseId), 1);
-        if (JSON.parse(sessionStorage.getItem("routine")) && JSON.parse(sessionStorage.getItem("routine")).length > 0) sessionStorage.setItem("routine", JSON.stringify(routine));
+        let newRoutine = routine;
+        newRoutine.find((r) => r.exerciseId === exerciseId).exerciseArray.splice(index, 1);
+        if (routine.find((r) => r.exerciseId === exerciseId).exerciseArray.length === 0) newRoutine.splice(newRoutine.findIndex(r => r.exerciseId === exerciseId), 1);
+        if (JSON.parse(sessionStorage.getItem("routine")) && JSON.parse(sessionStorage.getItem("routine")).length > 0) sessionStorage.setItem("routine", JSON.stringify(newRoutine));
         else sessionStorage.removeItem("routine");
 
         setRoutine((r) => {
@@ -127,6 +128,7 @@ function Routine() {
         const opacity = props.isDragging ? 0.5 : 1;
         const exercise = props.card;
         const [rows, setRows] = useState(routine.find((s) => s.exerciseId === exercise.exerciseId).exerciseArray.length);
+        const [newRow, setNewRow] = useState(0);
         const lastExercise = lastSets ? lastSets.find(t => t.exerciseId === exercise.exerciseId) : {};
 
         const toRow = (exerciseId, index) => {
@@ -149,6 +151,9 @@ function Routine() {
             )
         }
 
+        let arrayCount = routine.find((s) => s.exerciseId === exercise.exerciseId).exerciseArray.length;
+        let rowShow = routine.find((s) => s.exerciseId === exercise.exerciseId).exerciseArray.map((s, i) => toRow(exercise.exerciseId, i))
+
         for (let index = arrayCount; index < rows; index++) {
             let exerciseIndex = routine.findIndex((s) => s.exerciseId === exercise.exerciseId);
             routine[exerciseIndex].exerciseArray.push({
@@ -159,10 +164,8 @@ function Routine() {
             })
             setRoutine(() => { return routine });
             sessionStorage.setItem("routine", JSON.stringify(routine));
+            setNewRow((n) => { return (n + 1) })
         }
-
-        let arrayCount = routine.find((s) => s.exerciseId === exercise.exerciseId).exerciseArray.length;
-        let rowShow = routine.find((s) => s.exerciseId === exercise.exerciseId).exerciseArray.map((s, i) => toRow(exercise.exerciseId, i))
 
         return (
             <div ref={props.cardRef} style={{ ...props.styleCard, opacity }} data-handler-id={props.handlerId}>
