@@ -13,16 +13,20 @@
 
         .set {
             width: 95%;
+            padding-bottom: 1em;
 
-            .exercise-name {
-                font-weight: bold;
+            .name-container {
+                margin-bottom: 0.75em;
+
+                .exercise-name {
+                    font-weight: bold;
+                }
             }
 
             .row {
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
-                padding: 1em 0;
 
                 label {
                     line-height: 1em;
@@ -46,8 +50,10 @@
                         }
                     }
                 }
+            }
 
-
+            .row:not(:last-child) {
+                padding-bottom: 0.5em;
             }
         }
     }
