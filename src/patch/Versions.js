@@ -1,3 +1,5 @@
+import * as Icon from '../layout/Icons';
+
 const Version = {
     1.10: (
         <div className="version">
@@ -156,7 +158,7 @@ const Version = {
                 <img src='images/screenshot18.png' alt='screenshot' />
             </div>
             <ul>
-                <li>Each exercise will have a "plus" icon that'll allow the ability to add additional set rows.</li>
+                <li>Each exercise will have a <div style={{"height": "1em", "width": "1em", "display": "inline-block"}}><Icon.Add /></div> that'll add additional set rows.</li>
             </ul>
             <div className='image-container'>
                 <img src='images/screenshot19.png' alt='screenshot' />

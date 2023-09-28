@@ -157,8 +157,6 @@ function WorkoutsHistory(props) {
                 </div>
             )
         }
-
-        
     }
 
     const display = loading
