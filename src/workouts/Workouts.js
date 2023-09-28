@@ -179,10 +179,13 @@ function Workouts(props) {
             selectedExerciseObjects.push({
                 exerciseId: selectedExercises[i].exerciseId,
                 name: selectedExercises[i].name,
-                weight: selectedExercises[i].weight ? parseFloat(selectedExercises[i].weight) : null,
-                sets: selectedExercises[i].sets ? selectedExercises[i].sets : null,
-                reps: selectedExercises[i].reps ? selectedExercises[i].reps : null,
-                order: i
+                order: i,
+                exerciseArray: selectedExercises[i].exerciseArray ? selectedExercises[i].exerciseArray : [{
+                    weight: null,
+                    sets: null,
+                    reps: null,
+                    order: 0
+                }]
             });
         }
         let storedRoutine = JSON.parse(sessionStorage.getItem("routine"));

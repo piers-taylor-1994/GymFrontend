@@ -27,7 +27,7 @@ function WorkoutsHistory(props) {
     const getRoutine = (id) => {
         setSectionLoading(true);
         GetRoutineHistory(id).then((r) => {
-            setRoutineList(r.setList);
+            setRoutineList(r.exerciseSets);
             setSectionLoading(false);
         })
     }
@@ -73,13 +73,23 @@ function WorkoutsHistory(props) {
     const options = filterHistoryByMonth().reverse().map((routine) => toSquare(routine));
 
     const row = (exercise) => {
+        const toSetRow = (set) => {
+            return (
+                <div className="sets" key={set.order}>
+                    <span>{set.weight}kg</span>
+                    <span>{set.sets} {set.sets === 1 ? "set" : "sets"}</span>
+                    <span>{set.reps} {set.reps === 1 ? "rep" : "reps"}</span>
+                </div>
+            )
+        }
+
+        const setRows = exercise.exerciseArray.map((ea) => toSetRow(ea))
+
         return (
             <div key={exercise.exerciseId} className="row">
                 <span className="exercise-name">{exercise.name}</span>
-                <div className="sets">
-                    <span>{exercise.weight}kg</span>
-                    <span>{exercise.sets} sets</span>
-                    <span>{exercise.reps} reps</span>
+                <div>
+                    {setRows}
                 </div>
             </div>
         )

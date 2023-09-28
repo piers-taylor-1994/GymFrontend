@@ -1,3 +1,5 @@
+import * as Icon from '../layout/Icons';
+
 const Version = {
     1.10: (
         <div className="version">
@@ -146,6 +148,23 @@ const Version = {
             <ul>
                 <li>Each history square is now colour-coded depending on muscles worked.</li>
                 <li>Magenta for upper, green for core and blue for lowers.</li>
+            </ul>
+        </div>
+    ),
+    2.20: (
+        <div className="version">
+            <span className="version-header">Users can now add multiple sets per exercise</span>
+            <div className='image-container'>
+                <img src='images/screenshot18.png' alt='screenshot' />
+            </div>
+            <ul>
+                <li>Each exercise will have a <div style={{"height": "1em", "width": "1em", "display": "inline-block"}}><Icon.AddSquare /></div> that'll add additional set rows.</li>
+            </ul>
+            <div className='image-container'>
+                <img src='images/screenshot19.png' alt='screenshot' />
+            </div>
+            <ul>
+                <li>This will be displayed in the routine history.</li>
             </ul>
         </div>
     )

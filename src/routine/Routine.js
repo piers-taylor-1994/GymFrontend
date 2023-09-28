@@ -23,11 +23,15 @@ function Routine() {
         if (JSON.parse(sessionStorage.getItem("routine")) && JSON.parse(sessionStorage.getItem("routine")).length > 0) {
             setRoutine(JSON.parse(sessionStorage.getItem("routine")));
             setLoading(false);
+            setList.current = JSON.parse(sessionStorage.getItem("routine"));
         }
         else {
             GetRoutine().then(routine => {
                 if (routine) {
-                    setRoutine(routine.setList);
+                    let setList = routine.exerciseSets;
+                    setRoutine(setList);
+                    setList.current = setList;
+                    sessionStorage.setItem("routine", JSON.stringify(setList));
                 }
                 setLoading(false);
             })
@@ -48,20 +52,25 @@ function Routine() {
         }
     }, [routine])
 
-    const onExerciseDataUpdate = (e, exerciseId) => {
+    const onExerciseDataUpdate = (e, exerciseId, index) => {
         setList.current = [...routine];
         const input = setList.current.find(
             e => e.exerciseId === exerciseId
         )
-        if (e.target.id === "weight") input[e.target.id] = parseFloat(e.target.value);
-        else input[e.target.id] = parseInt(e.target.value);
+        if (e.target.id === "weight") input.exerciseArray[index][e.target.id] = parseFloat(e.target.value);
+        else input.exerciseArray[index][e.target.id] = parseInt(e.target.value);
         sessionStorage.setItem("routine", JSON.stringify(setList.current));
     }
 
-    const onDelete = (exerciseId) => {
-        if (JSON.parse(sessionStorage.getItem("routine")) && JSON.parse(sessionStorage.getItem("routine")).length > 1) sessionStorage.setItem("routine", JSON.stringify(routine.filter((r) => r.exerciseId !== exerciseId)));
+    const onDelete = (exerciseId, index) => {
+        routine.find((r) => r.exerciseId === exerciseId).exerciseArray.splice(index, 1);
+        if (routine.find((r) => r.exerciseId === exerciseId).exerciseArray.length === 0) routine.splice(routine.findIndex(r => r.exerciseId === exerciseId), 1);
+        if (JSON.parse(sessionStorage.getItem("routine")) && JSON.parse(sessionStorage.getItem("routine")).length > 0) sessionStorage.setItem("routine", JSON.stringify(routine));
         else sessionStorage.removeItem("routine");
-        setRoutine(routine.filter((r) => r.exerciseId !== exerciseId));
+
+        setRoutine((r) => {
+            return [...r]
+        })
     }
 
     const onExerciseOrderUpdate = (setDict) => {
@@ -78,7 +87,7 @@ function Routine() {
 
         routine.forEach(r => {
             setList.current.forEach(s => {
-                if (r.exerciseId === s.exerciseId) {
+                if (r.exerciseId === s.exerciseId && r.order === s.order) {
                     r.weight = s.weight;
                     r.sets = s.sets;
                     r.reps = s.reps;
@@ -86,7 +95,15 @@ function Routine() {
             });
         });
 
-        if (routine.find(r => r.weight === null || !r.sets || !r.reps)) {
+        let error = false;
+
+        routine.forEach(exercise => {
+            exercise.exerciseArray.forEach(s => {
+                if (s.weight === null || !s.sets || !s.reps) error = true;
+            });
+        });
+
+        if (error) {
             setShowError(true);
             setShowLoaderbutton(false);
         }
@@ -100,7 +117,7 @@ function Routine() {
                 else {
                     sessionStorage.removeItem("routine");
                     setShowLoaderbutton(false);
-                    navigate("/history/" + response.id);
+                    navigate("/history/" + response);
                 }
             });
         }
@@ -109,28 +126,50 @@ function Routine() {
     const SetCard = (props) => {
         const opacity = props.isDragging ? 0.5 : 1;
         const exercise = props.card;
+        const [rows, setRows] = useState(routine.find((s) => s.exerciseId === exercise.exerciseId).exerciseArray.length);
         const lastExercise = lastSets ? lastSets.find(t => t.exerciseId === exercise.exerciseId) : {};
 
-        return (
-            <div ref={props.cardRef} style={{ ...props.styleCard, opacity }} data-handler-id={props.handlerId}>
-                <div>
-                    <span className="exercise-name">{exercise.name}</span>
-                </div>
-                <div className="row">
+        const toRow = (exerciseId, index) => {
+            return (
+                <div className="row" key={index}>
                     <label>
-                        <input id="weight" type="number" defaultValue={exercise.weight ? exercise.weight : null} placeholder={lastExercise ? lastExercise.weight : null} onChange={e => { onExerciseDataUpdate(e, exercise.exerciseId) }} />
+                        <input id="weight" type="number" defaultValue={exercise.exerciseArray[index].weight || exercise.exerciseArray[index].weight === 0 ? exercise.exerciseArray[index].weight : null} placeholder={lastExercise ? lastExercise.weight : null} onChange={e => { onExerciseDataUpdate(e, exerciseId, index) }} />
                         kg
                     </label>
                     <label>
-                        <input id="sets" type="number" defaultValue={exercise.sets ? exercise.sets : null} placeholder={lastExercise ? lastExercise.sets : null} onChange={e => { onExerciseDataUpdate(e, exercise.exerciseId) }} />
+                        <input id="sets" type="number" defaultValue={exercise.exerciseArray[index].sets ? exercise.exerciseArray[index].sets : null} placeholder={lastExercise ? lastExercise.sets : null} onChange={e => { onExerciseDataUpdate(e, exerciseId, index) }} />
                         sets
                     </label>
                     <label>
-                        <input id="reps" type="number" defaultValue={exercise.reps ? exercise.reps : null} placeholder={lastExercise ? lastExercise.reps : null} onChange={e => { onExerciseDataUpdate(e, exercise.exerciseId) }} />
+                        <input id="reps" type="number" defaultValue={exercise.exerciseArray[index].reps ? exercise.exerciseArray[index].reps : null} placeholder={lastExercise ? lastExercise.reps : null} onChange={e => { onExerciseDataUpdate(e, exerciseId, index) }} />
                         reps
                     </label>
-                    <div className="delete-container" onClick={() => onDelete(exercise.exerciseId)}><Icon.Close /></div>
+                    <div className="delete-container" onClick={() => onDelete(exercise.exerciseId, index)}><Icon.Close /></div>
                 </div>
+            )
+        }
+
+        let arrayCount = routine.find((s) => s.exerciseId === exercise.exerciseId).exerciseArray.length;
+        let rowShow = routine.find((s) => s.exerciseId === exercise.exerciseId).exerciseArray.map((s, i) => toRow(exercise.exerciseId, i))
+
+        for (let index = arrayCount; index < rows; index++) {
+            let exerciseIndex = routine.findIndex((s) => s.exerciseId === exercise.exerciseId);
+            routine[exerciseIndex].exerciseArray.push({
+                weight: exercise.weight ? exercise.weight : null,
+                sets: exercise.weight ? exercise.weight : null,
+                reps: exercise.weight ? exercise.weight : null,
+                order: routine[exerciseIndex].exerciseArray.length
+            })
+            sessionStorage.setItem("routine", JSON.stringify(routine));
+        }
+
+        return (
+            <div ref={props.cardRef} style={{ ...props.styleCard, opacity }} data-handler-id={props.handlerId}>
+                <div className="name-container">
+                    <span className="exercise-name">{exercise.name}</span>
+                    <div onClick={() => setRows(rows + 1)}><Icon.AddSquare /></div>
+                </div>
+                {rowShow}
             </div>
         )
     }
@@ -222,12 +261,26 @@ function Routine() {
 
     const onDropdownSelect = (e) => {
         GetRoutineTemplateSets(e.target.value).then((sets) => {
+            let setList = [];
             for (let i = 0; i < sets.length; i++) {
-                const set = sets[i];
-                set.order = i
+                let ex = sets[i];
+                setList.push({
+                    exerciseId: ex.exerciseId,
+                    name: ex.name,
+                    order: i,
+                    exerciseArray: [{
+                        id: 0,
+                        weight: null,
+                        sets: null,
+                        reps: null,
+                        order: 0
+                    }]
+                });
             }
-            sessionStorage.setItem("routine", JSON.stringify(sets));
-            setRoutine(sets);
+
+            setRoutine(setList);
+            setList.current = setList;
+            sessionStorage.setItem("routine", JSON.stringify(setList));
         })
     }
 
