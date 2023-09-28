@@ -127,9 +127,11 @@ function Routine() {
         const opacity = props.isDragging ? 0.5 : 1;
         const exercise = props.card;
         const [rows, setRows] = useState(routine.find((s) => s.exerciseId === exercise.exerciseId).exerciseArray.length);
+        const [newRow, setNewRow] = useState(0);
         const lastExercise = lastSets ? lastSets.find(t => t.exerciseId === exercise.exerciseId) : {};
 
         const toRow = (exerciseId, index) => {
+            console.log(newRow);
             return (
                 <div className="row" key={index}>
                     <label>
@@ -162,6 +164,7 @@ function Routine() {
             })
             setRoutine(() => { return routine });
             sessionStorage.setItem("routine", JSON.stringify(routine));
+            setNewRow((n) => { return (n + 1) })
         }
 
         return (
