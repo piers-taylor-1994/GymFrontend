@@ -167,7 +167,7 @@ function Routine() {
             <div ref={props.cardRef} style={{ ...props.styleCard, opacity }} data-handler-id={props.handlerId}>
                 <div className="name-container">
                     <span className="exercise-name">{exercise.name}</span>
-                    <div onClick={() => setRows(rows + 1)}><Icon.AddSquare /></div>
+                    <div onClick={() => setRows((r) => { return (r + 1) })}><Icon.AddSquare /></div>
                 </div>
                 {rowShow}
             </div>
