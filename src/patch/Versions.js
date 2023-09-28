@@ -158,13 +158,13 @@ const Version = {
                 <img src='images/screenshot18.png' alt='screenshot' />
             </div>
             <ul>
-                <li>Each exercise will have a <div style={{"height": "1em", "width": "1em", "display": "inline-block"}}><Icon.Add /></div> that'll add additional set rows.</li>
+                <li>Each exercise will have a <div style={{"height": "1em", "width": "1em", "display": "inline-block"}}><Icon.AddSquare /></div> that'll add additional set rows.</li>
             </ul>
             <div className='image-container'>
                 <img src='images/screenshot19.png' alt='screenshot' />
             </div>
             <ul>
-                <li>This will be displayed properly in the routine history.</li>
+                <li>This will be displayed in the routine history.</li>
             </ul>
         </div>
     )
