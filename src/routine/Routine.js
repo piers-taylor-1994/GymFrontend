@@ -160,6 +160,7 @@ function Routine() {
                 reps: exercise.weight ? exercise.weight : null,
                 order: routine[exerciseIndex].exerciseArray.length
             })
+            setRoutine(routine);
             sessionStorage.setItem("routine", JSON.stringify(routine));
         }
 
