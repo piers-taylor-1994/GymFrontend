@@ -19,8 +19,6 @@ function Routine() {
     const navigate = useNavigate();
     const setList = useRef([]);
 
-    console.log(routine);
-
     useEffect(() => {
         if (JSON.parse(sessionStorage.getItem("routine")) && JSON.parse(sessionStorage.getItem("routine")).length > 0) {
             setRoutine(JSON.parse(sessionStorage.getItem("routine")));
@@ -31,31 +29,6 @@ function Routine() {
             GetRoutine().then(routine => {
                 if (routine) {
                     let setList = routine.exerciseSets;
-                    // routine.setList.forEach(ex => {
-                    //     if (!setList.find(s => s.exerciseId === ex.exerciseId)) setList.push({
-                    //         exerciseId: ex.exerciseId,
-                    //         id: ex.id,
-                    //         muscleGroup: ex.muscleGroup,
-                    //         name: ex.name,
-                    //         order: ex.order,
-                    //         exerciseArray: [{
-                    //             id: 0,
-                    //             weight: ex.weight,
-                    //             sets: ex.sets,
-                    //             reps: ex.reps,
-                    //             order: 0
-                    //         }]
-                    //     });
-                    //     else {
-                    //         let exerciseIndex = setList.findIndex((s) => s.exerciseId === ex.exerciseId);
-                    //         setList[exerciseIndex].exerciseArray.push({
-                    //             weight: ex.weight,
-                    //             sets: ex.sets,
-                    //             reps: ex.reps,
-                    //             order: setList[exerciseIndex].exerciseArray.length
-                    //         })
-                    //     }
-                    // });
                     setRoutine(setList);
                     setList.current = setList;
                     sessionStorage.setItem("routine", JSON.stringify(setList));
@@ -89,11 +62,15 @@ function Routine() {
         sessionStorage.setItem("routine", JSON.stringify(setList.current));
     }
 
-    //TODO
     const onDelete = (exerciseId, index) => {
-        if (JSON.parse(sessionStorage.getItem("routine")) && JSON.parse(sessionStorage.getItem("routine")).length > 1) sessionStorage.setItem("routine", JSON.stringify(routine.find((r) => r.exerciseId === exerciseId).exerciseArray.splice(index, 1)));
+        routine.find((r) => r.exerciseId === exerciseId).exerciseArray.splice(index, 1);
+        if (routine.find((r) => r.exerciseId === exerciseId).exerciseArray.length === 0) routine.splice(routine.findIndex(r => r.exerciseId === exerciseId), 1);
+        if (JSON.parse(sessionStorage.getItem("routine")) && JSON.parse(sessionStorage.getItem("routine")).length > 0) sessionStorage.setItem("routine", JSON.stringify(routine));
         else sessionStorage.removeItem("routine");
-        setRoutine(...routine.find((r) => r.exerciseId === exerciseId).exerciseArray.splice(index, 1));
+
+        setRoutine((r) => {
+            return [...r]
+        })
     }
 
     const onExerciseOrderUpdate = (setDict) => {
@@ -118,36 +95,32 @@ function Routine() {
             });
         });
 
-        // let error = false;
+        let error = false;
 
-        // routine.forEach(exercise => {
-        //     exercise.exerciseArray.forEach(s => {
-        //         if (s.weight === null || !s.sets || !s.reps) {
-        //             error = true;
-        //         }
-        //     });
-        // });
-
-        // if (error) {
-        //     setShowError(true);
-        //     setShowLoaderbutton(false);
-        // }
-
-        // else {
-
-        // }
-
-        AddRoutine(routine).then(response => {
-            if (response === 400) {
-                setShowError(true);
-                setShowLoaderbutton(false);
-            }
-            else {
-                sessionStorage.removeItem("routine");
-                setShowLoaderbutton(false);
-                navigate("/history/" + response);
-            }
+        routine.forEach(exercise => {
+            exercise.exerciseArray.forEach(s => {
+                if (s.weight === null || !s.sets || !s.reps) error = true;
+            });
         });
+
+        if (error) {
+            setShowError(true);
+            setShowLoaderbutton(false);
+        }
+
+        else {
+            AddRoutine(routine).then(response => {
+                if (response === 400) {
+                    setShowError(true);
+                    setShowLoaderbutton(false);
+                }
+                else {
+                    sessionStorage.removeItem("routine");
+                    setShowLoaderbutton(false);
+                    navigate("/history/" + response);
+                }
+            });
+        }
     }
 
     const SetCard = (props) => {
@@ -194,7 +167,7 @@ function Routine() {
             <div ref={props.cardRef} style={{ ...props.styleCard, opacity }} data-handler-id={props.handlerId}>
                 <div className="name-container">
                     <span className="exercise-name">{exercise.name}</span>
-                    <button onClick={() => setRows(rows + 1)}>Add</button>
+                    <div onClick={() => setRows(rows + 1)}><Icon.Add /></div>
                 </div>
                 {rowShow}
             </div>
@@ -304,7 +277,7 @@ function Routine() {
                     }]
                 });
             }
-            
+
             setRoutine(setList);
             setList.current = setList;
             sessionStorage.setItem("routine", JSON.stringify(setList));

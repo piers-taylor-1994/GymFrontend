@@ -16,10 +16,19 @@
             padding-bottom: 1em;
 
             .name-container {
+                display: flex;
+                align-items: center;
+                gap: 0.2em;
                 margin-bottom: 0.75em;
 
                 .exercise-name {
                     font-weight: bold;
+                    line-height: 0.7em;
+                    height: 1em;
+                }
+
+                .icon {
+                    height: 1em;
                 }
             }
 
