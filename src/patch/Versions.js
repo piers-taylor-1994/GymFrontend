@@ -148,6 +148,23 @@ const Version = {
                 <li>Magenta for upper, green for core and blue for lowers.</li>
             </ul>
         </div>
+    ),
+    2.20: (
+        <div className="version">
+            <span className="version-header">Users can now add multiple sets per exercise</span>
+            <div className='image-container'>
+                <img src='images/screenshot18.png' alt='screenshot' />
+            </div>
+            <ul>
+                <li>Each exercise will have a "plus" icon that'll allow the ability to add additional set rows.</li>
+            </ul>
+            <div className='image-container'>
+                <img src='images/screenshot19.png' alt='screenshot' />
+            </div>
+            <ul>
+                <li>This will be displayed properly in the routine history.</li>
+            </ul>
+        </div>
     )
 }
 Object.freeze(Version);
