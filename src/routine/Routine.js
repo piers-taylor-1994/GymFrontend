@@ -127,8 +127,8 @@ function Routine() {
     const SetCard = (props) => {
         const opacity = props.isDragging ? 0.5 : 1;
         const exercise = props.card;
-        const [rows, setRows] = useState(routine.find((s) => s.exerciseId === exercise.exerciseId).exerciseArray.length);
-        const [newRow, setNewRow] = useState(0);
+        // const [rows, setRows] = useState(routine.find((s) => s.exerciseId === exercise.exerciseId).exerciseArray.length);
+        // const [newRow, setNewRow] = useState(0);
         const lastExercise = lastSets ? lastSets.find(t => t.exerciseId === exercise.exerciseId) : {};
 
         const toRow = (exerciseId, index) => {
@@ -151,27 +151,40 @@ function Routine() {
             )
         }
 
-        let arrayCount = routine.find((s) => s.exerciseId === exercise.exerciseId).exerciseArray.length;
-        let rowShow = routine.find((s) => s.exerciseId === exercise.exerciseId).exerciseArray.map((s, i) => toRow(exercise.exerciseId, i))
-
-        for (let index = arrayCount; index < rows; index++) {
+        const addRow = () => {
             let exerciseIndex = routine.findIndex((s) => s.exerciseId === exercise.exerciseId);
-            routine[exerciseIndex].exerciseArray.push({
+            let newRoutine = routine;
+            newRoutine[exerciseIndex].exerciseArray.push({
                 weight: exercise.weight ? exercise.weight : null,
                 sets: exercise.weight ? exercise.weight : null,
                 reps: exercise.weight ? exercise.weight : null,
                 order: routine[exerciseIndex].exerciseArray.length
             })
-            setRoutine(() => { return routine });
-            sessionStorage.setItem("routine", JSON.stringify(routine));
-            setNewRow((n) => { return (n + 1) })
+            setRoutine(() => { return [...newRoutine] });
+            sessionStorage.setItem("routine", JSON.stringify(newRoutine));
         }
+
+        // let arrayCount = routine.find((s) => s.exerciseId === exercise.exerciseId).exerciseArray.length;
+        let rowShow = routine.find((s) => s.exerciseId === exercise.exerciseId).exerciseArray.map((s, i) => toRow(exercise.exerciseId, i))
+
+        // for (let index = arrayCount; index < rows; index++) {
+        //     let exerciseIndex = routine.findIndex((s) => s.exerciseId === exercise.exerciseId);
+        //     routine[exerciseIndex].exerciseArray.push({
+        //         weight: exercise.weight ? exercise.weight : null,
+        //         sets: exercise.weight ? exercise.weight : null,
+        //         reps: exercise.weight ? exercise.weight : null,
+        //         order: routine[exerciseIndex].exerciseArray.length
+        //     })
+        //     setRoutine(() => { return routine });
+        //     sessionStorage.setItem("routine", JSON.stringify(routine));
+        //     setNewRow((n) => { return (n + 1) })
+        // }
 
         return (
             <div ref={props.cardRef} style={{ ...props.styleCard, opacity }} data-handler-id={props.handlerId}>
                 <div className="name-container">
                     <span className="exercise-name">{exercise.name}</span>
-                    <div onClick={() => setRows((r) => { return (r + 1) })}><Icon.AddSquare /></div>
+                    <div onClick={addRow}><Icon.AddSquare /></div>
                 </div>
                 {rowShow}
             </div>
