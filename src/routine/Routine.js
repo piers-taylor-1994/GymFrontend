@@ -127,8 +127,6 @@ function Routine() {
     const SetCard = (props) => {
         const opacity = props.isDragging ? 0.5 : 1;
         const exercise = props.card;
-        // const [rows, setRows] = useState(routine.find((s) => s.exerciseId === exercise.exerciseId).exerciseArray.length);
-        // const [newRow, setNewRow] = useState(0);
         const lastExercise = lastSets ? lastSets.find(t => t.exerciseId === exercise.exerciseId) : {};
 
         const toRow = (exerciseId, index) => {
@@ -164,21 +162,7 @@ function Routine() {
             sessionStorage.setItem("routine", JSON.stringify(newRoutine));
         }
 
-        // let arrayCount = routine.find((s) => s.exerciseId === exercise.exerciseId).exerciseArray.length;
         let rowShow = routine.find((s) => s.exerciseId === exercise.exerciseId).exerciseArray.map((s, i) => toRow(exercise.exerciseId, i))
-
-        // for (let index = arrayCount; index < rows; index++) {
-        //     let exerciseIndex = routine.findIndex((s) => s.exerciseId === exercise.exerciseId);
-        //     routine[exerciseIndex].exerciseArray.push({
-        //         weight: exercise.weight ? exercise.weight : null,
-        //         sets: exercise.weight ? exercise.weight : null,
-        //         reps: exercise.weight ? exercise.weight : null,
-        //         order: routine[exerciseIndex].exerciseArray.length
-        //     })
-        //     setRoutine(() => { return routine });
-        //     sessionStorage.setItem("routine", JSON.stringify(routine));
-        //     setNewRow((n) => { return (n + 1) })
-        // }
 
         return (
             <div ref={props.cardRef} style={{ ...props.styleCard, opacity }} data-handler-id={props.handlerId}>
