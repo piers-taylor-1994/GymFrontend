@@ -88,9 +88,10 @@
 
         div {
             i {
+                height: 1.6em;
+                width: 1.6em;
+                
                 svg {
-                    height: 1.6em;
-                    width: auto;
                     fill: var(--icon);
                 }
             }

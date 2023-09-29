@@ -213,6 +213,8 @@ input[type=text] {
 
 .icon {
     display: flex;
+    height: 1em;
+    width: 1em;
 
     svg {
         fill: var(--icon);
