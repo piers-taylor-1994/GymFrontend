@@ -44,7 +44,7 @@ function Workouts(props) {
         else {
             GetRoutine().then(routine => {
                 if (routine) {
-                    setSelectedExercises(routine.setList);
+                    setSelectedExercises(routine.exerciseSets);
                 }
             })
         }
