@@ -40,13 +40,11 @@ function Qrcode() {
     let timeLeft = TIME_LIMIT;
     let timerInterval = null;
 
-    startTimer();
-
     function onTimesUp() {
         clearInterval(timerInterval);
     }
 
-    function startTimer() {
+    (function startTimer() {
         timerInterval = setInterval(() => {
             if (document.getElementById("base-timer-label")) {
                 timePassed = timePassed += 1;
@@ -60,7 +58,7 @@ function Qrcode() {
                 onTimesUp();
             }
         }, 1000);
-    }
+    })();
 
     function formatTime(time) {
         const minutes = Math.floor(time / 60);

@@ -102,7 +102,7 @@ function WorkoutsHistory(props) {
             "July", "August", "September", "October", "November", "December"];
 
         const formatDate = (date) => {
-            let month = date.substring(1, 2);
+            let month = date.substring(0, 2);
             month = months[month - 1];
 
             return month + " " + date.substring(2);
