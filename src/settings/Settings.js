@@ -1,7 +1,6 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import './settings.scss'
-import { AuthContext } from "../auth/Auth";
 
 function Theme() {
     let storedTheme = localStorage.getItem("theme");
@@ -38,30 +37,11 @@ function Logout() {
 }
 
 function Settings(props) {
-    const navigate = useNavigate();
-    const authContext = useContext(AuthContext);
-    const userId = authContext.user().sub;
-
-    const userCheck = () => {
-        return userId === "c1fef7f5-383b-4200-b498-c201a6ac1fec" || userId === "dfc8413d-69cd-468d-8ba5-e8fcca566bf1" ? true : false;
-    }
-
-    const qrPage = () => {
-        navigate("/qrcode");
-    }
-
-    const qrcodeButton = userCheck()
-        ? <div className="button-container">
-            <button className="button button-s" onClick={qrPage}>Qrcode generator</button>
-        </div>
-        : <></>;
-
     return (
         <div className="settings content">
             <h1>Settings</h1>
             <Theme />
             <div className="buttons-container">
-                {qrcodeButton}
                 <Logout />
             </div>
         </div>

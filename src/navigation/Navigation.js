@@ -1,13 +1,21 @@
 import { Link, useLocation } from "react-router-dom";
 import "./navigation.scss";
 import * as Icon from '../layout/Icons';
+import { useContext } from "react";
+import { AuthContext } from "../auth/Auth";
 
 function TopNav(props) {
     const location = useLocation();
+    const authContext = useContext(AuthContext);
+    const userId = authContext.user().sub;
+
+    const userCheck = () => {
+        return userId === "c1fef7f5-383b-4200-b498-c201a6ac1fec" || userId === "dfc8413d-69cd-468d-8ba5-e8fcca566bf1" ? true : false;
+    }
 
     return (
         <div className="navigation-top">
-            {location.pathname !== "/" ? <Link className="nav-item" to={"/"}><Icon.Home /></Link> : <></>}
+            {location.pathname !== "/" ? <Link className="nav-item" to={"/"}><Icon.Home /></Link> : userCheck() ? <Link className="nav-item" to={"/qrcode"}><Icon.QrCode /></Link> : <></>}
             <Link className="nav-item" to={"/settings"}><Icon.Settings /></Link>
         </div>
     )
