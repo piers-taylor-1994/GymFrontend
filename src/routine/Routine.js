@@ -1,10 +1,11 @@
 import { useEffect, useRef, useState } from "react";
-import { AddRoutine, AddRoutineTemplate, GetLastSetForExercises, GetRoutine, GetRoutineTemplateSets, GetRoutineTemplates } from "./Data";
+import { AddRoutine, AddRoutineTemplate, DeleteRoutineTemplate, EditRoutineTemplate, GetLastSetForExercises, GetRoutine, GetRoutineTemplateSets, GetRoutineTemplates } from "./Data";
 import "./routine.scss";
 import { Link, useNavigate } from "react-router-dom";
 import { Loader, LoaderButton, Modal } from "../layout/Layout";
 import DnD from "../layout/DnD";
 import * as Icon from '../layout/Icons';
+import { GetExercises } from "../workouts/Data";
 
 function Routine() {
     const [routine, setRoutine] = useState([]);
@@ -15,6 +16,8 @@ function Routine() {
     const [lastSets, setLastSets] = useState([]);
     const [routineTemplates, setRoutineTemplates] = useState([]);
     const [modalShow, setModalShow] = useState(false);
+    const [selectedTemplateId, setSelectedTemplateId] = useState("");
+    const [modalType, setModalType] = useState(0);
 
     const navigate = useNavigate();
     const setList = useRef([]);
@@ -168,7 +171,7 @@ function Routine() {
             <div ref={props.cardRef} style={{ ...props.styleCard, opacity }} data-handler-id={props.handlerId}>
                 <div className="name-container">
                     <span className="exercise-name">{exercise.name}</span>
-                    <div onClick={addRow} style={{"height": "1em", "width": "1em"}}><Icon.AddSquare /></div>
+                    <div onClick={addRow} style={{ "height": "1em", "width": "1em" }}><Icon.AddSquare /></div>
                 </div>
                 {rowShow}
             </div>
@@ -206,7 +209,32 @@ function Routine() {
         </div>
     )
 
-    const ModalComponent = () => {
+    const updateDisplayedSets = (id) => {
+        GetRoutineTemplateSets(id).then((sets) => {
+            let setList = [];
+            for (let i = 0; i < sets.length; i++) {
+                let ex = sets[i];
+                setList.push({
+                    exerciseId: ex.exerciseId,
+                    name: ex.name,
+                    order: i,
+                    exerciseArray: [{
+                        id: 0,
+                        weight: null,
+                        sets: null,
+                        reps: null,
+                        order: 0
+                    }]
+                });
+            }
+
+            setRoutine(setList);
+            setList.current = setList;
+            sessionStorage.setItem("routine", JSON.stringify(setList));
+        })
+    }
+
+    const AddModalComponent = () => {
         const [routineName, setRoutineName] = useState("");
         const [showModalLoaderButton, setShowModalLoaderButton] = useState(false);
         const [showError, setShowError] = useState(false);
@@ -254,6 +282,135 @@ function Routine() {
         )
     };
 
+    const EditModalComponent = () => {
+        const [routineName, setRoutineName] = useState(routineTemplates.find((r) => r.id === selectedTemplateId).name);
+        const [showModalLoaderButton, setShowModalLoaderButton] = useState(false);
+        const [showError, setShowError] = useState(false);
+        const [exercises, setExercises] = useState([]);
+        const [unfilteredExercises, setUnfilteredExercises] = useState([]);
+        const [selectedExercises, setSelectedExercises] = useState(routine);
+
+        useEffect(() => {
+            GetExercises().then(exercises => {
+                exercises.sort((a, b) => {
+                    const nameA = a.name.toUpperCase();
+                    const nameB = b.name.toUpperCase();
+                    if (nameA < nameB) {
+                        return -1;
+                    }
+                    if (nameA > nameB) {
+                        return 1;
+                    }
+                    return 0;
+                });
+                setExercises(exercises);
+                setUnfilteredExercises(exercises);
+                setLoading(false)
+            })
+        }, [])
+
+        const onEditSubmit = (e) => {
+            setShowModalLoaderButton(true);
+
+            if (!routineName) {
+                setShowModalLoaderButton(false);
+                setShowError(true);
+            }
+
+            else if (selectedExercises.length === 0) {
+                setShowModalLoaderButton(false);
+                setShowError(true);
+            }
+
+            else {
+                let exerciseIds = [];
+                selectedExercises.forEach(exercise => {
+                    exerciseIds.push(exercise.exerciseId);
+                });
+                EditRoutineTemplate(selectedTemplateId, { name: routineName, exerciseIds: exerciseIds }).then((r) => {
+                    setShowModalLoaderButton(false);
+                    setRoutineTemplates(r);
+                    updateDisplayedSets(selectedTemplateId);
+                    setModalShow(false);
+                })
+            }
+        }
+
+        const onDeleteSubmit = () => {
+            DeleteRoutineTemplate(selectedTemplateId).then((r) => {
+                setRoutineTemplates(r);
+                setModalShow(false);
+            })
+        }
+
+        let error = showError ? <span className="warning">Please fill in all the fields</span> : <></>;
+
+        const onCheck = (e, exercise) => {
+            if (e.target.checked) {
+                setSelectedExercises((se) => {
+                    return [...se, exercise];
+                })
+            }
+            else {
+                setSelectedExercises(selectedExercises.filter((s) => s.exerciseId !== exercise.exerciseId));
+            }
+        }
+
+        const row = (exercise) => {
+            return (
+                <div key={exercise.exerciseId} className="row">
+                    <p>{exercise.name}</p>
+                    <input type="checkbox" checked={selectedExercises.some(r => r.exerciseId === exercise.exerciseId)} onChange={(e) => onCheck(e, exercise)} />
+                </div>
+            )
+        }
+
+        const searchFilter = (e) => {
+            console.log(e.target.value);
+            if (e.target.value === "") setExercises(unfilteredExercises);
+            else {
+                setExercises(unfilteredExercises.filter((ex) => ex.name.toLowerCase().includes(e.target.value.toLowerCase())));
+            }
+        }
+
+        const exercisesDisplay = exercises.map(e => row(e));
+
+        const display = loading
+            ? <Loader />
+            : exercises.length === 0
+                ? <div className="button-container"><button className="button button-xs" onClick={() => setModalShow(true)}>Add exercise</button></div>
+                : <>{exercisesDisplay}</>;
+
+        return (
+            <Modal setShow={setModalShow}>
+                <h2>Edit routine template</h2>
+                <label>
+                    Routine template name:
+                    <input className="input" id="routineName" type="text" autoCapitalize="none" value={routineName} onChange={(e) => setRoutineName(e.target.value)} />
+                </label>
+                <br />
+                <label>
+                    Exercises:
+                    <div className="workouts">
+                        <div className="filters-container">
+                            <input type="text" placeholder="Search exercises" onChange={searchFilter} />
+                        </div>
+                        <div className="workouts-container">
+                            {display}
+                        </div>
+                    </div>
+                </label>
+                <div className="button-container button-container-bottom">
+                    {error}
+                    <LoaderButton buttonStyle="button-s" submit={onEditSubmit} show={showModalLoaderButton}>
+                        Submit
+                    </LoaderButton>
+                    <button className="button button-xxs button-red" onClick={onDeleteSubmit}>Delete</button>
+                </div>
+            </Modal>
+        )
+    };
+
     const toDropdown = (routine) => {
         return (
             <option key={routine.id} value={routine.id}>{routine.name}</option>
@@ -261,32 +418,12 @@ function Routine() {
     }
 
     const onDropdownSelect = (e) => {
-        GetRoutineTemplateSets(e.target.value).then((sets) => {
-            let setList = [];
-            for (let i = 0; i < sets.length; i++) {
-                let ex = sets[i];
-                setList.push({
-                    exerciseId: ex.exerciseId,
-                    name: ex.name,
-                    order: i,
-                    exerciseArray: [{
-                        id: 0,
-                        weight: null,
-                        sets: null,
-                        reps: null,
-                        order: 0
-                    }]
-                });
-            }
-
-            setRoutine(setList);
-            setList.current = setList;
-            sessionStorage.setItem("routine", JSON.stringify(setList));
-        })
+        setSelectedTemplateId(e.target.value);
+        updateDisplayedSets(e.target.value);
     }
 
     const submit = routine && routine.length > 0 ? submitButton : <></>;
-    const modal = modalShow ? <ModalComponent /> : <></>;
+    const modal = modalShow ? modalType === 0 ? <AddModalComponent /> : <EditModalComponent /> : <></>;
 
     const options = routineTemplates.sort((a, b) => {
         const nameA = a.name.toUpperCase();
@@ -308,13 +445,15 @@ function Routine() {
                 {options}
             </select>
         )
-    const templateAdd = routine && routine.length > 0 ? <div onClick={() => setModalShow(true)}><Icon.Add /></div> : <></>;
+    const templateAdd = routine && routine.length > 0 ? <div onClick={() => { setModalType(0); setModalShow(true); }}><Icon.Add /></div> : <></>;
+    const templateEdit = selectedTemplateId !== "" ? <div onClick={() => { setModalType(1); setModalShow(true); }}><Icon.History /></div> : <></>;
 
     return (
         <div className="routine content">
             <div className="routine-template-container">
                 {select}
                 {templateAdd}
+                {templateEdit}
             </div>
             <h1>Routine</h1>
             {routine && routine.length > 0 ? <span className="blurb">Drag and drop to re-order</span> : <></>}
