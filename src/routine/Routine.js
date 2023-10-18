@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { Loader, LoaderButton, Modal } from "../layout/Layout";
 import DnD from "../layout/DnD";
 import * as Icon from '../layout/Icons';
-import { GetExercises } from "../workouts/Data";
+import { WorkoutsList } from "../workouts/Workouts";
 
 function Routine() {
     const [routine, setRoutine] = useState([]);
@@ -286,28 +286,7 @@ function Routine() {
         const [routineName, setRoutineName] = useState(routineTemplates.find((r) => r.id === selectedTemplateId).name);
         const [showModalLoaderButton, setShowModalLoaderButton] = useState(false);
         const [showError, setShowError] = useState(false);
-        const [exercises, setExercises] = useState([]);
-        const [unfilteredExercises, setUnfilteredExercises] = useState([]);
         const [selectedExercises, setSelectedExercises] = useState(routine);
-
-        useEffect(() => {
-            GetExercises().then(exercises => {
-                exercises.sort((a, b) => {
-                    const nameA = a.name.toUpperCase();
-                    const nameB = b.name.toUpperCase();
-                    if (nameA < nameB) {
-                        return -1;
-                    }
-                    if (nameA > nameB) {
-                        return 1;
-                    }
-                    return 0;
-                });
-                setExercises(exercises);
-                setUnfilteredExercises(exercises);
-                setLoading(false)
-            })
-        }, [])
 
         const onEditSubmit = (e) => {
             setShowModalLoaderButton(true);
@@ -339,6 +318,7 @@ function Routine() {
         const onDeleteSubmit = () => {
             DeleteRoutineTemplate(selectedTemplateId).then((r) => {
                 setRoutineTemplates(r);
+                sessionStorage.removeItem("routine");
                 setSelectedTemplateId("default");
                 setRoutine([]);
                 setModalShow(false);
@@ -346,41 +326,6 @@ function Routine() {
         }
 
         let error = showError ? <span className="warning">Please fill in all the fields</span> : <br />;
-
-        const onCheck = (e, exercise) => {
-            if (e.target.checked) {
-                setSelectedExercises((se) => {
-                    return [...se, exercise];
-                })
-            }
-            else {
-                setSelectedExercises(selectedExercises.filter((s) => s.exerciseId !== exercise.exerciseId));
-            }
-        }
-
-        const row = (exercise) => {
-            return (
-                <div key={exercise.exerciseId} className="row">
-                    <p>{exercise.name}</p>
-                    <input type="checkbox" checked={selectedExercises.some(r => r.exerciseId === exercise.exerciseId)} onChange={(e) => onCheck(e, exercise)} />
-                </div>
-            )
-        }
-
-        const searchFilter = (e) => {
-            if (e.target.value === "") setExercises(unfilteredExercises);
-            else {
-                setExercises(unfilteredExercises.filter((ex) => ex.name.toLowerCase().includes(e.target.value.toLowerCase())));
-            }
-        }
-
-        const exercisesDisplay = exercises.map(e => row(e));
-
-        const display = loading
-            ? <Loader />
-            : exercises.length === 0
-                ? <div className="button-container"><button className="button button-xs" onClick={() => setModalShow(true)}>Add exercise</button></div>
-                : <>{exercisesDisplay}</>;
 
         return (
             <Modal setShow={setModalShow}>
@@ -392,14 +337,7 @@ function Routine() {
                 <br />
                 <label>
                     Template exercises:
-                    <div className="workouts">
-                        <div className="filters-container">
-                            <input type="text" placeholder="Search exercises" onChange={searchFilter} />
-                        </div>
-                        <div className="workouts-container">
-                            {display}
-                        </div>
-                    </div>
+                    <WorkoutsList selectedExercises={selectedExercises} setSelectedExercises={setSelectedExercises} submit={onEditSubmit} className={"workouts"} />
                 </label>
                 {error}
                 <div className="button-container button-container-bottom">
@@ -407,7 +345,6 @@ function Routine() {
                         Submit
                     </LoaderButton>
                     <div className="button button-xxxs button-red" onClick={onDeleteSubmit}><Icon.Rubbish /></div>
-                    {/* <button className="button button-xxs button-red" onClick={onDeleteSubmit}>Delete</button> */}
                 </div>
             </Modal>
         )
