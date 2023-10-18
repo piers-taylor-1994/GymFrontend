@@ -38,6 +38,11 @@
                 justify-content: space-between;
                 align-items: center;
 
+                input::placeholder {
+                    font-style: italic;
+                    opacity: 0.5;
+                }
+
                 label {
                     line-height: 1em;
                     height: 1.3em;
@@ -115,9 +120,19 @@
                 }
             }
 
-            .button-container {
+            .button-container-bottom {
                 flex-direction: row;
                 gap: 0.4em;
+                margin-top: 0.6em;
+
+                .icon {
+                    height: 1.5em;
+                    width: 1.5em;
+
+                    svg {
+                        fill: var(--color-white);
+                    }
+                }
             }
         }
     }

@@ -16,7 +16,7 @@ function Routine() {
     const [lastSets, setLastSets] = useState([]);
     const [routineTemplates, setRoutineTemplates] = useState([]);
     const [modalShow, setModalShow] = useState(false);
-    const [selectedTemplateId, setSelectedTemplateId] = useState("");
+    const [selectedTemplateId, setSelectedTemplateId] = useState("default");
     const [modalType, setModalType] = useState(0);
 
     const navigate = useNavigate();
@@ -268,7 +268,7 @@ function Routine() {
             <Modal setShow={setModalShow}>
                 <h2>Add routine template</h2>
                 <label>
-                    Routine template name:
+                    Template name:
                     <input className="input" id="routineName" type="text" autoCapitalize="none" onChange={(e) => setRoutineName(e.target.value)} />
                     <br />
                     <div className="button-container button-container-bottom">
@@ -339,11 +339,13 @@ function Routine() {
         const onDeleteSubmit = () => {
             DeleteRoutineTemplate(selectedTemplateId).then((r) => {
                 setRoutineTemplates(r);
+                setSelectedTemplateId("default");
+                setRoutine([]);
                 setModalShow(false);
             })
         }
 
-        let error = showError ? <span className="warning">Please fill in all the fields</span> : <></>;
+        let error = showError ? <span className="warning">Please fill in all the fields</span> : <br />;
 
         const onCheck = (e, exercise) => {
             if (e.target.checked) {
@@ -366,7 +368,6 @@ function Routine() {
         }
 
         const searchFilter = (e) => {
-            console.log(e.target.value);
             if (e.target.value === "") setExercises(unfilteredExercises);
             else {
                 setExercises(unfilteredExercises.filter((ex) => ex.name.toLowerCase().includes(e.target.value.toLowerCase())));
@@ -385,12 +386,12 @@ function Routine() {
             <Modal setShow={setModalShow}>
                 <h2>Edit routine template</h2>
                 <label>
-                    Routine template name:
+                    Template name:
                     <input className="input" id="routineName" type="text" autoCapitalize="none" value={routineName} onChange={(e) => setRoutineName(e.target.value)} />
                 </label>
                 <br />
                 <label>
-                    Exercises:
+                    Template exercises:
                     <div className="workouts">
                         <div className="filters-container">
                             <input type="text" placeholder="Search exercises" onChange={searchFilter} />
@@ -400,12 +401,13 @@ function Routine() {
                         </div>
                     </div>
                 </label>
+                {error}
                 <div className="button-container button-container-bottom">
-                    {error}
                     <LoaderButton buttonStyle="button-s" submit={onEditSubmit} show={showModalLoaderButton}>
                         Submit
                     </LoaderButton>
-                    <button className="button button-xxs button-red" onClick={onDeleteSubmit}>Delete</button>
+                    <div className="button button-xxxs button-red" onClick={onDeleteSubmit}><Icon.Rubbish /></div>
+                    {/* <button className="button button-xxs button-red" onClick={onDeleteSubmit}>Delete</button> */}
                 </div>
             </Modal>
         )
@@ -440,13 +442,13 @@ function Routine() {
     const select = dropdownLoading
         ? <div className="spinner">&nbsp;</div>
         : (
-            <select onChange={onDropdownSelect} defaultValue="default">
+            <select onChange={onDropdownSelect} value={selectedTemplateId}>
                 <option value="default" disabled>Select</option>
                 {options}
             </select>
         )
     const templateAdd = routine && routine.length > 0 ? <div onClick={() => { setModalType(0); setModalShow(true); }}><Icon.Add /></div> : <></>;
-    const templateEdit = selectedTemplateId !== "" ? <div onClick={() => { setModalType(1); setModalShow(true); }}><Icon.History /></div> : <></>;
+    const templateEdit = selectedTemplateId !== "default" ? <div onClick={() => { setModalType(1); setModalShow(true); }}><Icon.Edit /></div> : <></>;
 
     return (
         <div className="routine content">

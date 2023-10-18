@@ -75,7 +75,7 @@ function Leaderboard() {
     return (
         <div className="leaderboard content">
             <h1>Leaderboard</h1>
-            <select onChange={getLeaderboard} defaultValue={"default"}>
+            <select onChange={getLeaderboard} defaultValue="default">
                 <option value="default" disabled>Select exercise</option>
                 {options}
             </select>
