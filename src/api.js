@@ -89,6 +89,10 @@ const api = {
         return Fetch(config.host + url, data("DELETE"))
             .then(response => {
                 if (err(response)) {
+                    return response.json();
+                }
+                else {
+                    return response.status;
                 }
             })
     }

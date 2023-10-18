@@ -167,6 +167,23 @@ const Version = {
                 <li>This will be displayed in the routine history.</li>
             </ul>
         </div>
+    ),
+    2.30: (
+        <div className="version">
+            <span className="version-header">Users can now edit/delete routine templates</span>
+            <div className='image-container'>
+                <img src='images/screenshot20.png' alt='screenshot' />
+            </div>
+            <ul>
+                <li>When a routine template is selected, users will now see the new edit button.</li>
+            </ul>
+            <div className='image-container'>
+                <img src='images/screenshot21.png' alt='screenshot' />
+            </div>
+            <ul>
+                <li>This reveals a new modal that allows users to edit/delete the selected routine template.</li>
+            </ul>
+        </div>
     )
 }
 Object.freeze(Version);

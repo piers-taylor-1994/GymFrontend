@@ -38,6 +38,11 @@
                 justify-content: space-between;
                 align-items: center;
 
+                input::placeholder {
+                    font-style: italic;
+                    opacity: 0.5;
+                }
+
                 label {
                     line-height: 1em;
                     height: 1.3em;
@@ -72,9 +77,9 @@
         display: flex;
         position: absolute;
         right: 0.6em;
-        top: 3.8em;
+        top: 3.3em;
         gap: 0.4em;
-        padding: 0.5em 0.5em;
+        padding: 0.3em 0.5em;
         background-color: var(--action-tertiary);
         border-radius: 1.4em;
         align-items: center;
@@ -90,9 +95,43 @@
             i {
                 height: 1.6em;
                 width: 1.6em;
-                
+
                 svg {
                     fill: var(--icon);
+                }
+            }
+        }
+    }
+
+    .modal {
+        &-main {
+            .input {
+                margin-bottom: 1em;
+            }
+
+            .workouts {
+                .filters-container {
+                    margin-top: 0.5em;
+                }
+
+                .workouts-container {
+                    height: calc(100vh - 23.3em);
+                    margin: 0.5em 0;
+                }
+            }
+
+            .button-container-bottom {
+                flex-direction: row;
+                gap: 0.4em;
+                margin-top: 0.6em;
+
+                .icon {
+                    height: 1.5em;
+                    width: 1.5em;
+
+                    svg {
+                        fill: var(--color-white);
+                    }
                 }
             }
         }

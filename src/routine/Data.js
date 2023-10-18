@@ -24,4 +24,12 @@ const AddRoutineTemplate = (routineTemplate) => {
     return api.post("workouts/routine/template/", routineTemplate);
 }
 
-export { GetRoutine, GetLastSetForExercises, AddRoutine, GetRoutineTemplates, GetRoutineTemplateSets, AddRoutineTemplate };
+const EditRoutineTemplate = (id, routineTemplate) => {
+    return api.put("workouts/routine/template/" + id, routineTemplate);
+}
+
+const DeleteRoutineTemplate = (id) => {
+    return api.delete("workouts/routine/template/" + id);
+}
+
+export { GetRoutine, GetLastSetForExercises, AddRoutine, GetRoutineTemplates, GetRoutineTemplateSets, AddRoutineTemplate, EditRoutineTemplate, DeleteRoutineTemplate };

@@ -22,11 +22,9 @@ const MuscleGroup = {
 }
 Object.freeze(MuscleGroup);
 
-function Workouts(props) {
+function WorkoutsList(props) {
     const [unfilteredExercises, setUnfilteredExercises] = useState([]);
     const [exercises, setExercises] = useState([]);
-    const [selectedExercises, setSelectedExercises] = useState([]);
-    const [showLoaderbutton, setShowLoaderbutton] = useState(false);
     const [loading, setLoading] = useState(true);
 
     const [searchFilterQuery, setSearchFilterQuery] = useState("");
@@ -34,21 +32,6 @@ function Workouts(props) {
     const [searchedArray, setSearchedArray] = useState([]);
 
     const [modalShow, setModalShow] = useState(false);
-
-    const navigate = useNavigate();
-
-    useEffect(() => {
-        if (JSON.parse(sessionStorage.getItem("routine")) && JSON.parse(sessionStorage.getItem("routine")).length > 0) {
-            setSelectedExercises(JSON.parse(sessionStorage.getItem("routine")));
-        }
-        else {
-            GetRoutine().then(routine => {
-                if (routine) {
-                    setSelectedExercises(routine.exerciseSets);
-                }
-            })
-        }
-    }, [])
 
     useEffect(() => {
         GetExercises().then(exercises => {
@@ -148,12 +131,12 @@ function Workouts(props) {
 
     const onCheck = (e, exercise) => {
         if (e.target.checked) {
-            setSelectedExercises((se) => {
+            props.setSelectedExercises((se) => {
                 return [...se, exercise];
             })
         }
         else {
-            setSelectedExercises(selectedExercises.filter((s) => s.exerciseId !== exercise.exerciseId));
+            props.setSelectedExercises(props.selectedExercises.filter((s) => s.exerciseId !== exercise.exerciseId));
         }
     }
 
@@ -161,7 +144,7 @@ function Workouts(props) {
         return (
             <div key={exercise.exerciseId} className="row">
                 <p>{exercise.name}</p>
-                <input type="checkbox" checked={selectedExercises.some(s => s.exerciseId === exercise.exerciseId)} onChange={(e) => onCheck(e, exercise)} />
+                <input type="checkbox" checked={props.selectedExercises.some(s => s.exerciseId === exercise.exerciseId)} onChange={(e) => onCheck(e, exercise)} />
             </div>
         )
     }
@@ -171,6 +154,72 @@ function Workouts(props) {
             <option value={i} key={i}>{m}</option>
         )
     }
+
+    const searchFilter = (e) => {
+        if (e.target.value === "" && parseInt(dropdownFilterQuery) === -1) setExercises(unfilteredExercises);
+        setSearchFilterQuery(e.target.value);
+    }
+
+    const dropdownFilter = (e) => {
+        if (parseInt(e.target.value) === -1) setExercises(unfilteredExercises);
+        else {
+            setLoading(true);
+            SearchExerciseMuscles(e.target.value).then((se) => {
+                setSearchedArray(se);
+                setLoading(false);
+            })
+        }
+        setDropdownFilterQuery(e.target.value);
+    }
+
+    const exercisesDisplay = exercises.map(e => row(e));
+    const options = Object.values(MuscleGroup).map((m, i) => toDropdown(m, i));
+
+    const header = props.enableAddingExercises ? <h1>Workouts</h1> : <></>;
+
+    const display = loading
+        ? <Loader />
+        : exercises.length === 0 && props.enableAddingExercises
+            ? <div className="button-container"><button className="button button-xs" onClick={() => setModalShow(true)}>Add exercise</button></div>
+            : <>{exercisesDisplay}</>;
+
+    const modal = modalShow ? <ModalComponent /> : <></>;
+
+    return (
+        <div className={props.className}>
+            {header}
+            <div className="filters-container">
+                <input type="text" placeholder="Search exercises" onChange={searchFilter} />
+                <select onChange={dropdownFilter} defaultValue={-1}>
+                    <option value={-1}>All</option>
+                    {options}
+                </select>
+            </div>
+            <div className="workouts-container">
+                {display}
+            </div>
+            {modal}
+        </div>
+    )
+}
+
+function Workouts(props) {
+    const [selectedExercises, setSelectedExercises] = useState([]);
+    const [showLoaderbutton, setShowLoaderbutton] = useState(false);
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (JSON.parse(sessionStorage.getItem("routine")) && JSON.parse(sessionStorage.getItem("routine")).length > 0) {
+            setSelectedExercises(JSON.parse(sessionStorage.getItem("routine")));
+        }
+        else {
+            GetRoutine().then(routine => {
+                if (routine) {
+                    setSelectedExercises(routine.exerciseSets);
+                }
+            })
+        }
+    }, [])
 
     const onSubmit = () => {
         setShowLoaderbutton(true);
@@ -205,53 +254,14 @@ function Workouts(props) {
         navigate("/routine");
     }
 
-    const searchFilter = (e) => {
-        if (e.target.value === "" && parseInt(dropdownFilterQuery) === -1) setExercises(unfilteredExercises);
-        setSearchFilterQuery(e.target.value);
-    }
-
-    const dropdownFilter = (e) => {
-        if (parseInt(e.target.value) === -1) setExercises(unfilteredExercises);
-        else {
-            setLoading(true);
-            SearchExerciseMuscles(e.target.value).then((se) => {
-                setSearchedArray(se);
-                setLoading(false);
-            })
-        }
-        setDropdownFilterQuery(e.target.value);
-    }
-
-    const exercisesDisplay = exercises.map(e => row(e));
-    const options = Object.values(MuscleGroup).map((m, i) => toDropdown(m, i));
-
     const submit = selectedExercises.length > 0 ? <div className="button-container submit-container"><LoaderButton buttonStyle="button-s" submit={onSubmit} show={showLoaderbutton}>Submit</LoaderButton></div> : <></>;
 
-    const display = loading
-        ? <Loader />
-        : exercises.length === 0
-            ? <div className="button-container"><button className="button button-xs" onClick={() => setModalShow(true)}>Add exercise</button></div>
-            : <>{exercisesDisplay}</>;
-
-    const modal = modalShow ? <ModalComponent /> : <></>;
-
     return (
-        <div className="workouts content">
-            <h1>Workouts</h1>
-            <div className="filters-container">
-                <input type="text" placeholder="Search exercises" onChange={searchFilter} />
-                <select onChange={dropdownFilter} defaultValue={-1}>
-                    <option value={-1}>All</option>
-                    {options}
-                </select>
-            </div>
-            <div className="workouts-container">
-                {display}
-            </div>
+        <>
+            <WorkoutsList selectedExercises={selectedExercises} setSelectedExercises={setSelectedExercises} submit={onSubmit} className={"workouts content"} enableAddingExercises={true} />
             {submit}
-            {modal}
-        </div>
+        </>
     )
 }
 
-export { MuscleGroup, Workouts };
+export { MuscleGroup, Workouts, WorkoutsList };
