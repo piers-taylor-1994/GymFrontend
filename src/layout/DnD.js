@@ -23,9 +23,6 @@ export const Card = ({ id, index, moveCard, ComponentCard, update, card }) => {
 				handlerId: monitor.getHandlerId(),
 			}
 		},
-		drop(item, monitor) {
-			update();
-		},
 		hover(item, monitor) {
 			if (!ref.current) {
 				return
@@ -107,7 +104,7 @@ const Container = (props) => {
 		setCards(array);
 	}, [array])
 
-	const UpdateOrders = useCallback(() => {
+	useEffect(() => {
 		let cardDict = {};
 		let order = 0;
 		cards.forEach(card => {
@@ -115,7 +112,7 @@ const Container = (props) => {
 		});
 
 		props.update(cardDict);
-	}, [cards, props]);
+	}, [cards, props])
 
 	const moveCard = useCallback((dragIndex, hoverIndex) => {
 		setCards((prevCards) =>
@@ -136,11 +133,10 @@ const Container = (props) => {
 				id={card.exerciseId}
 				moveCard={moveCard}
 				ComponentCard={props.component}
-				update={UpdateOrders}
 				card={card}
 			/>
 		);
-	}, [moveCard, UpdateOrders, props.component]);
+	}, [moveCard, props.component]);
 	return (
 		<>
 			<div>{cards.map((card, i) => renderCard(card, i))}</div>

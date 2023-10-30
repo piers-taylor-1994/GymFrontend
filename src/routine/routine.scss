@@ -12,24 +12,23 @@
         margin-bottom: 0.5em;
 
         .set {
-            width: 95%;
-            padding-bottom: 1em;
+            width: 97.5%;
+            margin-bottom: 1em;
 
             .name-container {
                 display: flex;
-                align-items: center;
-                gap: 0.2em;
-                margin-bottom: 0.75em;
+                margin-bottom: 1em;
+                justify-content: space-between;
 
-                .exercise-name {
-                    font-weight: bold;
-                    line-height: 0.7em;
-                    height: 1em;
-                }
+                .nameAddContainer {
+                    display: flex;
+                    gap: 0.2em;
 
-                .icon {
-                    height: 1em;
-                    width: 1em;
+                    .exercise-name {
+                        font-weight: bold;
+                        line-height: 0.7em;
+                        height: 1em;
+                    }
                 }
             }
 

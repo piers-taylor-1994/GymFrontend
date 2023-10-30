@@ -170,8 +170,12 @@ function Routine() {
         return (
             <div ref={props.cardRef} style={{ ...props.styleCard, opacity }} data-handler-id={props.handlerId}>
                 <div className="name-container">
-                    <span className="exercise-name">{exercise.name}</span>
-                    <div onClick={addRow} style={{ "height": "1em", "width": "1em" }}><Icon.AddSquare /></div>
+                    <div className="nameAddContainer">
+                        <span className="exercise-name">{exercise.name}</span>
+                        <div onClick={addRow}><Icon.AddSquare /></div>
+                    </div>
+                    <div className="icon-draggable"><Icon.Draggable /></div>
+
                 </div>
                 {rowShow}
             </div>
@@ -309,7 +313,30 @@ function Routine() {
                 EditRoutineTemplate(selectedTemplateId, { name: routineName, exerciseIds: exerciseIds }).then((r) => {
                     setShowModalLoaderButton(false);
                     setRoutineTemplates(r);
-                    updateDisplayedSets(selectedTemplateId);
+
+                    let storedSets = JSON.parse(sessionStorage.getItem("routine"));
+                    let setList = [];
+                    selectedExercises.forEach(exercise => {
+                        let exerciseArray = storedSets.find(e => e.exerciseId === exercise.exerciseId) && storedSets.find(e => e.exerciseId === exercise.exerciseId).exerciseArray
+                            ? storedSets.find(e => e.exerciseId === exercise.exerciseId).exerciseArray
+                            : [{
+                                id: 0,
+                                weight: null,
+                                sets: null,
+                                reps: null,
+                                order: 0
+                            }]
+                        setList.push({
+                            exerciseId: exercise.exerciseId,
+                            name: exercise.name,
+                            order: exercise.order,
+                            exerciseArray: exerciseArray
+                        })
+                    });
+                    setRoutine(setList);
+                    setList.current = setList;
+                    sessionStorage.setItem("routine", JSON.stringify(setList));
+
                     setModalShow(false);
                 })
             }
