@@ -184,6 +184,21 @@ const Version = {
                 <li>This reveals a new modal that allows users to edit/delete the selected routine template.</li>
             </ul>
         </div>
+    ),
+    2.31: (
+        <div className="version">
+            <span className="version-header">Routine drag n drop redesigned + general tweaks</span>
+            <div className='image-container'>
+                <img src='images/screenshot22.png' alt='screenshot' />
+            </div>
+            <ul>
+                <li>Users now can reorder by using the new drag icon.</li>
+                <li>The DnD delay has been removed.</li>
+                <br />
+                <li>Nav has shrunk slightly to give the UI more space.</li>
+                <li>Loaders have been tweaked.</li>
+            </ul>
+        </div>
     )
 }
 Object.freeze(Version);

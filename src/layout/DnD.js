@@ -3,9 +3,8 @@ import { TouchBackend } from 'react-dnd-touch-backend'
 import { HTML5Backend } from 'react-dnd-html5-backend'
 import update from "immutability-helper";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { useLongPress } from "use-long-press";
 
-export const Card = ({ id, index, moveCard, ComponentCard, update, card }) => {
+export const Card = ({ id, index, moveCard, ComponentCard, card }) => {
 	const ref = useRef(null);
 
 	const ItemTypes = {
@@ -63,22 +62,10 @@ export const Card = ({ id, index, moveCard, ComponentCard, update, card }) => {
 		},
 	})
 
-	const [canDrag, setCanDrag] = useState(false);
-
-	const longPress = useLongPress(
-		() => {
-			setCanDrag(true);
-		},
-		{
-			onFinish: () => setCanDrag(false),
-			threshold: 500,
-		}
-	);
-
 	let [{ isDragging }, drag] = useDrag({
 		type: ItemTypes.CARD,
 		item: () => {
-			if (canDrag) return { id, index }
+			return { id, index }
 
 		},
 		collect: (monitor) => ({
@@ -89,8 +76,7 @@ export const Card = ({ id, index, moveCard, ComponentCard, update, card }) => {
 	drag(drop(ref));
 
 	return (
-		<div {...longPress()} className='set'><ComponentCard cardRef={ref} styleCard={styleCard} isDragging={isDragging || canDrag} handlerId={handlerId}
-			id={id} card={card} /></div>
+		<ComponentCard cardRef={ref} styleCard={styleCard} isDragging={isDragging} handlerId={handlerId} id={id} card={card} />
 	)
 
 }
@@ -139,7 +125,7 @@ const Container = (props) => {
 	}, [moveCard, props.component]);
 	return (
 		<>
-			<div>{cards.map((card, i) => renderCard(card, i))}</div>
+			{cards.map((card, i) => renderCard(card, i))}
 		</>
 	);
 };

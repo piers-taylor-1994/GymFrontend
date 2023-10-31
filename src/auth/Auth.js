@@ -71,7 +71,7 @@ function Login(props) {
     const error = showError ? <span className="warning">Your credentials are wrong, please try again</span> : <><br /><br /></>;
 
     return (
-        <div className="login content">
+        <div className="login">
             <div className="logo-container">
                 <img fetchpriority="high" src={logoPath} alt="app logo"/>
             </div>

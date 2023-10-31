@@ -6,23 +6,26 @@
     .sets {
         display: flex;
         flex-direction: column;
-        height: calc(100vh - 17.4em);
+        height: calc(100vh - 17em);
         overflow: scroll;
         margin-top: 1em;
         margin-bottom: 0.5em;
+        gap: 1em;
 
         .set {
             width: 97.5%;
-            margin-bottom: 1em;
+            display: flex;
+            align-items: center;
+            gap: 1em;
 
-            .name-container {
-                display: flex;
-                margin-bottom: 1em;
-                justify-content: space-between;
+            &-data {
+                width: 100%;
 
-                .nameAddContainer {
+                .name-container {
                     display: flex;
+                    align-items: center;
                     gap: 0.2em;
+                    margin-bottom: 0.75em;
 
                     .exercise-name {
                         font-weight: bold;
@@ -30,44 +33,44 @@
                         height: 1em;
                     }
                 }
-            }
 
-            .row {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
+                .row {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
 
-                input::placeholder {
-                    font-style: italic;
-                    opacity: 0.5;
-                }
+                    input::placeholder {
+                        font-style: italic;
+                        opacity: 0.5;
+                    }
 
-                label {
-                    line-height: 1em;
-                    height: 1.3em;
-                }
+                    label {
+                        line-height: 1em;
+                        height: 1.3em;
+                    }
 
-                input {
-                    width: 2em;
-                    height: 1.4em;
-                    margin-right: 0.2em;
-                    text-align: center;
-                }
+                    input {
+                        width: 2em;
+                        height: 1.4em;
+                        margin-right: 0.2em;
+                        text-align: center;
+                    }
 
-                .delete-container {
-                    height: 1em;
-                    width: 1em;
+                    .delete-container {
+                        height: 1em;
+                        width: 1em;
 
-                    i {
-                        svg {
-                            fill: var(--icon);
+                        i {
+                            svg {
+                                fill: var(--icon);
+                            }
                         }
                     }
                 }
-            }
 
-            .row:not(:last-child) {
-                padding-bottom: 0.5em;
+                .row:not(:last-child) {
+                    margin-bottom: 0.5em;
+                }
             }
         }
     }
