@@ -168,16 +168,15 @@ function Routine() {
         let rowShow = routine.find((s) => s.exerciseId === exercise.exerciseId).exerciseArray.map((s, i) => toRow(exercise.exerciseId, i))
 
         return (
-            <div ref={props.cardRef} style={{ ...props.styleCard, opacity }} data-handler-id={props.handlerId}>
-                <div className="name-container">
-                    <div className="nameAddContainer">
+            <div style={{ ...props.styleCard, opacity }} data-handler-id={props.handlerId} className="set">
+                <div ref={props.cardRef}><Icon.Draggable /></div>
+                <div className="set-data">
+                    <div className="name-container">
                         <span className="exercise-name">{exercise.name}</span>
                         <div onClick={addRow}><Icon.AddSquare /></div>
                     </div>
-                    <div className="icon-draggable"><Icon.Draggable /></div>
-
+                    {rowShow}
                 </div>
-                {rowShow}
             </div>
         )
     }
@@ -404,7 +403,7 @@ function Routine() {
     }).map(r => toDropdown(r));
 
     const select = dropdownLoading
-        ? <div className="spinner">&nbsp;</div>
+        ? <div className="spinner spinner-smallest">&nbsp;</div>
         : (
             <select onChange={onDropdownSelect} value={selectedTemplateId}>
                 <option value="default" disabled>Select</option>
