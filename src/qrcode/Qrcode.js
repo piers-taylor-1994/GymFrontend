@@ -95,20 +95,6 @@ function Qrcode() {
         }
     }
 
-    const ManuallySetQrValue = () => {
-        return (
-            <div className="qrcode-submit">
-                <label>
-                    Qr code value:
-                    <input onChange={(e) => setInputValue(e.target.value)} />
-                </label>
-                <div className="button-container">
-                    <button className="button button-s" onClick={updateQrcode}>Submit</button>
-                </div>
-            </div>
-        )
-    }
-
     return (
         <div className="qrcode">
             <h1>Scan QR Code to enter</h1>

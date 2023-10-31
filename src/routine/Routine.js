@@ -177,7 +177,7 @@ function Routine() {
 
         return (
             <div style={{ ...props.styleCard, opacity }} data-handler-id={props.handlerId} className="set">
-                <div ref={props.cardRef}><Icon.Draggable /></div>
+                <div ref={props.cardRef} className="icon-container"><Icon.Draggable /></div>
                 <div className="set-data">
                     <div className="name-container">
                         <span className="exercise-name">{exercise.name}</span>
