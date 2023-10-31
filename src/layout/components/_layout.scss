@@ -91,12 +91,12 @@ body {
 .submit-container {
     position: fixed;
     width: 100%;
-    bottom: 6.3em;
+    bottom: 5.6em;
     left: 0;
     background-color: var(--background-primary);
     flex-direction: column;
     align-items: center;
-    gap: 0.5em;
+    gap: 0.3em;
 }
 
 .loader {
@@ -167,6 +167,7 @@ body {
 
 .warning {
     color: var(--error);
+    font-size: 0.8em;
 }
 
 select {

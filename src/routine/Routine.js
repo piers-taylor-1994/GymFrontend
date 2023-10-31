@@ -107,15 +107,23 @@ function Routine() {
             });
         });
 
-        if (error) {
+        const tempShowError = () => {
             setShowError(true);
+            
+            setTimeout(() => {
+                setShowError(false);
+              }, 3000);
+        }
+
+        if (error) {
+            tempShowError();
             setShowLoaderbutton(false);
         }
 
         else {
             AddRoutine(routine).then(response => {
                 if (response === 400) {
-                    setShowError(true);
+                    tempShowError();
                     setShowLoaderbutton(false);
                 }
                 else {
