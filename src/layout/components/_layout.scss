@@ -131,6 +131,18 @@ body {
     transition: all 1s;
     transition-timing-function: ease-in;
 
+    &-secondary {
+        border-bottom-color: var(--color-orange);
+    }
+
+    &-smaller {
+        border-width: 3.75px;
+    }
+
+    &-smallest {
+        border-width: 2.5px;
+    }
+
     @keyframes fadein {
         from {
             opacity: 0;
