@@ -3,9 +3,8 @@ import { TouchBackend } from 'react-dnd-touch-backend'
 import { HTML5Backend } from 'react-dnd-html5-backend'
 import update from "immutability-helper";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { useLongPress } from "use-long-press";
 
-export const Card = ({ id, index, moveCard, ComponentCard, update, card }) => {
+export const Card = ({ id, index, moveCard, ComponentCard, card }) => {
 	const ref = useRef(null);
 
 	const ItemTypes = {
