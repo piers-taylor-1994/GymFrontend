@@ -21,7 +21,12 @@ function Qrcode() {
 
     const authContext = useContext(AuthContext);
     const userId = authContext.user().sub;
-    const initialValue = userId === "c1fef7f5-383b-4200-b498-c201a6ac1fec" ? "23044311" : "23044312";
+    const initialValue =
+        userId === "c1fef7f5-383b-4200-b498-c201a6ac1fec"
+            ? "23044311"
+            : userId === "dfc8413d-69cd-468d-8ba5-e8fcca566bf1"
+                ? "23044312"
+                : "23044313";
 
     const [inputValue, setInputValue] = useState("");
     const [qrValue, setQrValue] = useState(initialValue);
@@ -81,9 +86,9 @@ function Qrcode() {
 
         if (timeFraction <= 0) {
             document.getElementById("base-timer-path-remaining")
-            .style.transition = "0s";
+                .style.transition = "0s";
             document.getElementById("base-timer-path-remaining")
-            .setAttribute("opacity", 0);
+                .setAttribute("opacity", 0);
         }
         else {
             const circleDasharray = `${(
