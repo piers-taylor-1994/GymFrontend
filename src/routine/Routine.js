@@ -109,10 +109,10 @@ function Routine() {
 
         const tempShowError = () => {
             setShowError(true);
-            
+
             setTimeout(() => {
                 setShowError(false);
-              }, 3000);
+            }, 3000);
         }
 
         if (error) {
@@ -153,7 +153,7 @@ function Routine() {
                     </label>
                     <label>
                         <input id="reps" type="number" defaultValue={exercise.exerciseArray[index].reps ? exercise.exerciseArray[index].reps : null} placeholder={lastExercise ? lastExercise.reps : null} onChange={e => { onExerciseDataUpdate(e, exerciseId, index) }} />
-                        reps
+                        {exerciseId.toLowerCase() === '471565BD-972E-4B11-A659-6AB93133F017'.toLowerCase() ? "secs" : "reps"}
                     </label>
                     <div className="delete-container" onClick={() => onDelete(exercise.exerciseId, index)}><Icon.Close /></div>
                 </div>
