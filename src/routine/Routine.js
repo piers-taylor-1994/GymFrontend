@@ -47,9 +47,10 @@ function Routine() {
 
     useEffect(() => {
         if (routine.length > 0) {
-            let routineExerciseIds = []
-            routine.map((e) => routineExerciseIds.push(e.exerciseId));
-            GetLastSetForExercises(routineExerciseIds).then((sets) => {
+            let routineExerciseIdsTypes = []
+            routine.map((e) => routineExerciseIdsTypes.push({ ExerciseId: e.exerciseId, Type: e.type }));
+            console.log(routineExerciseIdsTypes);
+            GetLastSetForExercises(routineExerciseIdsTypes).then((sets) => {
                 setLastSets(sets);
             })
         }
@@ -153,7 +154,7 @@ function Routine() {
                     </label>
                     <label>
                         <input id="reps" type="number" defaultValue={exercise.exerciseArray[index].reps ? exercise.exerciseArray[index].reps : null} placeholder={lastExercise ? lastExercise.reps : null} onChange={e => { onExerciseDataUpdate(e, exerciseId, index) }} />
-                        {exerciseId.toLowerCase() === '471565BD-972E-4B11-A659-6AB93133F017'.toLowerCase() ? "secs" : "reps"}
+                        {exercise.type === 1 ? "secs" : "reps"}
                     </label>
                     <div className="delete-container" onClick={() => onDelete(exercise.exerciseId, index)}><Icon.Close /></div>
                 </div>
@@ -228,6 +229,7 @@ function Routine() {
                 setList.push({
                     exerciseId: ex.exerciseId,
                     name: ex.name,
+                    type: ex.type,
                     order: i,
                     exerciseArray: [{
                         id: 0,

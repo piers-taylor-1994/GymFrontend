@@ -65,6 +65,7 @@ function WorkoutsList(props) {
     const ModalComponent = () => {
         const [exerciseName, setExerciseName] = useState(searchFilterQuery);
         const [muscles, setMuscles] = useState([]);
+        const [type, setType] = useState(0);
         const [showModalLoaderButton, setShowModalLoaderButton] = useState(false);
         const [showError, setShowError] = useState(false);
 
@@ -94,7 +95,7 @@ function WorkoutsList(props) {
                 setShowError(true);
             }
             else {
-                AddExercise(exerciseName, muscles).then((e) => {
+                AddExercise(exerciseName, muscles, type).then((e) => {
                     if (e) setExercises((exercises) => {
                         return [...exercises, e];
                     })
@@ -111,10 +112,23 @@ function WorkoutsList(props) {
         return (
             <Modal setShow={setModalShow}>
                 <h2>Add exercise</h2>
-                <label>
-                    Exercise name:
+                <div className="input-container">
+                    <span>Exercise name:</span>
                     <input className="input" id="exerciseName" type="text" spellCheck="true" defaultValue={exerciseName} onChange={(e) => setExerciseName(e.target.value)} />
-                </label>
+                </div>
+                <div className="input-container" style={{marginBottom: "1em"}}>
+                    <span>Exercise type:</span>
+                    <div className="radio-container" onChange={(e) => setType(e.target.value)}>
+                        <label className='radio-label'>
+                            Reps
+                            <input type="radio" value={0} name='type' defaultChecked />
+                        </label>
+                        <label className='radio-label'>
+                            Timed
+                            <input type="radio" value={1} name='type' />
+                        </label>
+                    </div>
+                </div>
                 <h3>Muscles</h3>
                 <div className="checkbox-container">
                     {checkBoxes}
@@ -228,6 +242,7 @@ function Workouts(props) {
             selectedExerciseObjects.push({
                 exerciseId: selectedExercises[i].exerciseId,
                 name: selectedExercises[i].name,
+                type: selectedExercises[i].type,
                 order: i,
                 exerciseArray: selectedExercises[i].exerciseArray ? selectedExercises[i].exerciseArray : [{
                     weight: null,
