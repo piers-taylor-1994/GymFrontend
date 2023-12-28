@@ -10,61 +10,96 @@
         opacity: 0;
     }
 
+
     #header1 {
         animation: fadeIn 2s linear 0.25s 1 normal forwards;
     }
 
-    .subheaders-container {
+    .content-container {
         display: flex;
         flex-direction: column;
-        gap: 2.5em;
+        gap: calc(100vh - 40em);
 
-        .subheader-container {
+        .recent-container {
             display: flex;
-            gap: 0.4em;
-            align-items: center;
-    
-            .difference-container {
+            flex-direction: column;
+            gap: 1em;
+            opacity: 0;
+            animation: fadeIn 1s linear 2.5s 1 normal forwards;
+
+            h2 {
+                margin-bottom: 0;
+            }
+
+            .rows {
                 display: flex;
+                flex-direction: column;
+                gap: 0.7em;
+
+                .row {
+                    display: grid;
+                    grid-template-columns: 40% 1fr 33%;
+
+                    p {
+                        margin: 0;
+                    }
+                }
+            }
+        }
+
+        .subheaders-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5em;
+
+            .subheader-container {
+                display: flex;
+                gap: 0.4em;
                 align-items: center;
-                gap: 0.2em;
 
-                i {
-                    height: 0.5em;
-                    width: 0.5em;
-                    display: inline-flex;
-                    margin-left: 0.1em;
+                .difference-container {
+                    display: flex;
+                    align-items: center;
+                    gap: 0.2em;
+
+                    i {
+                        height: 0.5em;
+                        width: 0.5em;
+                        display: inline-flex;
+                        margin-left: 0.1em;
+                    }
+
+                    .difference {
+                        font-size: 0.8em;
+                        font-weight: 500;
+                        height: 0.92em;
+                        line-height: 0.7em;
+                    }
                 }
 
-                .difference {
-                    font-size: 0.8em;
-                    font-weight: 500;
-                    height: 0.92em;
-                    line-height: 0.7em;
+                .subheader {
+                    font-weight: 600;
+                    font-size: 1.4em;
+                    height: 0.75em;
+                    line-height: 0.6em;
                 }
-            }
-    
-            .subheader {
-                font-weight: 600;
-                font-size: 1.4em;
-                height: 0.75em;
-                line-height: 0.6em;
-            }
-    
-            #header2 {
-                animation: fadeIn 2s linear 0.5s 1 normal forwards;
-            }
-    
-            .count1 {
-                animation: fadeIn 2s linear 1s 1 normal forwards;
-            }
-    
-            #header3 {
-                animation: fadeIn 2s linear 1.5s 1 normal forwards;
-            }
-    
-            .count2 {
-                animation: fadeIn 2s linear 2s 1 normal forwards;
+
+                #header2 {
+                    animation: fadeIn 2s linear 0.5s 1 normal forwards;
+                }
+
+                .count1 {
+                    animation: fadeIn 2s linear 1s 1 normal forwards;
+                }
+
+                #header3 {
+                    animation: fadeIn 2s linear 1.5s 1 normal forwards;
+                }
+
+                .count2 {
+                    animation: fadeIn 2s linear 2s 1 normal forwards;
+                }
+
             }
         }
     }

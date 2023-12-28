@@ -4,4 +4,8 @@ const GetWorkoutsCount = () => {
     return api.get("workouts/count");
 }
 
-export { GetWorkoutsCount };
+const GetMostRecentWorkouts = () => {
+    return api.get("workouts/recent");
+}
+
+export { GetWorkoutsCount, GetMostRecentWorkouts };

@@ -199,6 +199,20 @@ const Version = {
                 <li>Loaders have been tweaked.</li>
             </ul>
         </div>
+    ),
+    2.41: (
+        <div className="version">
+            <span className="version-header">Recent workouts added</span>
+            <div className='image-container'>
+                <img src='images/screenshot23.png' alt='screenshot' />
+            </div>
+            <ul>
+                <li>Users can now see the 5 most recent workouts on the home page.</li>
+                <li>Layout is WIP.</li>
+                <br />
+                <li>The current most recent workouts will show time as midnight but all future will show the correct time.</li>
+            </ul>
+        </div>
     )
 }
 Object.freeze(Version);
