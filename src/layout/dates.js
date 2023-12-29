@@ -1,4 +1,6 @@
 const dayjs = require("dayjs")
+var advancedFormat = require('dayjs/plugin/advancedFormat');
+dayjs.extend(advancedFormat);
 
 const Format = (date) => {
     let newDate = dayjs(date);
@@ -13,7 +15,7 @@ const Format = (date) => {
         dayYearShorter: newDate.format('dddd D MMMM'),
         monthYear: newDate.format('MMYYYY'),
         monthYearLong: newDate.format('MMMM YY'),
-        dateTime: newDate.format('ddd D HH:mma')
+        dateTime: newDate.format('ddd Do HH:mma')
     }
 }
 
