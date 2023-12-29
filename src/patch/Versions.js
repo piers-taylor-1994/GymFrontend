@@ -209,8 +209,6 @@ const Version = {
             <ul>
                 <li>Users can now see the 5 most recent workouts on the home page.</li>
                 <li>Layout is WIP.</li>
-                <br />
-                <li>The current most recent workouts will show time as midnight but all future will show the correct time.</li>
             </ul>
         </div>
     )

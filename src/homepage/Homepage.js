@@ -34,7 +34,7 @@ function Homepage(props) {
 
     const toRow = (rw, i) => {
         return (
-            <div className="row" key={i}>
+            <div id={"row" + i} className="row" key={i}>
                 <p>{Format(rw.date).dateTime}</p>
                 <p>{rw.username}</p>
                 <p>{MuscleArea[rw.muscleArea]}</p>

@@ -24,25 +24,58 @@
             display: flex;
             flex-direction: column;
             gap: 1em;
-            opacity: 0;
-            animation: fadeIn 1s linear 2.5s 1 normal forwards;
 
             h2 {
                 margin-bottom: 0;
+                opacity: 0;
+                animation: fadeIn 1s linear 2.5s 1 normal forwards;
             }
 
             .rows {
                 display: flex;
                 flex-direction: column;
-                gap: 0.7em;
+
+                #row0 {
+                    animation: fadeIn 1s linear 2.75s 1 normal forwards;
+                }
+
+                #row1 {
+                    animation: fadeIn 1s linear 3s 1 normal forwards;
+                }
+
+                #row2 {
+                    animation: fadeIn 1s linear 3.25s 1 normal forwards;
+                }
+
+                #row3 {
+                    animation: fadeIn 1s linear 3.5s 1 normal forwards;
+                }
+
+                #row4 {
+                    animation: fadeIn 1s linear 3.75s 1 normal forwards;
+                }
 
                 .row {
                     display: grid;
-                    grid-template-columns: 40% 1fr 33%;
+                    grid-template-columns: 46% 1fr 33%;
+                    padding: 0.3em 0;
+                    opacity: 0;
 
                     p {
                         margin: 0;
                     }
+                }
+
+                .row:first-child {
+                    padding-top: 0;
+                }
+
+                .row:not(:last-child) {
+                    border-bottom: 1px solid var(--row-border);
+                }
+
+                .row:last-child {
+                    padding-bottom: 0;
                 }
             }
         }

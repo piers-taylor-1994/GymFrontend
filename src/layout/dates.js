@@ -13,7 +13,7 @@ const Format = (date) => {
         dayYearShorter: newDate.format('dddd D MMMM'),
         monthYear: newDate.format('MMYYYY'),
         monthYearLong: newDate.format('MMMM YY'),
-        dateTime: newDate.format('ddd HH:mma')
+        dateTime: newDate.format('ddd D HH:mma')
     }
 }
 

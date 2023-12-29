@@ -58,6 +58,8 @@ $square-button: 0.75rem;
     --square-core: #{$pastel-jade-light};
     --square-lower: #{$pastel-blue-light};
 
+    --row-border : #{$grey-light};
+
     --error: #{$red-darker};
     --read-only: #{$grey-light};
 }
@@ -85,6 +87,8 @@ $square-button: 0.75rem;
     --square-upper: #{$pastel-violet-dark};
     --square-core: #{$pastel-jade-dark};
     --square-lower: #{$pastel-blue-dark};
+
+    --row-border : #{$black-lighter};
 
     --error: #{$red};
     --read-only: #{$grey-dark};
