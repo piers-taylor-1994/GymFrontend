@@ -1,0 +1,58 @@
+.booking {
+    .row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        align-items: center;
+        justify-items: center;
+        border: 1px solid white;
+    }
+
+    .button {
+        width: 7em;
+        height: 2.5em;
+    }
+
+    .button-nudge {
+        span {
+            margin-right: 2.7em;
+        }
+
+        .spinner {
+            right: 3.3em;
+        }
+    }
+
+    .bold {
+        font-weight: bold;
+    }
+
+    .italic {
+        font-style: italic;
+    }
+
+    .modal {
+        &-main {
+            .loader-section {
+                height: calc(100vh - 22em);
+            }
+        }
+    }
+
+    #response {
+        height: calc(100vh - 22em);
+        text-align: center;
+        font-weight: bold;
+        font-size: 1.2em;
+        align-content: center;
+    }
+
+    #header1 {
+        margin-bottom: 0.2em;
+    }
+
+    #header2 {
+        text-align: center;
+        font-weight: 400;
+        margin: 0.5em 0em 0.75em 0em;
+    }
+}

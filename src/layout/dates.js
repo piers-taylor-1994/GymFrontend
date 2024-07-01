@@ -11,8 +11,8 @@ const Format = (date) => {
         year: newDate.format('YY'),
         time: newDate.format('HH:mm'),
         date: newDate.format('DD/MM/YYYY'),
-        dayYear: newDate.format('dddd D MMMM YYYY'),
-        dayYearShorter: newDate.format('dddd D MMMM'),
+        dayMonthYear: newDate.format('dddd D MMMM YYYY'),
+        dayMonth: newDate.format('dddd Do MMMM'),
         monthYear: newDate.format('MMYYYY'),
         monthYearLong: newDate.format('MMMM YY'),
         dateTime: newDate.format('ddd Do HH:mma')

@@ -10,12 +10,12 @@ function TopNav(props) {
     const userId = authContext.user().sub;
 
     const userQRShow = () => {
-        return userId === "c1fef7f5-383b-4200-b498-c201a6ac1fec" || userId === "dfc8413d-69cd-468d-8ba5-e8fcca566bf1" || userId == "318ca921-ec0b-4ab6-a6b8-dda4b1e1d769" ? true : false;
+        return userId === "c1fef7f5-383b-4200-b498-c201a6ac1fec" || userId === "dfc8413d-69cd-468d-8ba5-e8fcca566bf1" || userId === "318ca921-ec0b-4ab6-a6b8-dda4b1e1d769" ? true : false;
     }
 
     return (
         <div className="navigation-top">
-            {location.pathname !== "/" ? <Link className="nav-item" to={"/"}><Icon.Home /></Link> : userQRShow() ? <Link className="nav-item" to={"/qrcode"}><Icon.QrCode /></Link> : <></>}
+            {location.pathname !== "/" ? <Link className="nav-item" to={"/"}><Icon.Home /></Link> : userQRShow() ? <Link className="nav-item" to={"/qrcode"}><Icon.QrCode /></Link> : userId === "9f15fa88-844e-480c-9440-c7290ee31115" ? <Link className="nav-item" to={"/booking"}><Icon.Book /></Link> : <></>}
             <Link className="nav-item" to={"/settings"}><Icon.Settings /></Link>
         </div>
     )

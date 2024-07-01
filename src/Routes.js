@@ -1,4 +1,5 @@
 import { Logout } from "./auth/Auth";
+import Booking from "./booking/Booking";
 import HistoryRoutes from "./history/Routes";
 import Homepage from "./homepage/Homepage";
 import LeaderboardRoutes from "./leaderboard/Routes";
@@ -31,6 +32,11 @@ const ROUTES = [
     {
         path: "/qrcode",
         element: <Qrcode />,
+        children: []
+    },
+    {
+        path: "/booking",
+        element: <Booking />,
         children: []
     },
     {
