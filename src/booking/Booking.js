@@ -40,13 +40,14 @@ function Booking() {
         })
     }
 
-    const row = (timetable) => {
+    const row = (t) => {
         return (
-            <div key={timetable.id} className="row">
-                <p style={{ "textAlign": "center" }} className="bold">{timetable.name}</p>
-                <p className="italic">{timetable.instructors[0].name}</p>
-                <p>{timetable.starts_At.format_12_Hour} - {timetable.ends_At.format_12_Hour}</p>
-                <button className="button" onClick={() => onSubmit(timetable.id)}>Book</button>
+            <div key={t.id} className="row">
+                <p style={{ "textAlign": "center" }} className="bold">{t.name}</p>
+                <p className="italic">{t.instructors[0].name}</p>
+                <p>{Format(t.date.raw).dayMonth}</p>
+                <p id="time">{t.starts_At.format_12_Hour} - {t.ends_At.format_12_Hour}</p>
+                <button className="button" onClick={() => onSubmit(t.id)}>Book</button>
             </div>
         )
     }
@@ -65,8 +66,7 @@ function Booking() {
 
     return (
         <div className="booking content">
-            <h1 id="header1">Yoga booker</h1>
-            {timetable.length > 0 ? <h2 id="header2">{Format(timetable[0].date.raw).dayMonth}</h2> : <></>}
+            <h1 id="header1">Class booker</h1>
             {display}
             {modal}
         </div>

@@ -12,7 +12,7 @@ const Format = (date) => {
         time: newDate.format('HH:mm'),
         date: newDate.format('DD/MM/YYYY'),
         dayMonthYear: newDate.format('dddd D MMMM YYYY'),
-        dayMonth: newDate.format('dddd Do MMMM'),
+        dayMonth: newDate.format('ddd Do MMMM'),
         monthYear: newDate.format('MMYYYY'),
         monthYearLong: newDate.format('MMMM YY'),
         dateTime: newDate.format('ddd Do HH:mma')
