@@ -58,14 +58,18 @@
 
     .modal {
         &-main {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 4em;
+
             .loader-section {
-                height: calc(100vh - 22em);
+                height: initial
             }
         }
     }
 
     #response {
-        height: calc(100vh - 22em);
         text-align: center;
         font-weight: bold;
         font-size: 1.2em;
