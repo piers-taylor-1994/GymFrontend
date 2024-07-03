@@ -8,4 +8,8 @@ const BookEvent = (bookingId) => {
     return api.postText("booking/" + bookingId);
 }
 
-export { GetTimetable, BookEvent };
+const GetBooked = () => {
+    return api.get("booking/booked");
+}
+
+export { GetTimetable, BookEvent, GetBooked };
