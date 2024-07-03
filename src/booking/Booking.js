@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { BookEvent, GetTimetable } from "./Data";
+import { BookEvent, GetBooked, GetTimetable } from "./Data";
 import { Loader, Modal } from "../layout/Layout";
 import "./booking.scss";
 import { Format } from "../layout/dates";
@@ -8,6 +8,7 @@ import { AuthContext } from "../auth/Auth";
 
 function Booking() {
     const [timetable, setTimetable] = useState([]);
+    const [booked, setBooked] = useState([]);
     const [loading, setLoading] = useState(true);
     const [modalShow, setModalShow] = useState(false);
     const [response, setResponse] = useState("")
@@ -17,15 +18,17 @@ function Booking() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (userId !== "9f15fa88-844e-480c-9440-c7290ee31115") {
-            navigate("/");
-        }
+        if (userId !== "9f15fa88-844e-480c-9440-c7290ee31115") navigate("/");
 
         GetTimetable().then((t) => {
             setTimetable(t);
-            setLoading(false);
+
+            GetBooked().then((b) => {
+                setBooked(b);
+                setLoading(false);
+            })
         })
-    }, [userId, navigate])
+    }, [userId, navigate, response])
 
     const closeModal = () => {
         setModalShow(false);
@@ -41,13 +44,15 @@ function Booking() {
     }
 
     const row = (t) => {
+        let className = booked.includes(t.id) ? "row row-disabled" : "row";
+        let buttonText = booked.includes(t.id) ? "Booked" : "Book";
         return (
-            <div key={t.id} className="row">
+            <div key={t.id} className={className}>
                 <p style={{ "textAlign": "center" }} className="bold">{t.name}</p>
                 <p className="italic">{t.instructors[0].name}</p>
                 <p>{Format(t.date.raw).dayMonth}</p>
                 <p id="time">{t.starts_At.format_12_Hour} - {t.ends_At.format_12_Hour}</p>
-                <button className="button" onClick={() => onSubmit(t.id)}>Book</button>
+                <button className="button" onClick={() => onSubmit(t.id)} disabled={booked.includes(t.id)}>{buttonText}</button>
             </div>
         )
     }

@@ -40,11 +40,21 @@
         #time {
             font-size: 0.9em;
         }
+
+        &-disabled {
+            opacity: 50%;
+
+            .button {
+                background-color: darkgray;
+            }
+        }
     }
 
     .row:first-of-type {
         border-top: 1px solid var(--border);
     }
+
+
 
     .modal {
         &-main {
@@ -60,10 +70,6 @@
         font-weight: bold;
         font-size: 1.2em;
         align-content: center;
-    }
-
-    #header1 {
-        margin-bottom: 0.2em;
     }
 
     #header2 {
