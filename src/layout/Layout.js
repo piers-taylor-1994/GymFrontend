@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import * as Icon from './Icons'
 
 function Loader(props) {
@@ -32,6 +33,10 @@ function LoaderButton(props) {
 
 function Modal(props) {
     const style = props.modalStyle ? "modal-main " + props.modalStyle : "modal-main";
+    
+    useEffect(() => {
+        if (props.timeoutTrigger) setTimeout(() => props.setShow(false), props.timeoutLength)
+    }, [props])
 
     return (
         <div className="modal">

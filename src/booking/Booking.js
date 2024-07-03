@@ -10,6 +10,7 @@ function Booking() {
     const [timetable, setTimetable] = useState([]);
     const [booked, setBooked] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [loading2, setLoading2] = useState(true);
     const [modalShow, setModalShow] = useState(false);
     const [response, setResponse] = useState("")
 
@@ -22,13 +23,16 @@ function Booking() {
 
         GetTimetable().then((t) => {
             setTimetable(t);
-
-            GetBooked().then((b) => {
-                setBooked(b);
-                setLoading(false);
-            })
+            setLoading(false);
         })
     }, [userId, navigate, response])
+
+    useEffect(() => {
+        GetBooked().then((b) => {
+            setBooked(b);
+            setLoading2(false);
+        })
+    }, [response])
 
     const closeModal = () => {
         setModalShow(false);
@@ -60,12 +64,12 @@ function Booking() {
     const rows = timetable.map(t => row(t));
 
     const modal = modalShow
-        ? <Modal setShow={closeModal}>
+        ? <Modal timeoutTrigger={response} timeoutLength={2500} setShow={closeModal}>
             {response === "" ? <Loader /> : <p id="response">{response}</p>}
         </Modal>
         : <></>;
 
-    const display = loading
+    const display = loading || loading2
         ? <Loader />
         : <>{rows}</>
 
