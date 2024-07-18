@@ -23,19 +23,13 @@ function Qrcode() {
     const userId = authContext.user().sub;
     const initialValue = userId === "dfc8413d-69cd-468d-8ba5-e8fcca566bf1" ? "23044312" : "23044311";
 
-    const [inputValue, setInputValue] = useState("");
     const [qrValue, setQrValue] = useState(initialValue);
     const [randomNumber, setRandomNumber] = useState(randomNumberColourGenerator(RandomType[0]))
     const [randomNumberColour, setRandomNumberColour] = useState(randomNumberColourGenerator(RandomType[1]));
-
-    const updateQrcode = () => {
-        setQrValue(inputValue);
-        setRandomNumber(randomNumberColourGenerator(RandomType[0]));
-        setRandomNumberColour(randomNumberColourGenerator(RandomType[1]));
-    }
+    const [started, setStarted] = useState(false);
 
     const FULL_DASH_ARRAY = 283;
-    let TIME_LIMIT = 15;
+    let TIME_LIMIT = 30;
     let timePassed = 0;
     let timeLeft = TIME_LIMIT;
     let timerInterval = null;
@@ -45,19 +39,22 @@ function Qrcode() {
     }
 
     (function startTimer() {
-        timerInterval = setInterval(() => {
-            if (document.getElementById("base-timer-label")) {
-                timePassed = timePassed += 1;
-                timeLeft = TIME_LIMIT - timePassed;
-                document.getElementById("base-timer-label").innerHTML = formatTime(
-                    timeLeft
-                );
-                setCircleDasharray();
-            }
-            if (timeLeft === 0 || !document.getElementById("base-timer-label")) {
-                onTimesUp();
-            }
-        }, 1000);
+        if (!started) {
+            setStarted(true);
+            timerInterval = setInterval(() => {
+                if (document.getElementById("base-timer-label")) {
+                    timePassed = timePassed += 1;
+                    timeLeft = TIME_LIMIT - timePassed;
+                    document.getElementById("base-timer-label").innerHTML = formatTime(
+                        timeLeft
+                    );
+                    setCircleDasharray();
+                }
+                if (timeLeft === 0 || !document.getElementById("base-timer-label")) {
+                    onTimesUp();
+                }
+            }, 1000);
+        }
     })();
 
     function formatTime(time) {
@@ -95,6 +92,15 @@ function Qrcode() {
         }
     }
 
+    const updateQrcode = (value) => {
+        setQrValue((i) => {
+            let newValue = parseInt(i) + value;
+            return (newValue.toString())
+        });
+        setRandomNumber(randomNumberColourGenerator(RandomType[0]));
+        setRandomNumberColour(randomNumberColourGenerator(RandomType[1]));
+    }
+
     return (
         <div className="qrcode">
             <h1>Scan QR Code to enter</h1>
@@ -127,16 +133,23 @@ function Qrcode() {
                                     strokeDasharray="283"
                                     className="base-timer__path-remaining"
                                     d="
-          M 50, 50
-          m -45, 0
-          a 45,45 0 1,0 90,0
-          a 45,45 0 1,0 -90,0
-        "
+                                        M 50, 50
+                                        m -45, 0
+                                        a 45,45 0 1,0 90,0
+                                        a 45,45 0 1,0 -90,0
+                                        "
                                 ></path>
                             </g>
                         </svg>
-                        <span id="base-timer-label" className="base-timer__label">00:15</span>
+                        <span id="base-timer-label" className="base-timer__label">00:30</span>
                     </div>
+                </div>
+            </div>
+            <div className="bottom-container">
+                <span>{qrValue} {qrValue === "23044311" ? "Piers'" : ""}</span>
+                <div className="buttons-container">
+                    <button onClick={() => updateQrcode(-1)}>Previous</button>
+                    <button onClick={() => updateQrcode(1)}>Next</button>
                 </div>
             </div>
         </div>

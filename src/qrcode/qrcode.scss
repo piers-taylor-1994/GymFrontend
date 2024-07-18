@@ -136,4 +136,23 @@
             }
         }
     }
+
+    .bottom-container {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 1em;
+
+        .buttons-container {
+            margin-top: 0.4em;
+            display: flex;
+            gap: 1em;
+
+            button {
+                width: 7em;
+                padding: 0.3em 0;
+            }
+        }
+    }
 }
