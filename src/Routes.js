@@ -7,6 +7,7 @@ import Qrcode from "./qrcode/Qrcode";
 import RoutinesRoutes from "./routine/Routes";
 import Settings from "./settings/Settings";
 import Stopwatch from "./stopwatch/Stopwatch";
+import Token from "./token/Token";
 import WorkoutsRoutes from "./workouts/Routes";
 
 const ROUTES = [
@@ -37,6 +38,11 @@ const ROUTES = [
     {
         path: "/booking",
         element: <Booking />,
+        children: []
+    },
+    {
+        path: "/token",
+        element: <Token />,
         children: []
     },
     {

@@ -59,7 +59,7 @@ const api = {
         return Fetch(config.host + url, data("PUT", request))
             .then(response => {
                 if (err(response)) {
-                    return response.json();
+                    return response.text();
                 }
                 else {
                     return response.status;

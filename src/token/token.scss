@@ -1,0 +1,24 @@
+.token {
+    div {
+        margin: 0 1em;
+    }
+    .input-container {
+        display: grid;
+        grid-template-columns: 75% 1fr;
+        gap: 1em;
+        align-items: center;
+
+        input {
+            height: 2.5em;
+        }
+
+        .button .spinner {
+            right: 5em;
+        }
+    }
+
+    .response-container {
+        display: flex;
+        margin-top: 1em;
+    }
+}
