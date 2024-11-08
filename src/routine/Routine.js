@@ -62,7 +62,9 @@ function Routine() {
         )
         if (e.target.id === "weight") input.exerciseArray[index][e.target.id] = parseFloat(e.target.value);
         else input.exerciseArray[index][e.target.id] = parseInt(e.target.value);
+
         sessionStorage.setItem("routine", JSON.stringify(setList.current));
+        if (setList.current[0].exerciseArray.find(f => f.weight && f.sets > 0 && f.reps > 0)) submitRoutine(false);
     }
 
     const onDelete = (exerciseId, index) => {
@@ -88,6 +90,12 @@ function Routine() {
 
     const onSubmit = () => {
         setShowLoaderbutton(true);
+        submitRoutine(true);
+    }
+
+    async function submitRoutine(reroute) {
+        if (reroute) console.log("Proper submit");
+        else console.log("Stealth submit");
 
         routine.forEach(r => {
             setList.current.forEach(s => {
@@ -129,7 +137,7 @@ function Routine() {
                 else {
                     sessionStorage.removeItem("routine");
                     setShowLoaderbutton(false);
-                    navigate("/history/" + response);
+                    if (reroute) navigate("/history/" + response);
                 }
             });
         }

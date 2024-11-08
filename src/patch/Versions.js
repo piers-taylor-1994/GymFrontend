@@ -211,6 +211,19 @@ const Version = {
                 <li>Layout is WIP.</li>
             </ul>
         </div>
+    ),
+    2.51: (
+        <div className="version">
+            <span className="version-header">"Stealth" auto submit added</span>
+            <div className='image-container'>
+                <img src='images/screenshot24.png' alt='screenshot' />
+            </div>
+            <ul>
+                <li>Workouts are now auto uploaded as each exercise is completed.</li>
+                <li>Clicking the submit button is kinda redundant now, but it'll allow for corrections to workout.</li>
+                <li>Each auto/manual submission of a workout will overwrite the previous day's uploaded data.</li>
+            </ul>
+        </div>
     )
 }
 Object.freeze(Version);
