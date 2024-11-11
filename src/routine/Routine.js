@@ -18,6 +18,7 @@ function Routine() {
     const [modalShow, setModalShow] = useState(false);
     const [selectedTemplateId, setSelectedTemplateId] = useState("default");
     const [modalType, setModalType] = useState(0);
+    // const [submittedGhostExercises, setSubmittedGhostExercises] = useState([]);
 
     const navigate = useNavigate();
     const setList = useRef([]);
@@ -64,7 +65,15 @@ function Routine() {
         else input.exerciseArray[index][e.target.id] = parseInt(e.target.value);
 
         sessionStorage.setItem("routine", JSON.stringify(setList.current));
-        if (setList.current[0].exerciseArray.find(f => f.weight && f.sets > 0 && f.reps > 0)) submitRoutine(false);
+
+        if (setList.current[0].exerciseArray.find(f => parseInt(f.weight) >= 0 && f.sets > 0 && f.reps > 0)) {
+            combineRoutineData();
+            let validExercises = routine.filter(r => r.exerciseArray.find(f => parseInt(f.weight) >= 0 && f.sets > 0 && f.reps > 0));
+            if (validExercises.length >= 1) {
+                addRoutine(validExercises, false);
+                console.log("Ghost submit");
+            }
+        }
     }
 
     const onDelete = (exerciseId, index) => {
@@ -90,22 +99,9 @@ function Routine() {
 
     const onSubmit = () => {
         setShowLoaderbutton(true);
-        submitRoutine(true);
-    }
+        console.log("Proper submit");
 
-    async function submitRoutine(reroute) {
-        if (reroute) console.log("Proper submit");
-        else console.log("Stealth submit");
-
-        routine.forEach(r => {
-            setList.current.forEach(s => {
-                if (r.exerciseId === s.exerciseId && r.order === s.order) {
-                    r.weight = s.weight;
-                    r.sets = s.sets;
-                    r.reps = s.reps;
-                }
-            });
-        });
+        combineRoutineData();
 
         let error = false;
 
@@ -127,20 +123,31 @@ function Routine() {
             tempShowError();
             setShowLoaderbutton(false);
         }
-
         else {
-            AddRoutine(routine).then(response => {
-                if (response === 400) {
-                    tempShowError();
-                    setShowLoaderbutton(false);
-                }
-                else {
-                    sessionStorage.removeItem("routine");
-                    setShowLoaderbutton(false);
-                    if (reroute) navigate("/history/" + response);
+            addRoutine(routine, true);
+        }
+    }
+
+    async function combineRoutineData() {
+        routine.forEach(r => {
+            setList.current.forEach(s => {
+                if (r.exerciseId === s.exerciseId && r.order === s.order) {
+                    r.weight = s.weight;
+                    r.sets = s.sets;
+                    r.reps = s.reps;
                 }
             });
-        }
+        });
+    }
+
+    async function addRoutine(routineAdd, reroute) {
+        AddRoutine(routineAdd).then(response => {
+            setShowLoaderbutton(false);
+            if (reroute) {
+                sessionStorage.removeItem("routine");
+                navigate("/history/" + response);
+            }
+        });
     }
 
     const SetCard = (props) => {
