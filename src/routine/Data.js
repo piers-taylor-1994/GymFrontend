@@ -1,15 +1,15 @@
 import api from "../api";
 
-const GetRoutine = () => {
-    return api.get("workouts/routine");
+const GetRoutine = (submissionType) => {
+    return api.get("workouts/routine?submissionType=" + submissionType);
 }
 
 const GetLastSetForExercises = (setList) => {
     return api.post("workouts/routine/last", setList);
 }
 
-const AddRoutine = (exercises) => {
-    return api.post("workouts/routine", exercises);
+const AddRoutine = (exercises, submissionType) => {
+    return api.post("workouts/routine?submissionType=" + submissionType, exercises);
 }
 
 const GetRoutineTemplates = () => {

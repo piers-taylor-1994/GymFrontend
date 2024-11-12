@@ -30,7 +30,7 @@ function Routine() {
             setList.current = JSON.parse(sessionStorage.getItem("routine"));
         }
         else {
-            GetRoutine().then(routine => {
+            GetRoutine(0).then(routine => {
                 if (routine) {
                     let setList = routine.exerciseSets;
                     setRoutine(setList);
@@ -70,7 +70,7 @@ function Routine() {
             combineRoutineData();
             let validExercises = routine.filter(r => r.exerciseArray.find(f => parseInt(f.weight) >= 0 && f.sets > 0 && f.reps > 0));
             if (validExercises.length >= 1) {
-                addRoutine(validExercises, false);
+                addRoutine(validExercises, 1, false);
                 console.log("Ghost submit");
             }
         }
@@ -124,7 +124,7 @@ function Routine() {
             setShowLoaderbutton(false);
         }
         else {
-            addRoutine(routine, true);
+            addRoutine(routine, 0, true);
         }
     }
 
@@ -140,8 +140,8 @@ function Routine() {
         });
     }
 
-    async function addRoutine(routineAdd, reroute) {
-        AddRoutine(routineAdd).then(response => {
+    async function addRoutine(routineAdd, submissionType, reroute) {
+        AddRoutine(routineAdd, submissionType).then(response => {
             setShowLoaderbutton(false);
             if (reroute) {
                 sessionStorage.removeItem("routine");
