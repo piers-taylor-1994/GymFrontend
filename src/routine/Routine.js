@@ -18,12 +18,13 @@ function Routine() {
     const [modalShow, setModalShow] = useState(false);
     const [selectedTemplateId, setSelectedTemplateId] = useState("default");
     const [modalType, setModalType] = useState(0);
-    // const [submittedGhostExercises, setSubmittedGhostExercises] = useState([]);
+    const [routineSubmitted, setRoutineSubmitted] = useState(false);
 
     const navigate = useNavigate();
     const setList = useRef([]);
 
     useEffect(() => {
+        if (JSON.parse(sessionStorage.getItem("routineSubmitted"))) setRoutineSubmitted(true);
         if (JSON.parse(sessionStorage.getItem("routine")) && JSON.parse(sessionStorage.getItem("routine")).length > 0) {
             setRoutine(JSON.parse(sessionStorage.getItem("routine")));
             setLoading(false);
@@ -32,6 +33,7 @@ function Routine() {
         else {
             GetRoutine(0).then(routine => {
                 if (routine) {
+                    sessionStorage.setItem("routineSubmitted", true);
                     let setList = routine.exerciseSets;
                     setRoutine(setList);
                     setList.current = setList;
@@ -66,7 +68,7 @@ function Routine() {
 
         sessionStorage.setItem("routine", JSON.stringify(setList.current));
 
-        if (setList.current[0].exerciseArray.find(f => parseInt(f.weight) >= 0 && f.sets > 0 && f.reps > 0)) {
+        if (routineSubmitted === false && setList.current[0].exerciseArray.find(f => parseInt(f.weight) >= 0 && f.sets > 0 && f.reps > 0)) {
             combineRoutineData();
             let validExercises = routine.filter(r => r.exerciseArray.find(f => parseInt(f.weight) >= 0 && f.sets > 0 && f.reps > 0));
             if (validExercises.length >= 1) {
@@ -145,6 +147,7 @@ function Routine() {
             setShowLoaderbutton(false);
             if (reroute) {
                 sessionStorage.removeItem("routine");
+                sessionStorage.setItem("routineSubmitted", true);
                 navigate("/history/" + response);
             }
         });

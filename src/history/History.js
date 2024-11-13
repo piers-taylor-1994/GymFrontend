@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from "react";
-import { GetRoutineHistory, GetRoutinesHistory } from "./Data";
+import { AddGhostData, GetRoutineHistory, GetRoutinesHistory } from "./Data";
 import "./history.scss"
 import { Format } from "../layout/dates";
-import { useParams } from "react-router-dom";
-import { Loader } from "../layout/Layout";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { Loader, LoaderButton } from "../layout/Layout";
 import * as Icon from "../layout/Icons";
 
 function WorkoutsHistory(props) {
@@ -18,22 +18,29 @@ function WorkoutsHistory(props) {
     const [loading, setLoading] = useState(true);
     const [sectionLoading, setSectionLoading] = useState(false);
 
+    const [showLoaderbutton, setShowLoaderButton] = useState(false);
+
+    const navigate = useNavigate();
+
     const touchStart = useRef(null);
     const touchEnd = useRef(null);
     const minSwipeDistance = 100;
+
+    const submissionType = useRef(0);
 
     const historyId = useParams().id;
 
     const getRoutine = (id) => {
         setSectionLoading(true);
-        GetRoutineHistory(id).then((r) => {
+        GetRoutineHistory(id, submissionType.current).then((r) => {
             setRoutineList(r.exerciseSets);
             setSectionLoading(false);
         })
     }
 
     useEffect(() => {
-        GetRoutinesHistory().then((history) => {
+        submissionType.current = props.ghost === true ? 1 : 0;
+        GetRoutinesHistory(submissionType.current).then((history) => {
             setHistory(history);
             let dateArray = new Set();
             history.forEach(h => {
@@ -42,7 +49,7 @@ function WorkoutsHistory(props) {
             setHistoryMonth(Array.from(dateArray));
             setLoading(false);
         })
-    }, [])
+    }, [props])
 
     useEffect(() => {
         if (historyId) {
@@ -56,7 +63,7 @@ function WorkoutsHistory(props) {
     }
 
     const toSquare = (routine) => {
-        let squareClass = routine.muscleArea === 0 ? " upper" : routine.muscleArea === 1 ? " core" : " lower"
+        let squareClass = submissionType.current === 1 ? " ghost" : routine.muscleArea === 0 ? " upper" : routine.muscleArea === 1 ? " core" : " lower"
 
         const onSquareClick = () => {
             getRoutine(routine.id);
@@ -145,6 +152,14 @@ function WorkoutsHistory(props) {
     }
 
     const HistorySets = (props) => {
+        let ghostSubmit = (
+            <div className="button-container submit-container">
+                <LoaderButton buttonStyle="button-s" submit={onSubmit} show={showLoaderbutton}>
+                    Submit
+                </LoaderButton>
+            </div>
+        )
+
         if (sectionLoading) return (
             <Loader />
         )
@@ -152,17 +167,28 @@ function WorkoutsHistory(props) {
         else {
             return (
                 <div className="history-sets">
-                    <h1>{Format(routineListDate).dayYearShorter}</h1>
+                    <h1>{Format(routineListDate).dayMonth}</h1>
                     {rows}
+                    {submissionType.current === 1 ? ghostSubmit : <></>}
                 </div>
             )
         }
     }
 
+    const onSubmit = () => {
+        setShowLoaderButton(true);
+        AddGhostData(history[0].id, routineListDate).then(response => {
+            setShowLoaderButton(false);
+            sessionStorage.removeItem("routine");
+            setRoutineList([]);
+            navigate("/history");
+        });
+    }
+
     const display = loading
         ? <Loader />
         : history.length === 0
-            ? <span>No routines recorded yet</span>
+            ? <span>No {submissionType.current === 1 ? "ghost routines" : "routines"} recorded yet</span>
             : routineList.length === 0
                 ? <HistorySquares />
                 : <HistorySets />;
@@ -173,10 +199,34 @@ function WorkoutsHistory(props) {
         </div>
         : <></>
 
-    const header = history.length === 0 || routineList.length === 0 ? <h1 className="header">History</h1> : <></>;
+    const header = history.length === 0 || routineList.length === 0 ? <h1 className="header">{submissionType.current === 1 ? "Ghost history" : "History"}</h1> : <></>;
+
+    function GhostNav(props) {
+        const [ghostHistorys, setGhostHistorys] = useState([]);
+
+        useEffect(() => {
+            if (submissionType.current === 0 && routineList.length === 0) {
+                GetRoutinesHistory(1).then(ghostHistory => {
+                    setGhostHistorys(ghostHistory);
+                })
+            }
+        }, [])
+
+        if (ghostHistorys.length === 0) {
+            return (
+                <></>
+            )
+        }
+        else {
+            return (
+                <div className="navigation-top-left"><Link className="nav-item" to={"./ghost"}><Icon.Ghost /></Link></div>
+            )
+        }
+    }       
 
     return (
         <div className="history content">
+            <GhostNav />
             {backButton}
             {header}
             {display}
