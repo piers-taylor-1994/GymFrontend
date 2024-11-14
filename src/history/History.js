@@ -20,6 +20,8 @@ function WorkoutsHistory(props) {
 
     const [showLoaderbutton, setShowLoaderButton] = useState(false);
 
+    const [showGhost, setShowGhost] = useState(false);
+
     const navigate = useNavigate();
 
     const touchStart = useRef(null);
@@ -39,7 +41,16 @@ function WorkoutsHistory(props) {
     }
 
     useEffect(() => {
-        submissionType.current = props.ghost === true ? 1 : 0;
+        if (props.ghost === true) {
+            setShowGhost(false);
+            submissionType.current = 1;
+        }
+        else {
+            GetRoutinesHistory(1).then(ghostHistory => {
+                if (ghostHistory.length > 0) setShowGhost(true);
+            })
+            submissionType.current = 0;
+        }
         GetRoutinesHistory(submissionType.current).then((history) => {
             setHistory(history);
             let dateArray = new Set();
@@ -190,7 +201,11 @@ function WorkoutsHistory(props) {
         : history.length === 0
             ? <span>No {submissionType.current === 1 ? "ghost routines" : "routines"} recorded yet</span>
             : routineList.length === 0
-                ? <HistorySquares />
+                ?
+                <>
+                    <GhostNav />
+                    <HistorySquares />
+                </>
                 : <HistorySets />;
 
     const backButton = routineList.length !== 0
@@ -202,31 +217,16 @@ function WorkoutsHistory(props) {
     const header = history.length === 0 || routineList.length === 0 ? <h1 className="header">{submissionType.current === 1 ? "Ghost history" : "History"}</h1> : <></>;
 
     function GhostNav(props) {
-        const [ghostHistorys, setGhostHistorys] = useState([]);
-
-        useEffect(() => {
-            if (submissionType.current === 0 && routineList.length === 0) {
-                GetRoutinesHistory(1).then(ghostHistory => {
-                    setGhostHistorys(ghostHistory);
-                })
-            }
-        }, [])
-
-        if (ghostHistorys.length === 0) {
-            return (
-                <></>
-            )
-        }
-        else {
+        if (showGhost === true) {
             return (
                 <div className="navigation-top-left"><Link className="nav-item" to={"./ghost"}><Icon.Ghost /></Link></div>
             )
         }
-    }       
+        else return (<></>)
+    }
 
     return (
         <div className="history content">
-            <GhostNav />
             {backButton}
             {header}
             {display}

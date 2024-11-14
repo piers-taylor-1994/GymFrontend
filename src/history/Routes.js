@@ -7,12 +7,12 @@ const HistoryRoutes = {
     children: [
         {
             path: "",
-            element: <WorkoutsHistory />,
+            element: <WorkoutsHistory ghost={false}/>,
             children: []
         },
         {
             path: ":id",
-            element: <WorkoutsHistory />,
+            element: <WorkoutsHistory ghost={false}/>,
             children: []
         },
         {
