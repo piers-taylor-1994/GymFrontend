@@ -19,7 +19,6 @@ function Routine() {
     const [selectedTemplateId, setSelectedTemplateId] = useState("default");
     const [modalType, setModalType] = useState(0);
     const [routineSubmitted, setRoutineSubmitted] = useState(false);
-    const [timer, setTimer] = useState(false);
 
     const navigate = useNavigate();
     const setList = useRef([]);
@@ -74,14 +73,8 @@ function Routine() {
             combineRoutineData();
             let validExercises = routine.filter(r => r.exerciseArray.find(f => parseInt(f.weight) >= 0 && f.sets > 0 && f.reps > 0));
             if (validExercises.length >= 1) {
-                if (timer === false) {
-                    setTimer(true);
-                    setTimeout(() => {
-                        setTimer(false);
-                        addRoutine(validExercises, 1, false);
-                        console.log("Ghost submit");
-                    }, 2000)
-                }
+                addRoutine(validExercises, 1, false);
+                console.log("Ghost submit");
             }
         }
     }
