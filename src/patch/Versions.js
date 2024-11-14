@@ -200,7 +200,7 @@ const Version = {
             </ul>
         </div>
     ),
-    2.41: (
+    2.40: (
         <div className="version">
             <span className="version-header">Recent workouts added</span>
             <div className='image-container'>
@@ -212,7 +212,7 @@ const Version = {
             </ul>
         </div>
     ),
-    2.51: (
+    2.50: (
         <div className="version">
             <span className="version-header">"Stealth" auto submit added</span>
             <div className='image-container'>
@@ -225,7 +225,7 @@ const Version = {
             </ul>
         </div>
     ),
-    2.52: (
+    2.60: (
         <div className="version">
             <span className="version-header">Replaced auto submits with ghost submits</span>
             <ul>
