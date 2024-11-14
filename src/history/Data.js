@@ -1,11 +1,15 @@
 import api from "../api";
 
-const GetRoutinesHistory = () => {
-    return api.get("workouts/routine/history");
+const GetRoutinesHistory = (submissionType) => {
+    return api.get("workouts/routine/history?submissionType=" + submissionType);
 }
 
-const GetRoutineHistory = (id) => {
-    return api.get("workouts/routine/history/" + id);
+const GetRoutineHistory = (id, submissionType) => {
+    return api.get("workouts/routine/history/".concat(id, "?submissionType=", submissionType));
 }
 
-export { GetRoutinesHistory, GetRoutineHistory };
+const AddGhostData = (routineId, date) => {
+    return api.post("workouts/ghost", {routineId: routineId, date: date});
+}
+
+export { GetRoutinesHistory, GetRoutineHistory, AddGhostData };

@@ -18,20 +18,24 @@ function Routine() {
     const [modalShow, setModalShow] = useState(false);
     const [selectedTemplateId, setSelectedTemplateId] = useState("default");
     const [modalType, setModalType] = useState(0);
-    // const [submittedGhostExercises, setSubmittedGhostExercises] = useState([]);
+    const [routineSubmitted, setRoutineSubmitted] = useState(false);
+    const [timer, setTimer] = useState(false);
 
     const navigate = useNavigate();
     const setList = useRef([]);
 
     useEffect(() => {
+        if (JSON.parse(sessionStorage.getItem("routineSubmitted"))) setRoutineSubmitted(true);
         if (JSON.parse(sessionStorage.getItem("routine")) && JSON.parse(sessionStorage.getItem("routine")).length > 0) {
             setRoutine(JSON.parse(sessionStorage.getItem("routine")));
             setLoading(false);
             setList.current = JSON.parse(sessionStorage.getItem("routine"));
         }
         else {
-            GetRoutine().then(routine => {
+            GetRoutine(0).then(routine => {
                 if (routine) {
+                    sessionStorage.setItem("routineSubmitted", true);
+                    setRoutineSubmitted(true);
                     let setList = routine.exerciseSets;
                     setRoutine(setList);
                     setList.current = setList;
@@ -66,12 +70,18 @@ function Routine() {
 
         sessionStorage.setItem("routine", JSON.stringify(setList.current));
 
-        if (setList.current[0].exerciseArray.find(f => parseInt(f.weight) >= 0 && f.sets > 0 && f.reps > 0)) {
+        if (routineSubmitted === false && setList.current[0].exerciseArray.find(f => parseInt(f.weight) >= 0 && f.sets > 0 && f.reps > 0)) {
             combineRoutineData();
             let validExercises = routine.filter(r => r.exerciseArray.find(f => parseInt(f.weight) >= 0 && f.sets > 0 && f.reps > 0));
             if (validExercises.length >= 1) {
-                addRoutine(validExercises, false);
-                console.log("Ghost submit");
+                if (timer === false) {
+                    setTimer(true);
+                    setTimeout(() => {
+                        setTimer(false);
+                        addRoutine(validExercises, 1, false);
+                        console.log("Ghost submit");
+                    }, 2000)
+                }
             }
         }
     }
@@ -124,7 +134,7 @@ function Routine() {
             setShowLoaderbutton(false);
         }
         else {
-            addRoutine(routine, true);
+            addRoutine(routine, 0, true);
         }
     }
 
@@ -140,11 +150,12 @@ function Routine() {
         });
     }
 
-    async function addRoutine(routineAdd, reroute) {
-        AddRoutine(routineAdd).then(response => {
+    async function addRoutine(routineAdd, submissionType, reroute) {
+        AddRoutine(routineAdd, submissionType).then(response => {
             setShowLoaderbutton(false);
             if (reroute) {
                 sessionStorage.removeItem("routine");
+                sessionStorage.setItem("routineSubmitted", true);
                 navigate("/history/" + response);
             }
         });

@@ -213,7 +213,7 @@ function Workouts(props) {
             setSelectedExercises(JSON.parse(sessionStorage.getItem("routine")));
         }
         else {
-            GetRoutine().then(routine => {
+            GetRoutine(0).then(routine => {
                 if (routine) {
                     setSelectedExercises(routine.exerciseSets);
                 }

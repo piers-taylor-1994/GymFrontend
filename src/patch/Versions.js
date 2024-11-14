@@ -158,7 +158,7 @@ const Version = {
                 <img src='images/screenshot18.png' alt='screenshot' />
             </div>
             <ul>
-                <li>Each exercise will have a <div style={{"height": "1em", "width": "1em", "display": "inline-block"}}><Icon.AddSquare /></div> that'll add additional set rows.</li>
+                <li>Each exercise will have a <div style={{ "height": "1em", "width": "1em", "display": "inline-block" }}><Icon.AddSquare /></div> that'll add additional set rows.</li>
             </ul>
             <div className='image-container'>
                 <img src='images/screenshot19.png' alt='screenshot' />
@@ -200,7 +200,7 @@ const Version = {
             </ul>
         </div>
     ),
-    2.41: (
+    2.40: (
         <div className="version">
             <span className="version-header">Recent workouts added</span>
             <div className='image-container'>
@@ -212,7 +212,7 @@ const Version = {
             </ul>
         </div>
     ),
-    2.51: (
+    2.50: (
         <div className="version">
             <span className="version-header">"Stealth" auto submit added</span>
             <div className='image-container'>
@@ -222,6 +222,33 @@ const Version = {
                 <li>Workouts are now auto uploaded as each exercise is completed.</li>
                 <li>Clicking the submit button is kinda redundant now, but it'll allow for corrections to workout.</li>
                 <li>Each auto/manual submission of a workout will overwrite the previous day's uploaded data.</li>
+            </ul>
+        </div>
+    ),
+    2.60: (
+        <div className="version">
+            <span className="version-header">Replaced auto submits with ghost submits</span>
+            <ul>
+                <li>As a user is inputting data, a "ghost" workout is submitted.</li>
+            </ul>
+            <div className='image-container'>
+                <img src='images/screenshot25.png' alt='screenshot' />
+            </div>
+            <ul>
+                <li>This data is accessible via the ghost icon on the history page (This button will only show if there is ghost data to view).</li>
+            </ul>
+            <div className='image-container'>
+                <img src='images/screenshot26.png' alt='screenshot' />
+            </div>
+            <ul>
+                <li>The ghost history page is reminiscent of the normal history.</li>
+            </ul>
+            <div className='image-container'>
+                <img src='images/screenshot27.png' alt='screenshot' />
+            </div>
+            <ul>
+                <li>Submitting the ghost data will submit the data as if it was a normal routine, on the day the ghost data was submitted.</li>
+                <li>When a user does a real/ghost submit, ghost data is wiped.</li>
             </ul>
         </div>
     )
