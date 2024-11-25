@@ -14,6 +14,13 @@ function Leaderboard() {
     useEffect(() => {
         setLoading(true);
         GetExercises().then((exercises) => {
+            exercises.sort((a, b) => {
+                const nameA = a.name.toUpperCase();
+                const nameB = b.name.toUpperCase();
+                if (nameA < nameB) return -1;
+                if (nameA > nameB) return 1;
+                return 0;
+              });
             setExercises(exercises)
             setLoading(false);
         })

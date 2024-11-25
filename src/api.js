@@ -1,5 +1,11 @@
 import config from './config';
-const Fetch = require('fetch-retry')(fetch, { retryOn: [401] });
+const Fetch = require('fetch-retry')(fetch, { retryOn: function(attempt, error, response) {
+    // retry on any network error, or 4xx or 5xx status codes
+    if (error !== null || response.status >= 400) {
+      console.log(`retrying, attempt number ${attempt + 1}`);
+      return true;
+    } 
+}});
 
 const auth = (method) => {
     const jwt = localStorage.getItem("jwt");
