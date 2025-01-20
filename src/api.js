@@ -40,6 +40,7 @@ const err = (response) => {
                 type: 'CLEAR-TOKEN'
             });
         }
+        window.history.replaceState('', '', '/'); //dirty vanilla JS hack as useNavigate is inconsistent
     }
 
     return false;
