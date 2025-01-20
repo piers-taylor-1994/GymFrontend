@@ -16,6 +16,7 @@ function TopNav(props) {
     return (
         <div className="navigation-top" >
             <div className="navigation-top-right">
+                {!location.pathname.includes("swimming") ? <Link className="nav-item" to={"/swimming"}><Icon.SwimMenu /></Link> : <Link className="nav-item" to={"/"}><Icon.Workouts /></Link>}
                 {location.pathname !== "/" ? <Link className="nav-item" to={"/"}><Icon.Home /></Link> : userQRShow() ? <Link className="nav-item" to={"/qrcode"}><Icon.QrCode /></Link> : userId === "9f15fa88-844e-480c-9440-c7290ee31115" ? <Link className="nav-item" to={"/booking"}><Icon.Book /></Link> : <></>}
                 <Link className="nav-item" to={"/settings"}><Icon.Settings /></Link>
             </div>
@@ -24,34 +25,68 @@ function TopNav(props) {
 }
 
 function BottomNav(props) {
-    return (
-        <div className="navigation-bottom">
-            <Link className="nav-item" to={"/workouts"}>
-                <div className="nav-item-container">
-                    <Icon.Workouts />
-                    <span>Workouts</span>
-                </div>
-            </Link>
-            <Link className="nav-item" to={"/routine"}>
-                <div className="nav-item-container">
-                    <Icon.Routine />
-                    <span>Routine</span>
-                </div>
-            </Link>
-            <Link className="nav-item" to={"/history"}>
-                <div className="nav-item-container">
-                    <Icon.History />
-                    <span>History</span>
-                </div>
-            </Link>
-            <Link className="nav-item" to={"/leaderboard"}>
-                <div className="nav-item-container">
-                    <Icon.Leaderboard />
-                    <span>Leaderboard</span>
-                </div>
-            </Link>
-        </div>
-    )
+    const location = useLocation();
+
+    if (!location.pathname.includes("swimming")) {
+        return (
+            <div className="navigation-bottom">
+                <Link className="nav-item" to={"/workouts"}>
+                    <div className="nav-item-container">
+                        <Icon.Workouts />
+                        <span>Workouts</span>
+                    </div>
+                </Link>
+                <Link className="nav-item" to={"/routine"}>
+                    <div className="nav-item-container">
+                        <Icon.Routine />
+                        <span>Routine</span>
+                    </div>
+                </Link>
+                <Link className="nav-item" to={"/history"}>
+                    <div className="nav-item-container">
+                        <Icon.History />
+                        <span>History</span>
+                    </div>
+                </Link>
+                <Link className="nav-item" to={"/leaderboard"}>
+                    <div className="nav-item-container">
+                        <Icon.Leaderboard />
+                        <span>Leaderboard</span>
+                    </div>
+                </Link>
+            </div>
+        )
+    }
+    else {
+        return (
+            <div className="navigation-bottom">
+                <Link className="nav-item" to={"/workouts"}>
+                    <div className="nav-item-container">
+                        <Icon.SwimAdd />
+                        <span>Add Swim</span>
+                    </div>
+                </Link>
+                <Link className="nav-item" to={"/routine"}>
+                    <div className="nav-item-container">
+                        <Icon.SwimRemove />
+                        <span>Delete Swim</span>
+                    </div>
+                </Link>
+                <Link className="nav-item" to={"/history"}>
+                    <div className="nav-item-container">
+                        <Icon.History />
+                        <span>History</span>
+                    </div>
+                </Link>
+                <Link className="nav-item" to={"/leaderboard"}>
+                    <div className="nav-item-container">
+                        <Icon.SwimAward />
+                        <span>Top Swims</span>
+                    </div>
+                </Link>
+            </div>
+        )
+    }
 }
 
 function Navigation(props) {

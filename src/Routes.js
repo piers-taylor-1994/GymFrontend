@@ -7,6 +7,7 @@ import Qrcode from "./qrcode/Qrcode";
 import RoutinesRoutes from "./routine/Routes";
 import Settings from "./settings/Settings";
 import Stopwatch from "./stopwatch/Stopwatch";
+import SwimmingRoutes from "./swimming/Routes";
 import Token from "./token/Token";
 import WorkoutsRoutes from "./workouts/Routes";
 
@@ -25,6 +26,7 @@ const ROUTES = [
     RoutinesRoutes,
     HistoryRoutes,
     LeaderboardRoutes,
+    SwimmingRoutes,
     {
         path: "/settings",
         element: <Settings />,
