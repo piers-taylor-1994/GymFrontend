@@ -1,5 +1,22 @@
 .swimming {
-    h1 {
-        color: red;
+    h1, h2 {
+        color: rgb(34, 202, 249);
+    }
+    #table{
+        border: 1px;
+    }
+    tr, th{
+           padding: 15px;
+           border: solid 1px;
+    }
+    .textdivs{
+        display: flex;
+        height: 40px;
+    }
+    .answers{
+        margin-left: 10px;
+    }
+    .button{
+        background-color: rgb(34, 202, 249);
     }
 }
