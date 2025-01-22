@@ -66,10 +66,10 @@ function SwimmingAdd() {
     const [time, setTime] = useState(0);
     const [length, setLength] = useState(0);
     const [happy, setHappy] = useState(false);
-    const [review, setReview] = useState(null);
+    const [explanation, setExplanation] = useState(null);
 
     const onSubmit = () => {
-        AddSwim(time, length, happy, review).then((result) => {
+        AddSwim(time, length, happy, explanation).then((result) => {
             console.log(result);
         })
     }
@@ -96,7 +96,7 @@ function SwimmingAdd() {
             <br/>
             <label>Optional: Add an explanation of why you think the swim was good/bad:
                 <br/>
-                <input type="text" placeholder="I was extra tired" onChange={(e) => setReview(e.target.value)}></input>
+                <input type="text" placeholder="I was extra tired" onChange={(e) => setExplanation(e.target.value)}></input>
             </label>
             <br/>
             <br/>
