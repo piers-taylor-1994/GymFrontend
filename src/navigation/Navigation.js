@@ -60,7 +60,7 @@ function BottomNav(props) {
     else {
         return (
             <div className="navigation-bottom">
-                <Link className="nav-item" to={"/workouts"}>
+                <Link className="nav-item" to={"/swimming/add"}>
                     <div className="nav-item-container">
                         <Icon.SwimAdd />
                         <span>Add Swim</span>

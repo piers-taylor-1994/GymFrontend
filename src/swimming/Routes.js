@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom";
-import { Swimming } from "./Swimming";
+import { Swimming, SwimmingAdd } from "./Swimming";
 
 const SwimmingRoutes = {
     path: "/swimming",
@@ -8,7 +8,10 @@ const SwimmingRoutes = {
         {
             path: "",
             element: <Swimming />,
-            children: []
+        },
+        {
+            path: "add",
+            element: <SwimmingAdd />,
         }
     ]
 }

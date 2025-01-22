@@ -8,4 +8,12 @@ function Swimming() {
     )
 }
 
-export { Swimming };
+function SwimmingAdd() {
+    return (
+        <div className="swimming content">
+            <h1>Add swim test</h1>
+        </div>
+    )
+}
+
+export { Swimming, SwimmingAdd };
