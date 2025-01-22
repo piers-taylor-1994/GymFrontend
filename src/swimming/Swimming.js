@@ -1,4 +1,6 @@
+import { useState } from "react";
 import "./swimming.scss";
+import { AddSwim } from "./Data";
 
 function Swimming() {
     return (
@@ -61,33 +63,44 @@ function Swimming() {
 }
 
 function SwimmingAdd() {
+    const [time, setTime] = useState(0);
+    const [length, setLength] = useState(0);
+    const [happy, setHappy] = useState(false);
+    const [review, setReview] = useState(null);
+
+    const onSubmit = () => {
+        AddSwim(time, length, happy, review).then((result) => {
+            console.log(result);
+        })
+    }
+
     return (
         <div className="swimming content">
             <h1>Add a new swim:</h1>
             <label>How long were you swimming for?
-                <input type="number" placeholder="30"></input> Minutes
+                <input type="number" placeholder="30" onChange={(e) => setTime(e.target.value)}></input> Minutes
             </label>
             <br/>
             <br/>
             <label>How many lengths did you complete?
-                <input type="number" placeholder="25"></input> Lengths
+                <input type="number" placeholder="25" onChange={(e) => setLength(e.target.value)}></input> Lengths
             </label>
             <br/>
             <br/>
             <label>How did you find the swim?
                 <br/>
-                <button value="good">Good</button>
-                <button value="bad">Bad</button>
+                <button value={true} onClick={(e) => setHappy(e.target.value)}>Good</button>
+                <button value={false} onClick={(e) => setHappy(e.target.value)}>Bad</button>
             </label>
             <br/>
             <br/>
             <label>Optional: Add an explanation of why you think the swim was good/bad:
                 <br/>
-                <input type="text" placeholder="I was extra tired"></input>
+                <input type="text" placeholder="I was extra tired" onChange={(e) => setReview(e.target.value)}></input>
             </label>
             <br/>
             <br/>
-            <button className="button" type="submit">Submit Swim</button>
+            <button className="button" type="submit" onClick={onSubmit}>Submit Swim</button>
 
         </div>
     )
