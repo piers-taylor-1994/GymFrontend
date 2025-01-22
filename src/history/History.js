@@ -203,7 +203,7 @@ function WorkoutsHistory(props) {
             : routineList.length === 0
                 ?
                 <>
-                    <GhostNav />
+                    {/* <GhostNav /> */}
                     <HistorySquares />
                 </>
                 : <HistorySets />;
