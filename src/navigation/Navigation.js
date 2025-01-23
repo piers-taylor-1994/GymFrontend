@@ -68,7 +68,7 @@ function BottomNav(props) {
                         <span>Add Swim</span>
                     </div>
                 </Link>
-                <Link className="nav-item" to={"/routine"}>
+                <Link className="nav-item" to={"/swimming/delete"}>
                     <div className="nav-item-container">
                         <Icon.SwimRemove />
                         <span>Delete Swim</span>

@@ -106,4 +106,12 @@ function SwimmingAdd() {
     )
 }
 
-export { Swimming, SwimmingAdd };
+function SwimmingDelete() {
+    return (
+        <div className="swimming content">
+            <h1>Delete</h1>
+        </div>
+    )
+}
+
+export { Swimming, SwimmingAdd, SwimmingDelete };
