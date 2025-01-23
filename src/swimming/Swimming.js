@@ -100,16 +100,37 @@ function SwimmingAdd() {
             </label>
             <br/>
             <br/>
+            <div>
             <button className="button" type="submit" onClick={onSubmit}>Submit Swim</button>
-
+            </div>
         </div>
     )
 }
 
+
+
 function SwimmingDelete() {
+    
     return (
         <div className="swimming content">
-            <h1>Delete</h1>
+            <h1>Delete a previous swim</h1>
+            <br/>
+            <br/>
+            <div>
+            <ul>
+                <li><input type="radio" value="delete"></input>04/01/25 - Lengths: 20 - Time: 30</li>
+                <li><input type="radio" value="delete"></input>03/01/25 - Lengths: 25 - Time: 25</li>
+                <li><input type="radio" value="delete"></input>02/01/25 - Lengths: 40 - Time: 38</li>
+                <li><input type="radio" value="delete"></input>01/01/25 - Lengths: 12 - Time: 22</li>
+                <li><input type="radio" value="delete"></input>04/01/25 - Lengths: 20 - Time: 30</li>
+                <li><input type="radio" value="delete"></input>03/01/25 - Lengths: 25 - Time: 25</li>
+                <li><input type="radio" value="delete"></input>02/01/25 - Lengths: 40 - Time: 38</li>
+                <li><input type="radio" value="delete"></input>01/01/25 - Lengths: 12 - Time: 22</li>
+            </ul>
+            </div>
+            <br/>
+            <br/>
+            <button className="button" type="submit">Delete Selected</button>
         </div>
     )
 }
