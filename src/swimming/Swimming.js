@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./swimming.scss";
 import { AddSwim } from "./Data";
+import { useNavigate } from "react-router-dom";
 
 function Swimming() {
     return (
@@ -68,9 +69,11 @@ function SwimmingAdd() {
     const [happy, setHappy] = useState(false);
     const [explanation, setExplanation] = useState(null);
 
+    const navigate = useNavigate();
+
     const onSubmit = () => {
         AddSwim(time, length, happy, explanation).then((result) => {
-            console.log(result);
+            navigate("/swimming/history/" + result.id);
         })
     }
 

@@ -1,10 +1,17 @@
 import { useEffect, useRef, useState } from "react";
-import { AddGhostData, GetRoutineHistory, GetRoutinesHistory } from "./Data";
+import { AddGhostData, GetRoutineHistory, GetRoutinesHistory, GetSwimmingHistory, GetSwimmingsHistory } from "./Data";
 import "./history.scss"
 import { Format } from "../layout/dates";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { Loader, LoaderButton } from "../layout/Layout";
 import * as Icon from "../layout/Icons";
+
+const HistoryType = {
+    "Workouts": 0,
+    "Swimming": 1,
+    "Ghost": 2
+}
+Object.freeze(HistoryType);
 
 function WorkoutsHistory(props) {
     const [history, setHistory] = useState([]);
@@ -34,32 +41,53 @@ function WorkoutsHistory(props) {
 
     const getRoutine = (id) => {
         setSectionLoading(true);
-        GetRoutineHistory(id, submissionType.current).then((r) => {
-            setRoutineList(r.exerciseSets);
-            setSectionLoading(false);
-        })
+        if (props.historyType !== HistoryType.Swimming) {
+            GetRoutineHistory(id, submissionType.current).then((r) => {
+                setRoutineList(r.exerciseSets);
+                setSectionLoading(false);
+            })
+        }
+        else {
+            GetSwimmingHistory(id).then((r) => {
+                setRoutineList([[r]]);
+                setSectionLoading(false);
+            })
+        }
     }
 
     useEffect(() => {
-        if (props.ghost === true) {
-            setShowGhost(false);
-            submissionType.current = 1;
+        if (props.historyType === HistoryType.Swimming) {
+            GetSwimmingsHistory().then((history) => {
+                setHistory(history);
+                let dateArray = new Set();
+                history.forEach(h => {
+                    dateArray.add(Format(h.date).monthYear);
+                });
+                setHistoryMonth(Array.from(dateArray));
+                setLoading(false);
+            })
         }
         else {
-            GetRoutinesHistory(1).then(ghostHistory => {
-                if (ghostHistory.length > 0) setShowGhost(true);
+            if (props.historyType === HistoryType.Ghost) {
+                setShowGhost(false);
+                submissionType.current = 1;
+            }
+            else {
+                GetRoutinesHistory(1).then(ghostHistory => {
+                    if (ghostHistory.length > 0) setShowGhost(true);
+                })
+                submissionType.current = 0;
+            }
+            GetRoutinesHistory(submissionType.current).then((history) => {
+                setHistory(history);
+                let dateArray = new Set();
+                history.forEach(h => {
+                    dateArray.add(Format(h.date).monthYear);
+                });
+                setHistoryMonth(Array.from(dateArray));
+                setLoading(false);
             })
-            submissionType.current = 0;
         }
-        GetRoutinesHistory(submissionType.current).then((history) => {
-            setHistory(history);
-            let dateArray = new Set();
-            history.forEach(h => {
-                dateArray.add(Format(h.date).monthYear);
-            });
-            setHistoryMonth(Array.from(dateArray));
-            setLoading(false);
-        })
     }, [props])
 
     useEffect(() => {
@@ -92,16 +120,27 @@ function WorkoutsHistory(props) {
 
     const row = (exercise) => {
         const toSetRow = (set) => {
-            return (
-                <div className="sets" key={set.order}>
-                    <span>{set.weight}kg</span>
-                    <span>{set.sets} {set.sets === 1 ? "set" : "sets"}</span>
-                    <span>{set.reps} {exercise.exerciseId.toLowerCase() === '471565BD-972E-4B11-A659-6AB93133F017'.toLowerCase() ? "secs" : set.reps === 1 ? "rep" : "reps"}</span>
-                </div>
-            )
+            if (props.historyType !== HistoryType.Swimming) {
+                return (
+                    <div className="sets-swimming">
+                        <span>{set.weight}kg</span>
+                        <span>{set.sets} {set.sets === 1 ? "set" : "sets"}</span>
+                        <span>{set.reps} {exercise.exerciseId.toLowerCase() === '471565BD-972E-4B11-A659-6AB93133F017'.toLowerCase() ? "secs" : set.reps === 1 ? "rep" : "reps"}</span>
+                    </div>
+                )
+            }
+            else {
+                return (
+                    <div className="sets" key={set.order}>
+                        <span>{set.lengths} {set.lengths === 1 ? "length" : "lengths"}</span>
+                        <span>{set.timeSwimming} {set.timeSwimming === 1 ? "min" : "mins"}</span>
+                    </div>
+                )
+            }
         }
 
-        const setRows = exercise.exerciseArray.map((ea) => toSetRow(ea))
+        const exerciseArray = props.historyType !== HistoryType.Swimming ? exercise.exerciseArray : exercise;
+        const setRows = exerciseArray.map((ea) => toSetRow(ea))
 
         return (
             <div key={exercise.exerciseId} className="row">
@@ -234,4 +273,4 @@ function WorkoutsHistory(props) {
     )
 }
 
-export default WorkoutsHistory;
+export { WorkoutsHistory, HistoryType };

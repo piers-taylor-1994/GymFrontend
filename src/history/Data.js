@@ -12,4 +12,12 @@ const AddGhostData = (routineId, date) => {
     return api.post("workouts/ghost", {routineId: routineId, date: date});
 }
 
-export { GetRoutinesHistory, GetRoutineHistory, AddGhostData };
+const GetSwimmingsHistory = () => {
+    return api.get("swimming/allswims");
+}
+
+const GetSwimmingHistory = (id) => {
+    return api.get("swimming/selectedswim/" + id);
+}
+
+export { GetRoutinesHistory, GetRoutineHistory, AddGhostData, GetSwimmingsHistory, GetSwimmingHistory };

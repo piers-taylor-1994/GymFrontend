@@ -18,7 +18,7 @@ function TopNav(props) {
     return (
         <div className="navigation-top" >
             <div className="navigation-top-right">
-                {!location.pathname.includes("swimming") ? <Link className="nav-item" to={"/swimming"}><Icon.SwimMenu /></Link> : <Link className="nav-item" to={"/"}><Icon.Workouts /></Link>}
+                {!location.pathname.includes("swimming") ? <Link className="nav-item" to={"/swimming"}><Icon.SwimAdd /></Link> : <Link className="nav-item" to={"/"}><Icon.Workouts /></Link>}
                 {location.pathname !== "/" && location.pathname !== "/swimming" ? <Link className="nav-item" to={homePage}><Icon.Home /></Link> : <></>}
                 <Link className="nav-item" to={"/settings"}><Icon.Settings /></Link>
             </div>
@@ -61,31 +61,31 @@ function BottomNav(props) {
     }
     else {
         return (
-            <div className="navigation-bottom">
+            <div className="navigation-bottom" style={{ gridTemplateColumns: "repeat(2, 1fr)" }}>
                 <Link className="nav-item" to={"/swimming/add"}>
                     <div className="nav-item-container">
                         <Icon.SwimAdd />
                         <span>Add Swim</span>
                     </div>
                 </Link>
-                <Link className="nav-item" to={"/swimming/delete"}>
+                {/* <Link className="nav-item" to={"/swimming/delete"}>
                     <div className="nav-item-container">
                         <Icon.SwimRemove />
                         <span>Delete Swim</span>
                     </div>
-                </Link>
-                <Link className="nav-item" to={"/history"}>
+                </Link> */}
+                <Link className="nav-item" to={"/swimming/history"}>
                     <div className="nav-item-container">
                         <Icon.History />
                         <span>History</span>
                     </div>
                 </Link>
-                <Link className="nav-item" to={"/leaderboard"}>
+                {/* <Link className="nav-item" to={"/leaderboard"}>
                     <div className="nav-item-container">
                         <Icon.SwimAward />
                         <span>Top Swims</span>
                     </div>
-                </Link>
+                </Link> */}
             </div>
         )
     }
