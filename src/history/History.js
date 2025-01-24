@@ -146,7 +146,7 @@ function WorkoutsHistory(props) {
                         {/* <label for="comment" className="historyLabel">Comments:
                         </label> */}
                         <p id="commentName">Comments:</p>
-                        <span id="comment" className="historyData">{set.explanation === null ? "No comments added." : set.explanation}</span>
+                        <span id="comment" className="historyData">{set.explanation === null || set.explanation === "null" ? "No comments added." : set.explanation}</span>
                         </div>
                         </div>
                     </div>

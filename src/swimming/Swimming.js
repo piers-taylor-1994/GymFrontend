@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import "./swimming.scss";
 import { AddSwim, GetRecentSwims, GetSwimCount } from "./Data";
 import { useNavigate } from "react-router-dom";
+import { Format } from "../layout/dates";
 
 function Swimming() {
     const [count, setCount] = useState({});
@@ -16,6 +17,18 @@ function Swimming() {
             console.log(result);
         })
     }, [])
+
+    const toRow = (r) => {
+        return (
+            <tr className="tableRow" key={r.id}>
+                <th>{Format(r.date).daySmallMonth}</th>
+                <th>{r.lengths} Lengths</th>
+                <th>{r.timeSwimming} Minutes</th>
+            </tr>
+        )
+    }
+
+    const rows = recent.map((r) => toRow(r));
     
     return (
         <div className="swimming content">
@@ -42,36 +55,12 @@ function Swimming() {
             <h2>Recent swims</h2>
             <table id="table">
                 <tbody>
-                <tr>
-                    <th>Date:</th>
-                    <th>Lengths: </th>
-                    <th> Time spent swimming:</th>
-                </tr>
-                <tr>
-                    <th>01/01/25</th>
-                    <th>50</th>
-                    <th>35 Minutes</th>
-                </tr>
-                <tr>
-                    <th>01/01/25</th>
-                    <th>50</th>
-                    <th>35 Minutes</th>
-                </tr>
-                <tr>
-                    <th>01/01/25</th>
-                    <th>50</th>
-                    <th>35 Minutes</th>
-                </tr>
-                {/* <tr>
-                    <td>01/01/25</td>
-                    <td>50</td>
-                    <td>35 Minutes</td>
-                </tr>
-                <tr>
-                    <td>01/01/25</td>
-                    <td>50</td>
-                    <td>35 Minutes</td>
-                </tr> */}
+                    <tr>
+                        <th>Date</th>
+                        <th>Lengths</th>
+                        <th>Time spent swimming</th>
+                    </tr>
+                    {rows}
                 </tbody>
             </table>
 

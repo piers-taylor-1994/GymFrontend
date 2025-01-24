@@ -6,9 +6,19 @@
         border: 1px;
     }
     tr, th{
-           padding: 15px;
-           border: solid 1px;
+        padding: 15px;
+        border: solid 2px;
     }
+
+    .tableRow {
+        
+        padding: 1px;
+        th {
+            padding: 10px 3px !important;
+            font-size: 0.8em;
+        }
+    }
+
     .textdivs{
         display: flex;
         height: 40px;
