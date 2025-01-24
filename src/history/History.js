@@ -132,8 +132,23 @@ function WorkoutsHistory(props) {
             else {
                 return (
                     <div className="sets" key={set.order}>
-                        <span>{set.lengths} {set.lengths === 1 ? "length" : "lengths"}</span>
-                        <span>{set.timeSwimming} {set.timeSwimming === 1 ? "min" : "mins"}</span>
+                        <div className="historyInfo">
+                            <label className="historyLabel">Distance:
+                        <span className="historyData">{set.lengths} {set.lengths === 1 ? "length" : "lengths"}</span>
+                        </label>
+                        <label className="historyLabel">Time:
+                        <span className="historyData">{set.timeSwimming} {set.timeSwimming === 1 ? "min" : "mins"}</span>
+                        </label>
+                        <label className="historyLabel">Review:
+                        <span className="historyData">{set.review} {set.review === 1 ? "Bad!" : "Good!"}</span>
+                        </label>
+                        <div id="comments">
+                        {/* <label for="comment" className="historyLabel">Comments:
+                        </label> */}
+                        <p id="commentName">Comments:</p>
+                        <span id="comment" className="historyData">{set.explanation === null ? "No comments added." : set.explanation}</span>
+                        </div>
+                        </div>
                     </div>
                 )
             }

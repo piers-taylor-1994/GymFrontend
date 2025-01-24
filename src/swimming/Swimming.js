@@ -1,33 +1,47 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./swimming.scss";
-import { AddSwim } from "./Data";
+import { AddSwim, GetRecentSwims, GetSwimCount } from "./Data";
 import { useNavigate } from "react-router-dom";
 
 function Swimming() {
+    const [count, setCount] = useState({});
+    const [recent, setRecent] = useState([]);
+
+    useEffect(() => {
+        GetSwimCount().then((result) => {
+            setCount(result);
+        })
+        GetRecentSwims().then((result) => {
+            setRecent(result);
+            console.log(result);
+        })
+    }, [])
+    
     return (
         <div className="swimming content">
-            <p class="welcome">Welcome to:</p>
-            <h1 class="title">Swimming ~~\o/~~</h1>  {/* Maybe swim icon if we find one */}
-             <div class="textdivs">
+            <p className="welcome">Welcome to:</p>
+            <h1 className="title">Swimming ~~\o/~~</h1>  {/* Maybe swim icon if we find one */}
+             <div className="textdivs">
             <p>Times swam this week: </p>
-            <p class="answers"> 3</p>
+            <p className="answers"> {count.weekCount}</p>
             </div>
-            <div class="textdivs">
+            <div className="textdivs">
             <p>Times swam this month: </p>{/*Possibly tally up total lengths or distance swum within those two time paramaters. */ }
-            <p class="answers"> 11</p>
+            <p className="answers"> {count.monthCount}</p>
             </div>
 
-            <div class="textdivs">
+            {/* <div className="textdivs">
             <p>Fastest previous swim: </p>
-            <p class="answers"> 2.4 Lengths per min.</p>
+            <p className="answers"> 2.4 Lengths per min.</p>
             </div>
-            <div class="textdivs">
+            <div className="textdivs">
             <p>Longest ever swim: </p>
-            <p class="answers"> 62 Lengths.</p>
-            </div>{/*Medal icons for both. */}
+            <p className="answers"> 62 Lengths.</p>
+            </div>Medal icons for both. */}
 
             <h2>Recent swims</h2>
             <table id="table">
+                <tbody>
                 <tr>
                     <th>Date:</th>
                     <th>Lengths: </th>
@@ -44,20 +58,31 @@ function Swimming() {
                     <th>35 Minutes</th>
                 </tr>
                 <tr>
-                    <th>30/12/25</th>
-                    <th>5</th>
+                    <th>01/01/25</th>
+                    <th>50</th>
                     <th>35 Minutes</th>
                 </tr>
+                {/* <tr>
+                    <td>01/01/25</td>
+                    <td>50</td>
+                    <td>35 Minutes</td>
+                </tr>
+                <tr>
+                    <td>01/01/25</td>
+                    <td>50</td>
+                    <td>35 Minutes</td>
+                </tr> */}
+                </tbody>
             </table>
 
-            <div class="textdivs">
+            {/* <div className="textdivs">
             <p>Average minutes per recent swims: </p>
-            <p class="answers"> 35.</p>
+            <p className="answers"> 35.</p>
             </div>
-            <div class="textdivs">
+            <div className="textdivs">
             <p>Average lengths completed recently: </p>
-            <p class="answers"> 39.</p>
-            </div>
+            <p className="answers"> 39.</p>
+            </div> */}
 
         </div>
     )

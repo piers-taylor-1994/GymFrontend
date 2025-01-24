@@ -5,5 +5,13 @@ const AddSwim = (time, length, happy, explanation) => {
     return api.post("swimming/addswim?lengths=" + length + "&timeSwimming=" + time + "&review=" + happy + "&explanation=" + explanation);
 }
 
-export { AddSwim }
+const GetSwimCount = () => {
+    return api.get("swimming/count")
+}
+
+const GetRecentSwims = () => {
+    return api.get("swimming/recentswims");
+}
+export { AddSwim, GetSwimCount, GetRecentSwims }
+
 
