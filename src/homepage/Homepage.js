@@ -7,7 +7,7 @@ import * as Icon from "../layout/Icons";
 import { Format } from "../layout/dates";
 
 const MuscleArea = {
-    0: "Upper body",
+    0: "Uppers",
     1: "Core",
     2: "Legs",
 }
@@ -35,7 +35,7 @@ function Homepage(props) {
     const toRow = (rw, i) => {
         return (
             <div id={"row" + i} className="row" key={i}>
-                <p>{Format(rw.date).dateTime}</p>
+                <p>{Format(rw.date).date} {Format(rw.date).time}</p>
                 <p>{rw.username}</p>
                 <p>{MuscleArea[rw.muscleArea]}</p>
             </div>
