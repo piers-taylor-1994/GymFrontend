@@ -121,11 +121,15 @@ function WorkoutsHistory(props) {
     const row = (exercise) => {
         const toSetRow = (set) => {
             if (props.historyType !== HistoryType.Swimming) {
+                const label1 = exercise.exerciseId.toLowerCase() === "61709d19-d0cb-46f1-9c84-257364c6fa49".toLocaleLowerCase() ? "km" : "kg";
+                const label2 = exercise.exerciseId.toLowerCase() === "61709d19-d0cb-46f1-9c84-257364c6fa49".toLocaleLowerCase() ? "mins" : set.sets === 1 ? "set" : "sets";
+                const label3 = exercise.exerciseId.toLowerCase() === "61709d19-d0cb-46f1-9c84-257364c6fa49".toLocaleLowerCase() || exercise.exerciseId.toLowerCase() === '471565BD-972E-4B11-A659-6AB93133F017'.toLowerCase() ? "secs" : set.reps === 1 ? "rep" : "reps";
+
                 return (
                     <div className="sets">
-                        <span>{set.weight}kg</span>
-                        <span>{set.sets} {set.sets === 1 ? "set" : "sets"}</span>
-                        <span>{set.reps} {exercise.exerciseId.toLowerCase() === '471565BD-972E-4B11-A659-6AB93133F017'.toLowerCase() ? "secs" : set.reps === 1 ? "rep" : "reps"}</span>
+                        <span>{set.weight}{label1}</span>
+                        <span>{set.sets} {label2}</span>
+                        <span>{set.reps} {label3}</span>
                     </div>
                 )
             }

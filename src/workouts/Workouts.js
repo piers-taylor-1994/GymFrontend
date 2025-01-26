@@ -18,7 +18,8 @@ const MuscleGroup = {
     9: "Quads",
     10: "Hamstrings",
     11: "Calves",
-    12: "Thighs"
+    12: "Thighs",
+    13: "Cardio"
 }
 Object.freeze(MuscleGroup);
 
@@ -173,7 +174,7 @@ function WorkoutsList(props) {
     }
 
     const exercisesDisplay = exercises.map(e => row(e));
-    const options = Object.values(MuscleGroup).map((m, i) => toDropdown(m, i));
+    const options = Object.values(MuscleGroup).sort().map((m, i) => toDropdown(m, i));
 
     const header = props.enableAddingExercises ? <h1>Workouts</h1> : <></>;
 
