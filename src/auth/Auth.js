@@ -57,7 +57,7 @@ function Login(props) {
         setLoading(true);
         e.preventDefault();
         Logon(username, password).then(r => {
-            if (!r) {
+            if (r === undefined) {
                 setShowError(true);
             }
             else {
