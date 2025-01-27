@@ -99,13 +99,17 @@
     }
     .historyData{
         background-color:rgb(0, 92, 92);
-        padding: 0.5rem 1rem;
+        padding: 0.5rem 4rem;
         border-radius: 2rem;
-        margin:20px;
+        margin:5px;
+        display: flex;
+        justify-content: center;
     }
     .historyLabel{
-        padding: 0.5rem;
-        margin: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5em;
+        
     }
     #comments{
         display: flex;

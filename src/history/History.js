@@ -134,11 +134,18 @@ function WorkoutsHistory(props) {
                 )
             }
             else {
+                console.log(set.distances);
                 return (
                     <div className="sets sets-swimming" key={set.order}>
                         <div className="historyInfo">
                             <label className="historyLabel">Distance:
                         <span className="historyData">{set.lengths} {set.lengths === 1 ? "length" : "lengths"}</span>
+                        
+                        <span className="historyData">{set.distances.meters} Meters</span>
+                        
+                        {/* <span className="historyData">{set.distances.kilometers} Kilometers</span>
+                        <br/> */}
+                        <span className="historyData">{set.distances.miles} Miles</span>
                         </label>
                         <label className="historyLabel">Time:
                         <span className="historyData">{set.timeSwimming} {set.timeSwimming === 1 ? "min" : "mins"}</span>
