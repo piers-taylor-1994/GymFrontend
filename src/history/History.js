@@ -29,6 +29,8 @@ function WorkoutsHistory(props) {
 
     const [showGhost, setShowGhost] = useState(false);
 
+    const [swimMetric, setSwimMetric] = useState("mph");
+
     const navigate = useNavigate();
 
     const touchStart = useRef(null);
@@ -135,30 +137,39 @@ function WorkoutsHistory(props) {
             }
             else {
                 console.log(set.distances);
+
+                // const metricDisplay = swimMetric === "mph" 
+                // ? 
                 return (
                     <div className="sets sets-swimming" key={set.order}>
+                        <div>
+                            <select name="speedPH" id="speedDropdown" value={swimMetric} onChange={(e) => setSwimMetric(e.target.value)}>
+                                <option value="mph">Miles</option>
+                                <option value="kph">Kilometers</option>
+                            </select>
+                           
+                        </div>
                         <div className="historyInfo">
                             <label className="historyLabel">Distance:
-                        <span className="historyData">{set.lengths} {set.lengths === 1 ? "length" : "lengths"}</span>
-                        
-                        <span className="historyData">{set.distances.meters} Meters</span>
-                        
-                        {/* <span className="historyData">{set.distances.kilometers} Kilometers</span>
-                        <br/> */}
-                        <span className="historyData">{set.distances.miles} Miles</span>
-                        </label>
-                        <label className="historyLabel">Time:
-                        <span className="historyData">{set.timeSwimming} {set.timeSwimming === 1 ? "min" : "mins"}</span>
-                        </label>
-                        <label className="historyLabel">Review:
-                        <span className="historyData">{set.review} {set.review === 1 ? "Bad!" : "Good!"}</span>
-                        </label>
-                        <div id="comments">
-                        {/* <label for="comment" className="historyLabel">Comments:
+                                <span className="historyData">{set.lengths} {set.lengths === 1 ? "length" : "lengths"}</span>
+                                
+                                {/* <span className="historyData">{set.distances.meters} Meters</span> */}
+
+                               {swimMetric === "mph" ? <span className="historyData">{set.distances.miles} Miles</span> : <span className="historyData">{set.distances.kilometers} Kilometers</span> }
+                            </label>
+                            <label className="historyLabel">Time & Speed:
+                                <span className="historyData">{set.timeSwimming} {set.timeSwimming === 1 ? "min" : "minutes"}</span>
+                                {swimMetric === "mph" ? <span className="historyData">{set.distances.mph} mph</span> : <span className="historyData">{set.distances.kph} km/h</span>}
+                            </label>
+                            <label className="historyLabel">Review:
+                                <span className="historyData">{set.review} {set.review === 1 ? "Bad!" : "Good!"}</span>
+                            </label>
+                            <div id="comments">
+                                {/* <label for="comment" className="historyLabel">Comments:
                         </label> */}
-                        <p id="commentName">Comments:</p>
-                        <span id="comment" className="historyData">{set.explanation === null || set.explanation === "null" ? "No comments added." : set.explanation}</span>
-                        </div>
+                                <p id="commentName">Comments:</p>
+                                <span id="comment" className="historyData">{set.explanation === null || set.explanation === "null" ? "No comments added." : set.explanation}</span>
+                            </div>
                         </div>
                     </div>
                 )
@@ -290,8 +301,10 @@ function WorkoutsHistory(props) {
         else return (<></>)
     }
 
+    const style = props.historyType === HistoryType.Swimming ? "history history-swimming content" : "history content";
+
     return (
-        <div className="history content">
+        <div className={style}>
             {backButton}
             {header}
             {display}

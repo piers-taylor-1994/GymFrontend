@@ -93,6 +93,14 @@
     }
 
 
+    
+    
+    
+}
+.history-swimming{
+    h1{
+        margin-bottom: 0;
+    }
     .historyInfo{
         display: flex;
         flex-direction: column;
@@ -124,5 +132,14 @@
         display: flex;
         justify-content: center;
         border: solid 1px blue;
+    }
+    .sets-swimming{
+        display: flex;
+        flex-direction: column;
+    }
+    #speedDropdown{
+        border-radius: 0.5rem;
+        height: 35px;
+        width: 125px;
     }
 }
