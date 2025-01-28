@@ -12,6 +12,7 @@ $red-darker: #AA0101;
 $gold: #FFD700;
 $silver: #D8D8D8;
 $bronze: #CD7F32;
+$turquoise: #005c5c;
 
 $pastel-violet-light: #cb99c9;
 $pastel-jade-light: #66CC99;
@@ -62,6 +63,8 @@ $square-button: 0.75rem;
 
     --row-border : #{$grey-light};
 
+    --swimming-text: #{$blue-light};
+
     --error: #{$red-darker};
     --read-only: #{$grey-light};
 }
@@ -93,6 +96,8 @@ $square-button: 0.75rem;
     --square-ghost: #{$grey-dark};
 
     --row-border : #{$black-lighter};
+
+    --swimming-text: #{$turquoise};
 
     --error: #{$red};
     --read-only: #{$grey-dark};
