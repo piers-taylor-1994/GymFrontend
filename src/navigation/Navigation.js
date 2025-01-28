@@ -14,13 +14,14 @@ function TopNav(props) {
     }
 
     const homePage = !location.pathname.includes("swimming") ? "/" : "/swimming";
+    const settingsPage = !location.pathname.includes("swimming") ? "/settings" : "/swimming/settings";
 
     return (
         <div className="navigation-top" >
             <div className="navigation-top-right">
                 {!location.pathname.includes("swimming") ? <Link className="nav-item" to={"/swimming"}><Icon.SwimAdd /></Link> : <Link className="nav-item" to={"/"}><Icon.Workouts /></Link>}
                 {location.pathname !== "/" && location.pathname !== "/swimming" ? <Link className="nav-item" to={homePage}><Icon.Home /></Link> : <></>}
-                <Link className="nav-item" to={"/settings"}><Icon.Settings /></Link>
+                <Link className="nav-item" to={settingsPage}><Icon.Settings /></Link>
             </div>
         </div>
     )

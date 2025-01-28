@@ -1,6 +1,7 @@
 import { Outlet } from "react-router-dom";
 import { Swimming, SwimmingAdd, SwimmingDelete } from "./Swimming";
 import { HistoryType, WorkoutsHistory } from "../history/History";
+import Settings from "../settings/Settings";
 
 const SwimmingRoutes = {
     path: "/swimming",
@@ -27,6 +28,10 @@ const SwimmingRoutes = {
                     element: <WorkoutsHistory historyType={HistoryType.Workouts}/>
                 },
             ]
+        },
+        {
+            path: "settings",
+            element: <Settings />
         }
     ]
 }
