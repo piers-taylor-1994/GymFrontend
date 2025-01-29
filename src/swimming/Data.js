@@ -12,6 +12,9 @@ const GetSwimCount = () => {
 const GetRecentSwims = () => {
     return api.get("swimming/recentswims");
 }
-export { AddSwim, GetSwimCount, GetRecentSwims }
+const GetTodaysSwim = () => {
+    return api.get("swimming/todaysswim")
+}
+export { AddSwim, GetSwimCount, GetRecentSwims, GetTodaysSwim }
 
 
