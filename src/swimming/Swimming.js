@@ -3,6 +3,7 @@ import "./swimming.scss";
 import { AddSwim, GetRecentSwims, GetSwimCount } from "./Data";
 import { useNavigate } from "react-router-dom";
 import { Format } from "../layout/dates";
+import { LoaderButton } from "../layout/Layout";
 
 function Swimming() {
     const [count, setCount] = useState({});
@@ -29,18 +30,18 @@ function Swimming() {
     }
 
     const rows = recent.map((r) => toRow(r));
-    
+
     return (
         <div className="swimming content">
             <p className="welcome">Welcome to:</p>
             <h1 className="title">Swimming ~~\o/~~</h1>  {/* Maybe swim icon if we find one */}
-             <div className="textdivs">
-            <p>Times swam this week: </p>
-            <p className="answers"> {count.weekCount}</p>
+            <div className="textdivs">
+                <p>Times swam this week: </p>
+                <p className="answers"> {count.weekCount}</p>
             </div>
             <div className="textdivs">
-            <p>Times swam this month: </p>{/*Possibly tally up total lengths or distance swum within those two time paramaters. */ }
-            <p className="answers"> {count.monthCount}</p>
+                <p>Times swam this month: </p>{/*Possibly tally up total lengths or distance swum within those two time paramaters. */}
+                <p className="answers"> {count.monthCount}</p>
             </div>
 
             {/* <div className="textdivs">
@@ -82,11 +83,14 @@ function SwimmingAdd() {
     const [length, setLength] = useState(0);
     const [happy, setHappy] = useState(false);
     const [explanation, setExplanation] = useState(null);
+    const [loading, setLoading] = useState(true);
 
     const navigate = useNavigate();
 
     const onSubmit = () => {
+        setLoading(true);
         AddSwim(time, length, happy, explanation).then((result) => {
+            setLoading(false);
             navigate("/swimming/history/" + result.id);
         })
     }
@@ -97,28 +101,29 @@ function SwimmingAdd() {
             <label>How long were you swimming for?
                 <input type="number" placeholder="30" onChange={(e) => setTime(e.target.value)}></input> Minutes
             </label>
-            <br/>
-            <br/>
+            <br />
+            <br />
             <label>How many lengths did you complete?
                 <input type="number" placeholder="25" onChange={(e) => setLength(e.target.value)}></input> Lengths
             </label>
-            <br/>
-            <br/>
+            <br />
+            <br />
             <label>How did you find the swim?
-                <br/>
+                <br />
                 <button value={true} onClick={(e) => setHappy(e.target.value)}>Good</button>
                 <button value={false} onClick={(e) => setHappy(e.target.value)}>Bad</button>
             </label>
-            <br/>
-            <br/>
+            <br />
+            <br />
             <label>Optional: Add an explanation of why you think the swim was good/bad:
-                <br/>
+                <br />
                 <input type="text" placeholder="I was extra tired" onChange={(e) => setExplanation(e.target.value)}></input>
             </label>
-            <br/>
-            <br/>
-            <div>
-            <button className="button" type="submit" onClick={onSubmit}>Submit Swim</button>
+            <br />
+            <br />
+            <div className="button-container submit-container">
+                {/* <button className="button" type="submit" onClick={onSubmit}>Submit Swim</button> */}
+                <LoaderButton buttonStyle="button-s" show={loading} submit={onSubmit}>Submit</LoaderButton>
             </div>
         </div>
     )
@@ -127,26 +132,26 @@ function SwimmingAdd() {
 
 
 function SwimmingDelete() {
-    
+
     return (
         <div className="swimming content">
             <h1>Delete a previous swim</h1>
-            <br/>
-            <br/>
+            <br />
+            <br />
             <div>
-            <ul>
-                <li><input type="radio" value="delete"></input>04/01/25 - Lengths: 20 - Time: 30</li>
-                <li><input type="radio" value="delete"></input>03/01/25 - Lengths: 25 - Time: 25</li>
-                <li><input type="radio" value="delete"></input>02/01/25 - Lengths: 40 - Time: 38</li>
-                <li><input type="radio" value="delete"></input>01/01/25 - Lengths: 12 - Time: 22</li>
-                <li><input type="radio" value="delete"></input>04/01/25 - Lengths: 20 - Time: 30</li>
-                <li><input type="radio" value="delete"></input>03/01/25 - Lengths: 25 - Time: 25</li>
-                <li><input type="radio" value="delete"></input>02/01/25 - Lengths: 40 - Time: 38</li>
-                <li><input type="radio" value="delete"></input>01/01/25 - Lengths: 12 - Time: 22</li>
-            </ul>
+                <ul>
+                    <li><input type="radio" value="delete"></input>04/01/25 - Lengths: 20 - Time: 30</li>
+                    <li><input type="radio" value="delete"></input>03/01/25 - Lengths: 25 - Time: 25</li>
+                    <li><input type="radio" value="delete"></input>02/01/25 - Lengths: 40 - Time: 38</li>
+                    <li><input type="radio" value="delete"></input>01/01/25 - Lengths: 12 - Time: 22</li>
+                    <li><input type="radio" value="delete"></input>04/01/25 - Lengths: 20 - Time: 30</li>
+                    <li><input type="radio" value="delete"></input>03/01/25 - Lengths: 25 - Time: 25</li>
+                    <li><input type="radio" value="delete"></input>02/01/25 - Lengths: 40 - Time: 38</li>
+                    <li><input type="radio" value="delete"></input>01/01/25 - Lengths: 12 - Time: 22</li>
+                </ul>
             </div>
-            <br/>
-            <br/>
+            <br />
+            <br />
             <button className="button" type="submit">Delete Selected</button>
         </div>
     )
