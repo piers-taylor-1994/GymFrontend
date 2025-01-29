@@ -83,16 +83,23 @@ function SwimmingAdd() {
     const [length, setLength] = useState(0);
     const [happy, setHappy] = useState(false);
     const [explanation, setExplanation] = useState(null);
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(false);
 
     const navigate = useNavigate();
 
     const onSubmit = () => {
         setLoading(true);
+        if(time <= 1 || length <= 1){
+            setError(true);
+            setLoading(false);
+        }
+        else{
         AddSwim(time, length, happy, explanation).then((result) => {
             setLoading(false);
             navigate("/swimming/history/" + result.id);
         })
+        }
     }
 
     return (
@@ -122,6 +129,7 @@ function SwimmingAdd() {
             <br />
             <br />
             <div className="button-container submit-container">
+           { error ? <span className="warning">Please fill in lengths and time fields before submitting</span> : <></> }
                 {/* <button className="button" type="submit" onClick={onSubmit}>Submit Swim</button> */}
                 <LoaderButton buttonStyle="button-s" show={loading} submit={onSubmit}>Submit</LoaderButton>
             </div>
