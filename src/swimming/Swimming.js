@@ -79,11 +79,10 @@ function Swimming() {
 }
 
 function SwimmingAdd() {
-    const [time, setTime] = useState(0);
-    const [length, setLength] = useState(0);
+    const [time, setTime] = useState(null);
+    const [length, setLength] = useState(null);
     const [happy, setHappy] = useState(false);
     const [explanation, setExplanation] = useState(null);
-    const [swim, setSwim] = useState({});
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
 
@@ -92,8 +91,7 @@ function SwimmingAdd() {
     useEffect(() => {
         GetTodaysSwim().then((result) => {
             console.log(result);
-            if(result !== null) {
-                setSwim(result);
+            if(result !== undefined) {
                 setTime(result.timeSwimming);
                 setLength(result.lengths);
                 setHappy(result.review);
@@ -104,7 +102,7 @@ function SwimmingAdd() {
 
     const onSubmit = () => {
         setLoading(true);
-        if(time <= 1 || length <= 1){
+        if(time <= 0 || length <= 0) {
             setError(true);
             setLoading(false);
         }
@@ -120,12 +118,12 @@ function SwimmingAdd() {
         <div className="swimming content">
             <h1>Add a new swim:</h1>
             <label>How long were you swimming for?
-                <input type="number" defaultValue={swim.timeSwimming} placeholder="30" onChange={(e) => setTime(e.target.value)}></input> Minutes
+                <input type="number" defaultValue={time} placeholder="30" onChange={(e) => setTime(e.target.value)}></input> Minutes
             </label>
             <br />
             <br />
             <label>How many lengths did you complete?
-                <input type="number" defaultValue={swim.lengths} placeholder="25" onChange={(e) => setLength(e.target.value)}></input> Lengths
+                <input type="number" defaultValue={length} placeholder="25" onChange={(e) => setLength(e.target.value)}></input> Lengths
             </label>
             <br />
             <br />
@@ -138,7 +136,7 @@ function SwimmingAdd() {
             <br />
             <label>Optional: Add an explanation of why you think the swim was good/bad:
                 <br />
-                <input type="text" defaultValue={swim.explanation} placeholder="I was extra tired" onChange={(e) => setExplanation(e.target.value)}></input>
+                <input type="text" defaultValue={explanation} placeholder="I was extra tired" onChange={(e) => setExplanation(e.target.value)}></input>
             </label>
             <br />
             <br />
