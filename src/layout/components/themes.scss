@@ -10,6 +10,7 @@ $red: #FF0000;
 $red-dark: #BE0202;
 $red-darker: #AA0101;
 $gold: #FFD700;
+$gold-darker: #efca00;
 $silver: #D8D8D8;
 $bronze: #CD7F32;
 $turquoise: #005c5c;
@@ -59,7 +60,10 @@ $square-button: 0.75rem;
     --square-upper: #{$pastel-violet-light};
     --square-core: #{$pastel-jade-light};
     --square-lower: #{$pastel-blue-light};
+    --square-cardio: #{$gold};
+    --square-mixed: #{$orange};
     --square-ghost: #{$grey-light};
+    --square-fontShadow: none;
 
     --row-border : #{$grey-light};
 
@@ -93,7 +97,10 @@ $square-button: 0.75rem;
     --square-upper: #{$pastel-violet-dark};
     --square-core: #{$pastel-jade-dark};
     --square-lower: #{$pastel-blue-dark};
+    --square-cardio: #{$gold-darker};
+    --square-mixed: #{$orange};
     --square-ghost: #{$grey-dark};
+    --square-fontShadow: black 0.5px 0.5px;
 
     --row-border : #{$black-lighter};
 

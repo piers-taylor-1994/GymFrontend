@@ -104,7 +104,7 @@ function WorkoutsHistory(props) {
     }
 
     const toSquare = (routine) => {
-        let squareClass = submissionType.current === 1 ? " ghost" : routine.muscleArea === 0 ? " upper" : routine.muscleArea === 1 ? " core" : " lower"
+        let squareClass = submissionType.current === 1 ? " ghost" : routine.muscleArea === 0 ? " upper" : routine.muscleArea === 1 ? " core" : routine.muscleArea === 2 ? " lower" : routine.muscleArea === 3 ? " cardio" : " mixed";
 
         const onSquareClick = () => {
             getRoutine(routine.id);

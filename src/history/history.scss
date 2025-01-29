@@ -46,6 +46,7 @@
                 border: 1.5px solid var(--border);
                 border-radius: 1em;
                 font-weight: 500;
+                text-shadow: var(--square-fontShadow);
             }
 
             .upper {
@@ -58,6 +59,14 @@
 
             .lower {
                 background-color: var(--square-lower);
+            }
+
+            .cardio {
+                background-color: var(--square-cardio);
+            }
+
+            .mixed {
+                background-color: var(--square-mixed);
             }
 
             .ghost {

@@ -10,6 +10,8 @@ const MuscleArea = {
     0: "Uppers",
     1: "Core",
     2: "Legs",
+    3: "Cardio",
+    4: "Mixed"
 }
 Object.freeze(MuscleArea);
 
