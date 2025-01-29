@@ -69,6 +69,10 @@
                 background-color: var(--square-mixed);
             }
 
+            .swimming {
+                background-color: var(--square-swim);
+            }
+
             .ghost {
                 background-color: var(--square-ghost);
             }
@@ -100,12 +104,8 @@
             padding-bottom: 0;
         }
     }
-
-
-    
-    
-    
 }
+
 .history-swimming{
     h1{
         margin-bottom: 0;

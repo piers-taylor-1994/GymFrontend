@@ -104,7 +104,7 @@ function WorkoutsHistory(props) {
     }
 
     const toSquare = (routine) => {
-        let squareClass = submissionType.current === 1 ? " ghost" : routine.muscleArea === 0 ? " upper" : routine.muscleArea === 1 ? " core" : routine.muscleArea === 2 ? " lower" : routine.muscleArea === 3 ? " cardio" : " mixed";
+        let squareClass = submissionType.current === 1 ? " ghost" : routine.muscleArea === 0 ? " upper" : routine.muscleArea === 1 ? " core" : routine.muscleArea === 2 ? " lower" : routine.muscleArea === 3 ? " cardio" : routine.muscleArea === 4 ? " mixed" : " swimming";
 
         const onSquareClick = () => {
             getRoutine(routine.id);
@@ -147,22 +147,15 @@ function WorkoutsHistory(props) {
                         </div>
                         <div className="historyInfo">
                             <label className="historyLabel">Distance:
-                                <span className="historyData">{set.lengths} {set.lengths === 1 ? "length" : "lengths"}</span>
-                                
-                                {/* <span className="historyData">{set.distances.meters} Meters</span> */}
-
-                               {swimMetric === "mph" ? <span className="historyData">{set.distances.miles} Miles</span> : <span className="historyData">{set.distances.kilometers} Kilometers</span> }
+                                <span className="historyData">{set.lengths} {set.lengths === 1 ? "length" : "lengths"} ({swimMetric === "mph" ? <span>{set.distances.miles} Miles</span> : <span>{set.distances.kilometers} Kilometers</span> })</span>
                             </label>
                             <label className="historyLabel">Time & Speed:
-                                <span className="historyData">{set.timeSwimming} {set.timeSwimming === 1 ? "min" : "minutes"}</span>
-                                {swimMetric === "mph" ? <span className="historyData">{set.distances.mph} mph</span> : <span className="historyData">{set.distances.kph} km/h</span>}
+                                <span className="historyData">{set.timeSwimming} {set.timeSwimming === 1 ? "min" : "minutes"} ({swimMetric === "mph" ? <span>{set.distances.mph} mph</span> : <span>{set.distances.kph} km/h</span>})</span>
                             </label>
                             <label className="historyLabel">Review:
                                 <span className="historyData">{set.review} {set.review === 1 ? "Bad!" : "Good!"}</span>
                             </label>
                             <div id="comments">
-                                {/* <label for="comment" className="historyLabel">Comments:
-                        </label> */}
                                 <p id="commentName">Comments:</p>
                                 <span id="comment" className="historyData">{set.explanation === null || set.explanation === "null" ? "No comments added." : set.explanation}</span>
                             </div>
