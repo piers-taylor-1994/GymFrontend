@@ -13,13 +13,19 @@ function TopNav(props) {
         return userId === "c1fef7f5-383b-4200-b498-c201a6ac1fec" || userId === "dfc8413d-69cd-468d-8ba5-e8fcca566bf1" || userId === "318ca921-ec0b-4ab6-a6b8-dda4b1e1d769" ? true : false;
     }
 
+    const swimWorkoutIconShow = ["318ca921-ec0b-4ab6-a6b8-dda4b1e1d769", "dfc8413d-69cd-468d-8ba5-e8fcca566bf1", "c1fef7f5-383b-4200-b498-c201a6ac1fec"].includes(userId)
+    ? !location.pathname.includes("swimming") 
+        ? <Link className="nav-item" to={"/swimming"}><Icon.SwimAdd /></Link>
+        : <Link className="nav-item" to={"/"}><Icon.Workouts /></Link>
+    : <></>
+
     const homePage = !location.pathname.includes("swimming") ? "/" : "/swimming";
     const settingsPage = !location.pathname.includes("swimming") ? "/settings" : "/swimming/settings";
 
     return (
         <div className="navigation-top" >
             <div className="navigation-top-right">
-                {!location.pathname.includes("swimming") ? <Link className="nav-item" to={"/swimming"}><Icon.SwimAdd /></Link> : <Link className="nav-item" to={"/"}><Icon.Workouts /></Link>}
+                {swimWorkoutIconShow}
                 {location.pathname !== "/" && location.pathname !== "/swimming" ? <Link className="nav-item" to={homePage}><Icon.Home /></Link> : <></>}
                 <Link className="nav-item" to={settingsPage}><Icon.Settings /></Link>
             </div>
