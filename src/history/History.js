@@ -128,7 +128,7 @@ function WorkoutsHistory(props) {
                 const label3 = exercise.exerciseId.toLowerCase() === "61709d19-d0cb-46f1-9c84-257364c6fa49".toLocaleLowerCase() || exercise.exerciseId.toLowerCase() === '471565BD-972E-4B11-A659-6AB93133F017'.toLowerCase() ? "secs" : set.reps === 1 ? "rep" : "reps";
 
                 return (
-                    <div className="sets">
+                    <div className="sets" key={set.id}>
                         <span>{set.weight}{label1}</span>
                         <span>{set.sets} {label2}</span>
                         <span>{set.reps} {label3}</span>
@@ -136,12 +136,8 @@ function WorkoutsHistory(props) {
                 )
             }
             else {
-                console.log(set.distances);
-
-                // const metricDisplay = swimMetric === "mph" 
-                // ? 
                 return (
-                    <div className="sets sets-swimming" key={set.order}>
+                    <div className="sets sets-swimming" key={set.id}>
                         <div>
                             <select name="speedPH" id="speedDropdown" value={swimMetric} onChange={(e) => setSwimMetric(e.target.value)}>
                                 <option value="mph">Miles</option>
@@ -180,7 +176,7 @@ function WorkoutsHistory(props) {
         const setRows = exerciseArray.map((ea) => toSetRow(ea))
 
         return (
-            <div key={exercise.exerciseId} className="row">
+            <div key={props.historyType === HistoryType.Swimming ? exercise[0].id : exercise.exerciseId} className="row">
                 <span className="exercise-name">{exercise.name}</span>
                 <div>
                     {setRows}
