@@ -36,11 +36,12 @@ function Swimming() {
             <p className="welcome">Welcome to:</p>
             <h1 className="title">Swimming ~~\o/~~</h1>  {/* Maybe swim icon if we find one */}
             <div className="textdivs">
-                <p>Times swam this week: </p>
+                <p className="timeswam">Times swam this week: </p>
                 <p className="answers"> {count.weekCount}</p>
             </div>
+            <div className="content-container">
             <div className="textdivs">
-                <p>Times swam this month: </p>{/*Possibly tally up total lengths or distance swum within those two time paramaters. */}
+                <p className="timeswam">Times swam this month: </p>{/*Possibly tally up total lengths or distance swum within those two time paramaters. */}
                 <p className="answers"> {count.monthCount}</p>
             </div>
 
@@ -52,8 +53,9 @@ function Swimming() {
             <p>Longest ever swim: </p>
             <p className="answers"> 62 Lengths.</p>
             </div>Medal icons for both. */}
-
+            
             <h2>Recent swims</h2>
+            </div>
             <table id="table">
                 <tbody>
                     <tr>
@@ -64,6 +66,7 @@ function Swimming() {
                     {rows}
                 </tbody>
             </table>
+            
 
             {/* <div className="textdivs">
             <p>Average minutes per recent swims: </p>
@@ -136,7 +139,7 @@ function SwimmingAdd() {
             <br />
             <label>Optional: Add an explanation of why you think the swim was good/bad:
                 <br />
-                <input type="text" defaultValue={explanation} placeholder="I was extra tired" onChange={(e) => setExplanation(e.target.value)}></input>
+                <input type="text" defaultValue={explanation} placeholder="Any comments about the swim..." onChange={(e) => setExplanation(e.target.value)}></input>
             </label>
             <br />
             <br />

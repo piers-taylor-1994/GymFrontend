@@ -142,15 +142,16 @@ function WorkoutsHistory(props) {
                             <select name="speedPH" id="speedDropdown" value={swimMetric} onChange={(e) => setSwimMetric(e.target.value)}>
                                 <option value="mph">Miles</option>
                                 <option value="kph">Kilometers</option>
+                                <option value="meters">Meters</option>
                             </select>
                            
                         </div>
                         <div className="historyInfo">
                             <label className="historyLabel">Distance:
-                                <span className="historyData">{set.lengths} {set.lengths === 1 ? "length" : "lengths"} ({swimMetric === "mph" ? <span>{set.distances.miles} Miles</span> : <span>{set.distances.kilometers} Kilometers</span> })</span>
+                                <span className="historyData">{set.lengths} {set.lengths === 1 ? "length" : "lengths"} ({swimMetric === "mph" ? <span>{set.distances.miles} Miles</span> : swimMetric === "kph" ? <span>{set.distances.kilometers} Kilometers</span> : <span>{set.distances.meters} Meters </span> })</span>
                             </label>
                             <label className="historyLabel">Time & Speed:
-                                <span className="historyData">{set.timeSwimming} {set.timeSwimming === 1 ? "min" : "minutes"} ({swimMetric === "mph" ? <span>{set.distances.mph} mph</span> : <span>{set.distances.kph} km/h</span>})</span>
+                                <span className="historyData">{set.timeSwimming} {set.timeSwimming === 1 ? "min" : "minutes"} ({swimMetric === "mph" ? <span>{set.distances.mph} mph</span> : swimMetric === "kph" ? <span>{set.distances.kph} km/h</span> : <span>{set.distances.metersPerMinute} Meters per minute</span>})</span>
                             </label>
                             <label className="historyLabel">Review:
                                 <span className="historyData">{set.review} {set.review === 1 ? "Bad!" : "Good!"}</span>
