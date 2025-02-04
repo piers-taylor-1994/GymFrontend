@@ -56,16 +56,19 @@ function Swimming() {
             
             <h2>Recent swims</h2>
             </div>
-            <table id="table">
-                <tbody>
-                    <tr>
-                        <th>Date</th>
-                        <th>Lengths</th>
-                        <th>Time spent swimming</th>
-                    </tr>
-                    {rows}
-                </tbody>
-            </table>
+            {recent.length > 0 
+            ? <table id="table">
+            <tbody>
+                <tr>
+                    <th>Date</th>
+                    <th>Lengths</th>
+                    <th>Time</th>
+                </tr>
+                {rows}
+            </tbody>
+        </table>
+            : <></>}
+            
             
 
             {/* <div className="textdivs">
@@ -132,14 +135,24 @@ function SwimmingAdd() {
             <br />
             <label>How did you find the swim?
                 <br />
+                {/* <label className="radiolabels">
+                <input type="radio" value="0"/>Good
+                </label>
+                <label className="radiolabels">
+                <input type="radio" value="2"/>Average
+                </label>
+                <label className="radiolabels">
+                <input type="radio" value="1"/>Bad
+                </label> */}
                 <button value={true} onClick={(e) => setHappy(e.target.value)}>Good</button>
                 <button value={false} onClick={(e) => setHappy(e.target.value)}>Bad</button>
             </label>
             <br />
             <br />
             <label>Optional: Add an explanation of why you think the swim was good/bad:
-                <br />
-                <input type="text" defaultValue={explanation} placeholder="Any comments about the swim..." onChange={(e) => setExplanation(e.target.value)}></input>
+                <br /><div >
+                <textarea type="text" size="50"  id="commentbox" defaultValue={explanation} placeholder="Any comments about the swim..." onChange={(e) => setExplanation(e.target.value)}></textarea>
+                </div>
             </label>
             <br />
             <br />
