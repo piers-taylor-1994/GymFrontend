@@ -87,7 +87,7 @@ function Swimming() {
 function SwimmingAdd() {
     const [time, setTime] = useState(null);
     const [length, setLength] = useState(null);
-    const [happy, setHappy] = useState(false);
+    const [review, setReview] = useState(null);
     const [explanation, setExplanation] = useState(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
@@ -100,7 +100,7 @@ function SwimmingAdd() {
             if(result !== undefined) {
                 setTime(result.timeSwimming);
                 setLength(result.lengths);
-                setHappy(result.review);
+                setReview(result.review);
                 setExplanation(result.explanation);
             }
         })
@@ -108,17 +108,18 @@ function SwimmingAdd() {
 
     const onSubmit = () => {
         setLoading(true);
-        if(time <= 0 || length <= 0) {
+        if(time <= 0 || length <= 0 || review === null) {
             setError(true);
             setLoading(false);
         }
         else{
-        AddSwim(time, length, happy, explanation).then((result) => {
+        AddSwim(time, length, review, explanation).then((result) => {
             setLoading(false);
             navigate("/swimming/history/" + result.id);
         })
         }
     }
+    
 
     return (
         <div className="swimming content">
@@ -135,17 +136,19 @@ function SwimmingAdd() {
             <br />
             <label>How did you find the swim?
                 <br />
-                {/* <label className="radiolabels">
-                <input type="radio" value="0"/>Good
+                <form className="radiobuttons">
+                <label className="radiolabels" for="radio1">
+                <input type="radio" id="radio1" name="reviewRadio" value={1}  onChange={(e) => setReview(e.target.value)}/>Good
                 </label>
-                <label className="radiolabels">
-                <input type="radio" value="2"/>Average
+                <label className="radiolabels" for="radio0">
+                <input type="radio" id="radio0" name="reviewRadio" value={0}  onChange={(e) => setReview(e.target.value)}/>Average
                 </label>
-                <label className="radiolabels">
-                <input type="radio" value="1"/>Bad
-                </label> */}
-                <button value={true} onClick={(e) => setHappy(e.target.value)}>Good</button>
-                <button value={false} onClick={(e) => setHappy(e.target.value)}>Bad</button>
+                <label className="radiolabels" for="radio2">
+                <input type="radio" id="radio2" name="reviewRadio" value={2}  onChange={(e) => setReview(e.target.value)}/>Bad
+                </label>
+                </form>
+                {/* <button value={true} onClick={(e) => setReview(e.target.value)}>Good</button>
+                <button value={false} onClick={(e) => setReview(e.target.value)}>Bad</button> */}
             </label>
             <br />
             <br />
@@ -157,7 +160,7 @@ function SwimmingAdd() {
             <br />
             <br />
             <div className="button-container submit-container">
-           { error ? <span className="warning">Please fill in lengths and time fields before submitting</span> : <></> }
+           { error ? <span className="warning">Please fill in all necessary fields then resubmit</span> : <></> }
                 {/* <button className="button" type="submit" onClick={onSubmit}>Submit Swim</button> */}
                 <LoaderButton buttonStyle="button-s" show={loading} submit={onSubmit}>Submit</LoaderButton>
             </div>
