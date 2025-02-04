@@ -151,10 +151,10 @@ function WorkoutsHistory(props) {
                                 <span className="historyData">{set.lengths} {set.lengths === 1 ? "length" : "lengths"} ({swimMetric === "mph" ? <span>{set.distances.miles} Miles</span> : swimMetric === "kph" ? <span>{set.distances.kilometers} Kilometers</span> : <span>{set.distances.meters} Meters </span> })</span>
                             </label>
                             <label className="historyLabel">Time & Speed:
-                                <span className="historyData">{set.timeSwimming} {set.timeSwimming === 1 ? "min" : "minutes"} ({swimMetric === "mph" ? <span>{set.distances.mph} mph</span> : swimMetric === "kph" ? <span>{set.distances.kph} km/h</span> : <span>{set.distances.metersPerMinute} Meters per minute</span>})</span>
+                                <span className="historyData">{set.timeSwimming} {set.timeSwimming === 1 ? "min" : "minutes"} ({swimMetric === "mph" ? <span>{set.distances.mph} mph</span> : swimMetric === "kph" ? <span>{set.distances.kph} km/h</span> : <span>{set.distances.metersPerMinute} Meters/min</span>})</span>
                             </label>
                             <label className="historyLabel">Review:
-                                <span className="historyData">{set.review} {set.review === 1 ? "Bad!" : "Good!"}</span>
+                                <span className="historyData">{set.review === 0 ? "Average" : set.review === 1 ? "Good" : "Bad"}</span>
                             </label>
                             <div id="comments">
                                 <p id="commentName">Comments:</p>
