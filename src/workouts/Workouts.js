@@ -18,7 +18,8 @@ const MuscleGroup = {
     9: "Quads",
     10: "Hamstrings",
     11: "Calves",
-    12: "Thighs"
+    12: "Thighs",
+    13: "Cardio"
 }
 Object.freeze(MuscleGroup);
 

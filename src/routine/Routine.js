@@ -160,19 +160,23 @@ function Routine() {
         const lastExercise = lastSets ? lastSets.find(t => t.exerciseId === exercise.exerciseId) : {};
 
         const toRow = (exerciseId, index) => {
+            const label1 = exerciseId.toLowerCase() === "61709d19-d0cb-46f1-9c84-257364c6fa49".toLocaleLowerCase() ? "km" : "kg";
+            const label2 = exerciseId.toLowerCase() === "61709d19-d0cb-46f1-9c84-257364c6fa49".toLocaleLowerCase() ? "mins" : "sets";
+            const label3 = exerciseId.toLowerCase() === "61709d19-d0cb-46f1-9c84-257364c6fa49".toLocaleLowerCase() || exerciseId.toLowerCase() === '471565BD-972E-4B11-A659-6AB93133F017'.toLowerCase() ? "secs" : "reps";
+
             return (
                 <div className="row" key={index}>
                     <label>
                         <input id="weight" type="number" defaultValue={exercise.exerciseArray[index].weight || exercise.exerciseArray[index].weight === 0 ? exercise.exerciseArray[index].weight : null} placeholder={lastExercise ? lastExercise.weight : null} onChange={e => { onExerciseDataUpdate(e, exerciseId, index) }} />
-                        kg
+                        {label1}
                     </label>
                     <label>
                         <input id="sets" type="number" defaultValue={exercise.exerciseArray[index].sets ? exercise.exerciseArray[index].sets : null} placeholder={lastExercise ? lastExercise.sets : null} onChange={e => { onExerciseDataUpdate(e, exerciseId, index) }} />
-                        sets
+                        {label2}
                     </label>
                     <label>
                         <input id="reps" type="number" defaultValue={exercise.exerciseArray[index].reps ? exercise.exerciseArray[index].reps : null} placeholder={lastExercise ? lastExercise.reps : null} onChange={e => { onExerciseDataUpdate(e, exerciseId, index) }} />
-                        {exerciseId.toLowerCase() === '471565BD-972E-4B11-A659-6AB93133F017'.toLowerCase() ? "secs" : "reps"}
+                        {label3}
                     </label>
                     <div className="delete-container" onClick={() => onDelete(exercise.exerciseId, index)}><Icon.Close /></div>
                 </div>

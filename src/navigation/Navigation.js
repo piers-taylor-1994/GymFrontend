@@ -11,47 +11,91 @@ function TopNav(props) {
 
     const userQRShow = () => {
         return userId === "c1fef7f5-383b-4200-b498-c201a6ac1fec" || userId === "dfc8413d-69cd-468d-8ba5-e8fcca566bf1" || userId === "318ca921-ec0b-4ab6-a6b8-dda4b1e1d769" ? true : false;
-    } 
+    }
+
+    const swimWorkoutIconShow = ["318ca921-ec0b-4ab6-a6b8-dda4b1e1d769", "dfc8413d-69cd-468d-8ba5-e8fcca566bf1", "c1fef7f5-383b-4200-b498-c201a6ac1fec", "a055401b-3e25-4e65-9b0f-134e5122f2df"].includes(userId)
+    ? !location.pathname.includes("swimming") 
+        ? <Link className="nav-item" to={"/swimming"}><Icon.SwimAdd /></Link>
+        : <Link className="nav-item" to={"/"}><Icon.Workouts /></Link>
+    : <></>
+
+    const homePage = !location.pathname.includes("swimming") ? "/" : "/swimming";
+    const settingsPage = !location.pathname.includes("swimming") ? "/settings" : "/swimming/settings";
 
     return (
         <div className="navigation-top" >
             <div className="navigation-top-right">
-                {location.pathname !== "/" ? <Link className="nav-item" to={"/"}><Icon.Home /></Link> : userQRShow() ? <Link className="nav-item" to={"/qrcode"}><Icon.QrCode /></Link> : userId === "9f15fa88-844e-480c-9440-c7290ee31115" ? <Link className="nav-item" to={"/booking"}><Icon.Book /></Link> : <></>}
-                <Link className="nav-item" to={"/settings"}><Icon.Settings /></Link>
+                {swimWorkoutIconShow}
+                {location.pathname !== "/" && location.pathname !== "/swimming" ? <Link className="nav-item" to={homePage}><Icon.Home /></Link> : <></>}
+                <Link className="nav-item" to={settingsPage}><Icon.Settings /></Link>
             </div>
         </div>
     )
 }
 
 function BottomNav(props) {
-    return (
-        <div className="navigation-bottom">
-            <Link className="nav-item" to={"/workouts"}>
-                <div className="nav-item-container">
-                    <Icon.Workouts />
-                    <span>Workouts</span>
-                </div>
-            </Link>
-            <Link className="nav-item" to={"/routine"}>
-                <div className="nav-item-container">
-                    <Icon.Routine />
-                    <span>Routine</span>
-                </div>
-            </Link>
-            <Link className="nav-item" to={"/history"}>
-                <div className="nav-item-container">
-                    <Icon.History />
-                    <span>History</span>
-                </div>
-            </Link>
-            <Link className="nav-item" to={"/leaderboard"}>
-                <div className="nav-item-container">
-                    <Icon.Leaderboard />
-                    <span>Leaderboard</span>
-                </div>
-            </Link>
-        </div>
-    )
+    const location = useLocation();
+
+    if (!location.pathname.includes("swimming")) {
+        return (
+            <div className="navigation-bottom">
+                <Link className="nav-item" to={"/workouts"}>
+                    <div className="nav-item-container">
+                        <Icon.Workouts />
+                        <span>Workouts</span>
+                    </div>
+                </Link>
+                <Link className="nav-item" to={"/routine"}>
+                    <div className="nav-item-container">
+                        <Icon.Routine />
+                        <span>Routine</span>
+                    </div>
+                </Link>
+                <Link className="nav-item" to={"/history"}>
+                    <div className="nav-item-container">
+                        <Icon.History />
+                        <span>History</span>
+                    </div>
+                </Link>
+                <Link className="nav-item" to={"/leaderboard"}>
+                    <div className="nav-item-container">
+                        <Icon.Leaderboard />
+                        <span>Leaderboard</span>
+                    </div>
+                </Link>
+            </div>
+        )
+    }
+    else {
+        return (
+            <div className="navigation-bottom" style={{ gridTemplateColumns: "repeat(2, 1fr)" }}>
+                <Link className="nav-item" to={"/swimming/add"}>
+                    <div className="nav-item-container">
+                        <Icon.SwimAdd />
+                        <span>Add Swim</span>
+                    </div>
+                </Link>
+                {/* <Link className="nav-item" to={"/swimming/delete"}>
+                    <div className="nav-item-container">
+                        <Icon.SwimRemove />
+                        <span>Delete Swim</span>
+                    </div>
+                </Link> */}
+                <Link className="nav-item" to={"/swimming/history"}>
+                    <div className="nav-item-container">
+                        <Icon.History />
+                        <span>History</span>
+                    </div>
+                </Link>
+                {/* <Link className="nav-item" to={"/leaderboard"}>
+                    <div className="nav-item-container">
+                        <Icon.SwimAward />
+                        <span>Top Swims</span>
+                    </div>
+                </Link> */}
+            </div>
+        )
+    }
 }
 
 function Navigation(props) {

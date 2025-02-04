@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom";
-import WorkoutsHistory from "./History";
+import { HistoryType, WorkoutsHistory } from "./History";
 
 const HistoryRoutes = {
     path: "/history",
@@ -7,17 +7,17 @@ const HistoryRoutes = {
     children: [
         {
             path: "",
-            element: <WorkoutsHistory ghost={false}/>,
+            element: <WorkoutsHistory historyType={HistoryType.Workouts}/>,
             children: []
         },
         {
             path: ":id",
-            element: <WorkoutsHistory ghost={false}/>,
+            element: <WorkoutsHistory historyType={HistoryType.Workouts}/>,
             children: []
         },
         {
             path: "ghost",
-            element: <WorkoutsHistory ghost={true}/>,
+            element: <WorkoutsHistory historyType={HistoryType.Ghost}/>,
             children: []
         }
     ]

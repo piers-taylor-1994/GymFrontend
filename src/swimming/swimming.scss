@@ -1,0 +1,64 @@
+.swimming {
+    h1, h2 {
+        color: rgb(34, 202, 249);
+    }
+    h1 {
+        margin-bottom:50px;
+    }
+    #table{
+        border: 2px;
+        border-spacing: 0px;
+    }
+    tr, th{
+        padding: 15px;
+        border: solid 1px;
+        width: 100px !important;
+    }
+
+    .tableRow {
+        
+        padding: 1px;
+        th {
+            padding: 10px 3px !important;
+            font-size: 0.8em;
+        }
+    }
+
+    .textdivs{
+        display: flex;
+        height: 40px;
+    }
+    .timeswam{
+        font-size: 22px;
+        margin-block-start: 0;
+        margin-block-end: 0;
+    }
+    .answers{
+        font-weight:bolder;
+        font-size: 25px;
+        margin-left: 8px;
+        margin-block-start: 0;
+    }
+    .button{
+        background-color: var(--action-quaternary);
+    }
+    li {
+        padding: 5px;
+    }
+    .historyInfo{
+        display: flex;
+    }
+    .content-container{
+    display: flex;
+    flex-direction: column;
+    gap: calc(100vh - 40em);
+    }
+    #commentbox {
+        height: 100px;
+        width: 99%;
+    }
+    .radiolabels{
+        margin-right: 10px;
+    }
+    
+}

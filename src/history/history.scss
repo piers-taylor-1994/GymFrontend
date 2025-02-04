@@ -46,6 +46,7 @@
                 border: 1.5px solid var(--border);
                 border-radius: 1em;
                 font-weight: 500;
+                text-shadow: var(--square-fontShadow);
             }
 
             .upper {
@@ -58,6 +59,18 @@
 
             .lower {
                 background-color: var(--square-lower);
+            }
+
+            .cardio {
+                background-color: var(--square-cardio);
+            }
+
+            .mixed {
+                background-color: var(--square-mixed);
+            }
+
+            .swimming {
+                background-color: var(--square-swim);
             }
 
             .ghost {
@@ -75,16 +88,67 @@
                 font-weight: bold;
             }
 
-            .sets {
+            .sets {             
                 display: flex;
                 gap: 0.7em;
                 grid-column: 1 / 3;
                 padding-top: 0.25em;
+
+                &-swimming {
+                    justify-content: center;
+                }   
             }
         }
 
         .row:last-child {
             padding-bottom: 0;
         }
+    }
+}
+
+.history-swimming{
+    h1{
+        margin-bottom: 0;
+    }
+    .historyInfo{
+        display: flex;
+        flex-direction: column;
+    }
+    .historyData{
+        background-color: var(--swimming-text);
+        padding: 0.5rem 0rem;
+        border-radius: 2rem;
+        margin:5px;
+        display: flex;
+        justify-content: center;
+    }
+    .historyLabel{
+        display: flex;
+        flex-direction: column;
+        gap: 0.5em;
+        
+    }
+    #comments{
+        display: flex;
+        flex-direction: column;
+    }
+    #commentName{
+        display: flex;
+        justify-content: center;
+    }
+    #comment{
+        padding: 0.5rem 1rem 6rem 1rem;
+        display: flex;
+        justify-content: center;
+        border: solid 1px blue;
+    }
+    .sets-swimming{
+        display: flex;
+        flex-direction: column;
+    }
+    #speedDropdown{
+        border-radius: 0.5rem;
+        height: 35px;
+        width: 125px;
     }
 }
