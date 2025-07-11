@@ -25,7 +25,7 @@ function TopNav(props) {
     return (
         <div className="navigation-top" >
             <div className="navigation-top-right">
-                {swimWorkoutIconShow}
+                {/* {swimWorkoutIconShow} */}
                 {location.pathname !== "/" && location.pathname !== "/swimming" ? <Link className="nav-item" to={homePage}><Icon.Home /></Link> : <></>}
                 <Link className="nav-item" to={settingsPage}><Icon.Settings /></Link>
             </div>
