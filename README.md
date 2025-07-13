@@ -32,4 +32,25 @@
 <img width="1195" height="1648" alt="image" src="https://github.com/user-attachments/assets/18087bd8-ffc4-480d-a106-2cfabe113947" />
 
 ### Routine page
-<img width="1193" height="1645" alt="image" src="https://github.com/user-attachments/assets/be24b8c2-3aab-4c4a-941c-fa61247bc9b1" />
+- The routine page is used to fill out information for each exercise
+- Previous data relating to each exercise is pulled through and displayed as a placeholder to remind the user what they did last
+- Multiple different sets per exercise are able to be added
+- The user is able to drop and drop workouts in the order they did them
+- There's template functionality to pre-fill exercises
+- Once the user submits, the data is added to the database via the backend, and the user is automatically taken to the history page
+<img width="1254" height="1642" alt="image" src="https://github.com/user-attachments/assets/ee2eac7b-7da1-4e75-a8b3-da67a80e0c7d" />
+
+### History page
+- The history page contains all workouts for the user, colour coded by exercise group and ordered by date
+- When going into a date, it shows all data regarding the workout from that date
+<img width="1293" height="1392" alt="image" src="https://github.com/user-attachments/assets/35334b24-fbc2-456c-a447-312899231a2e" />
+
+### Leaderboard page
+- All exercises have a viewable leaderboard that shows all users hierachy for each exercise
+- The top 3 users will be displayed medal-like colour coding to encourage competition
+<img width="1243" height="1641" alt="image" src="https://github.com/user-attachments/assets/490b5123-efce-41d2-87ad-ed72403f1c9a" />
+
+## Live setup
+- To enable interconnectivity, the live version of this backend is setup and hosted on Microsoft Azure as a Static Web App
+- I've setup the YAML files of this repository to automatically redeploy latest code to the web app when a pull request is completed to Main
+<img width="3839" height="1538" alt="image" src="https://github.com/user-attachments/assets/1e3a9ce3-49b1-43bb-8415-7926408ff5d7" />
